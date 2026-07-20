@@ -1,0 +1,20 @@
+generated: '2026-07-19'
+method: searched
+source: openapi/edge-delta-openapi-original.json
+docs: https://docs.edgedelta.com/api-tokens/
+notes: >-
+  Per-organization API token passed in the X-ED-API-Token header. Tokens are
+  created at https://docs.edgedelta.com/create-api-token/; the organization ID
+  (used in the {org_id} path scope) is obtained per https://docs.edgedelta.com/get-org-id/.
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: X-ED-API-Token
+  sources:
+  - openapi/edge-delta-openapi-original.json
