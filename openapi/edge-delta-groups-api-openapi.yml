@@ -1,0 +1,214 @@
+swagger: '2.0'
+info:
+  description: 'Edge Delta API provides endpoints to manage your configs/integrations/rehydrations and more. Generate an API token to get started: https://app.edgedelta.com/admin/organization#api-tokens'
+  title: Edge Delta Access Groups API
+  contact:
+    name: API Support
+    email: support@edgedelta.com
+  version: '1.0'
+host: api.edgedelta.com
+basePath: ''
+schemes:
+- https
+tags:
+- name: Groups
+paths:
+  /v1/orgs/{org_id}/group:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Return org's groups
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Groups
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Group ID
+        name: group_id
+        in: query
+      - type: string
+        description: Group name
+        name: name
+        in: query
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/core.Group'
+    post:
+      security:
+      - ApiKeyAuth: []
+      description: Creates a new group from the json content passed in body
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Groups
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - description: Group Create Request
+        name: request
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/core.GroupRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/core.Group'
+  /v1/orgs/{org_id}/group/{group_id}:
+    put:
+      security:
+      - ApiKeyAuth: []
+      description: Updates the group with given id
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Groups
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Group ID
+        name: group_id
+        in: path
+        required: true
+      - description: Group Update Request
+        name: request
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/core.GroupRequest'
+      responses:
+        '200':
+          description: OK
+    delete:
+      security:
+      - ApiKeyAuth: []
+      description: Deletes the group with given id
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Groups
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Group ID
+        name: group_id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: OK
+  /v1/orgs/{org_id}/group/{group_id}/accesses:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Return group's accesses
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Groups
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Group ID
+        name: group_id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/core.Access'
+definitions:
+  core.Access:
+    type: object
+    properties:
+      approval_status:
+        type: string
+      created:
+        type: string
+      creator:
+        type: string
+      external_activated:
+        type: string
+      external_id:
+        type: string
+      external_status:
+        type: string
+      id:
+        type: string
+      owner:
+        description: E.g. "user:user@email.com"
+        type: string
+      resource:
+        description: E.g. "org:<uuid>" or "org:*" for support acccess permission
+        type: string
+      type:
+        description: E.g. "read" or "write"
+        type: string
+      updated:
+        type: string
+      updater:
+        type: string
+  core.Group:
+    type: object
+    properties:
+      builtin:
+        type: boolean
+      created:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      orgID:
+        type: string
+      updated:
+        type: string
+  core.GroupRequest:
+    type: object
+    properties:
+      name:
+        type: string
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    name: X-ED-API-Token
+    in: header

@@ -1,0 +1,129 @@
+swagger: '2.0'
+info:
+  description: 'Edge Delta API provides endpoints to manage your configs/integrations/rehydrations and more. Generate an API token to get started: https://app.edgedelta.com/admin/organization#api-tokens'
+  title: Edge Delta Access Group Members API
+  contact:
+    name: API Support
+    email: support@edgedelta.com
+  version: '1.0'
+host: api.edgedelta.com
+basePath: ''
+schemes:
+- https
+tags:
+- name: Group Members
+paths:
+  /v1/orgs/{org_id}/group_member:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Return org's group memberships
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Group Members
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: User ID (particularly email)
+        name: user_id
+        in: query
+      - type: string
+        description: Group ID
+        name: group_id
+        in: query
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/core.GroupMember'
+    post:
+      security:
+      - ApiKeyAuth: []
+      description: Creates a new user & group relationship from the json content passed in body
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Group Members
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - description: Group Member Create Request
+        name: request
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/core.GroupMemberRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/core.GroupMember'
+  /v1/orgs/{org_id}/group_member/{group_member_id}:
+    delete:
+      security:
+      - ApiKeyAuth: []
+      description: Deletes the group member with given id
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Group Members
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Group Member ID
+        name: group_member_id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: OK
+definitions:
+  core.GroupMemberRequest:
+    type: object
+    properties:
+      group_id:
+        type: string
+      user_id:
+        type: string
+  core.GroupMember:
+    type: object
+    properties:
+      created:
+        type: string
+      groupID:
+        type: string
+      id:
+        type: string
+      orgID:
+        type: string
+      updated:
+        type: string
+      updater:
+        type: string
+      userID:
+        type: string
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    name: X-ED-API-Token
+    in: header

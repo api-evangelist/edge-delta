@@ -1,0 +1,113 @@
+swagger: '2.0'
+info:
+  description: 'Edge Delta API provides endpoints to manage your configs/integrations/rehydrations and more. Generate an API token to get started: https://app.edgedelta.com/admin/organization#api-tokens'
+  title: Edge Delta Access Get Metrics API
+  contact:
+    name: API Support
+    email: support@edgedelta.com
+  version: '1.0'
+host: api.edgedelta.com
+basePath: ''
+schemes:
+- https
+tags:
+- name: Get Metrics
+paths:
+  /v1/orgs/{org_id}/metrics_v2/graph:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Returns metrics with common time series response for the given query.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Get Metrics
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Edge Delta Common Query Language expression
+        name: query
+        in: query
+      - type: string
+        description: Lookback period in golang duration format. e.g. '1h'. Either provide from/to or provide lookback/to or just lookback
+        name: lookback
+        in: query
+      - type: string
+        description: From datetime in ISO format 2006-01-02T15:04:05.000Z
+        name: from
+        in: query
+      - type: string
+        description: To datetime in ISO format 2006-01-02T15:04:05.000Z
+        name: to
+        in: query
+      - type: string
+        description: If order_by is specified then metrics are sorted by given field. If no sort is given default sort will be asc
+        name: order
+        in: query
+      - type: string
+        description: 'Default is no sorting. If sort is specified then metrics are sorted by their value. Possible values: asc, desc'
+        name: sort
+        in: query
+      - type: integer
+        description: Limits the number of logs in the response. Default has no limit.
+        name: limit
+        in: query
+      - type: string
+        description: Time range adjustment it can be noop, inclusive or exclusive
+        name: time_range_adjustment
+        in: query
+      - type: string
+        description: The boolean to decide whether to save the query in history
+        name: save
+        in: query
+      responses:
+        '200':
+          description: Common time series response
+          schema:
+            $ref: '#/definitions/core.CommonTimeseriesResponse'
+definitions:
+  core.CommonTimeseriesAggregate:
+    type: object
+    properties:
+      value:
+        type: number
+  core.CommonTimeseriesResponse:
+    type: object
+    properties:
+      from:
+        type: string
+      keys:
+        type: array
+        items:
+          type: string
+      records:
+        type: array
+        items:
+          $ref: '#/definitions/core.CommonTimeseriesRecord'
+      to:
+        type: string
+      window:
+        type: string
+  core.CommonTimeseriesRecord:
+    type: object
+    properties:
+      aggregate:
+        $ref: '#/definitions/core.CommonTimeseriesAggregate'
+      timeseries:
+        type: array
+        items: {}
+      values:
+        type: array
+        items:
+          type: string
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    name: X-ED-API-Token
+    in: header

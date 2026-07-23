@@ -1,0 +1,641 @@
+swagger: '2.0'
+info:
+  description: 'Edge Delta API provides endpoints to manage your configs/integrations/rehydrations and more. Generate an API token to get started: https://app.edgedelta.com/admin/organization#api-tokens'
+  title: Edge Delta Access Rehydrations API
+  contact:
+    name: API Support
+    email: support@edgedelta.com
+  version: '1.0'
+host: api.edgedelta.com
+basePath: ''
+schemes:
+- https
+tags:
+- name: Rehydrations
+paths:
+  /v1/orgs/{org_id}/rehydration:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Returns list of rehydrations based on given filters
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Rehydrations
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: If rehydration_id is given only matching item is returned in the response
+        name: rehydration_id
+        in: query
+      - type: string
+        description: Lookback period in golang duration format. e.g. '1h'. Either provide from/to or provide lookback/to or just lookback
+        name: lookback
+        in: query
+      - type: string
+        description: From datetime in ISO format 2006-01-02T15:04:05.000Z
+        name: from
+        in: query
+      - type: string
+        description: To datetime in ISO format 2006-01-02T15:04:05.000Z
+        name: to
+        in: query
+      - type: string
+        description: Host filter. Not filtered by host if not provided
+        name: host
+        in: query
+      - type: string
+        description: Tag filter. Not filtered by tag if not provided
+        name: tag
+        in: query
+      - type: string
+        description: Source type filter. e.g. 'File', 'Docker'. Not filtered by source type if not provided
+        name: sourcetype
+        in: query
+      - type: string
+        description: Cluster ID filter. Not filtered by cluster id if not provided
+        name: cluster_id
+        in: query
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/core.Rehydration'
+    post:
+      security:
+      - ApiKeyAuth: []
+      description: Creates a new rehydration item in dynamo and invokes async rehydration handler
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Rehydrations
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - description: Rehydration to be created
+        name: rehydration
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/core.Rehydration'
+      responses:
+        '201':
+          description: Created
+          schema:
+            $ref: '#/definitions/core.Rehydration'
+  /v1/orgs/{org_id}/rehydration/overlap:
+    post:
+      security:
+      - ApiKeyAuth: []
+      description: Returns existing rehydrations overlapping with given rehydration object
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Rehydrations
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - description: Rehydration for searching overlaps
+        name: rehydration
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/core.Rehydration'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/core.Rehydration'
+  /v1/orgs/{org_id}/rehydration/rehydration_batch:
+    post:
+      security:
+      - ApiKeyAuth: []
+      description: Creates new rehydration items in dynamo and invokes async rehydration handler
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Rehydrations
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: CQL Query
+        name: query
+        in: query
+        required: true
+      - type: string
+        description: Tag
+        name: tag
+        in: query
+        required: true
+      - description: Rehydration to be created
+        name: rehydrations
+        in: body
+        required: true
+        schema:
+          type: array
+          items:
+            $ref: '#/definitions/core.Rehydration'
+      responses:
+        '201':
+          description: Created
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/core.Rehydration'
+  /v1/orgs/{org_id}/rehydration/{rehydration_id}:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Returns rehydration with status
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Rehydrations
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Rehydration ID
+        name: rehydration_id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/core.RehydrationWithStatus'
+    put:
+      security:
+      - ApiKeyAuth: []
+      description: A rehydration object can only be updated to CANCELLED state, otherwise it's immutable
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Rehydrations
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Rehydration ID
+        name: rehydration_id
+        in: path
+        required: true
+      - description: Rehydration objects are immutable except the status can be changed to CANCELLED
+        name: rehydration
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/core.Rehydration'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/core.Rehydration'
+    delete:
+      security:
+      - ApiKeyAuth: []
+      description: First cancels the rehydration if it's running and marks for deletion
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Rehydrations
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Rehydration ID
+        name: rehydration_id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/core.Rehydration'
+  /v1/orgs/{org_id}/rehydration_v2:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Returns list of rehydrations based on given filters
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Rehydrations
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Lookback period in golang duration format. e.g. '1h'. Either provide from/to or provide lookback/to or just lookback
+        name: lookback
+        in: query
+      - type: string
+        description: From datetime in ISO format 2006-01-02T15:04:05.000Z
+        name: from
+        in: query
+      - type: string
+        description: To datetime in ISO format 2006-01-02T15:04:05.000Z
+        name: to
+        in: query
+      - type: string
+        description: Cluster ID filter. Not filtered by cluster id if not provided
+        name: cluster_id
+        in: query
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/core.RehydrationResponse'
+definitions:
+  core.RehydrationWithStatus:
+    type: object
+    properties:
+      percentage:
+        type: number
+      rehydration:
+        $ref: '#/definitions/core.Rehydration'
+  core.ArchiveReference:
+    type: object
+    properties:
+      bucket:
+        type: string
+      bucket_prefix:
+        type: string
+      format:
+        type: string
+      node_name:
+        type: string
+      order:
+        type: array
+        items:
+          type: string
+      tag:
+        type: string
+      type:
+        type: string
+  core.Rehydration:
+    type: object
+    properties:
+      archive_flush_interval:
+        description: 'Archive Flush Interval is the flush interval for the agent with this tag,
+
+          this helps us calculate which files overflowed into the next s3 bucket due to flush latency'
+        type: string
+      archive_source:
+        description: 'ArchiveSource is the minimal archive reference for the source config
+
+          Used instead of legacy Source integration name and bucket'
+        allOf:
+        - $ref: '#/definitions/core.ArchiveReference'
+      assigned_cluster:
+        description: 'AssignedCluster is the cluster that this rehydration is assigned to
+
+          This is used to route the retries of the rehydration to the correct cluster
+
+          and preventing multiple clusters from processing the same rehydration'
+        type: string
+      bucket:
+        type: string
+      checkpoint:
+        description: Checkpoint is the last object key the rehydration job processed. Shouldn't be shown to user
+        type: string
+      checkpoint_v2:
+        description: 'CheckpointV2 saves pending files instead of processed ones.
+
+          It also differs structurally so they are not compatible with Checkpoint field.
+
+          Used in the rehydration with queue and parallel workers.
+
+          Shouldn''t be shown to user'
+        type: string
+      cql_query:
+        type: string
+      created:
+        description: Created & Updated are timestamps in core.StorageTimeFormat
+        type: string
+      creator:
+        type: string
+      destination:
+        type: string
+      dynamic_url:
+        type: string
+      error:
+        type: string
+      exclude_overlap:
+        description: ExcludeOverlap exclude logs rehydrated by existing rehydrations
+        type: boolean
+      facets:
+        description: Facets are used to filter rehydrations with facet_options api
+        type: object
+        additionalProperties:
+          type: string
+      from:
+        description: From & To are timestamps in core.URLTimeFormat
+        type: string
+      host:
+        type: string
+      keyword_filter:
+        type: string
+      metrics:
+        description: 'Metrics is the new metrics object that contains all the metrics
+
+          collected during the rehydration process
+
+          Some of the information here is also persisted to ProcessStats to protect UI behaviour'
+        allOf:
+        - $ref: '#/definitions/core.RehydrationMetrics'
+      org_id:
+        type: string
+      ottl_query:
+        description: Field to save OTTL query filter
+        type: string
+      percentage:
+        description: 'Percentage is duplicated here for org level rehydrations, omitted in individual rehydrations
+
+          because RehydrationWithStatus is used instead'
+        type: number
+      prefix_filter:
+        description: Prefix and prefix regex are used to filter rehydrations with prefix filter
+        type: string
+      prefix_regex:
+        type: string
+      process_stats:
+        description: ProcessStats is the overall process stats of the rehydration process
+        allOf:
+        - $ref: '#/definitions/core.RehydrationProcessStats'
+      rehydration_id:
+        type: string
+      source_filters:
+        type: object
+        additionalProperties:
+          type: string
+      source_integration:
+        description: TODO delete after Box migration
+        type: string
+      status:
+        $ref: '#/definitions/core.OperationStatus'
+      tag:
+        type: string
+      to:
+        type: string
+      updated:
+        type: string
+      updater:
+        type: string
+      warehouse_type:
+        type: string
+  core.RehydrationProcessStats:
+    type: object
+    properties:
+      batch_push_latency:
+        type: integer
+      bytes_count:
+        type: integer
+      forwarding_batches_count:
+        type: integer
+      forwarding_end_time:
+        type: string
+      forwarding_start_time:
+        type: string
+      invalid:
+        type: integer
+      query_execution_time:
+        description: milliseconds
+        type: integer
+      query_results_parsing_time:
+        description: milliseconds
+        type: integer
+      results_forwarding_time:
+        description: milliseconds
+        type: integer
+      scanned:
+        type: integer
+      streamed:
+        type: integer
+      streamed_bytes_count:
+        type: integer
+      successful_bytes_count:
+        type: integer
+  core.ChunkMetrics:
+    type: object
+    properties:
+      batch_duration_samples_count:
+        type: integer
+      batch_p50_ms:
+        type: integer
+      batch_p90_ms:
+        type: integer
+      bytes_streamed:
+        type: integer
+      env_variables:
+        type: object
+        additionalProperties:
+          type: string
+      failed_bytes_streamed:
+        type: integer
+      failed_rows_streamed:
+        type: integer
+      filtered_rows:
+        type: integer
+      invalid_rows:
+        type: integer
+      latency_p50_ms:
+        description: Latencies
+        type: integer
+      latency_p90_ms:
+        type: integer
+      latency_samples_count:
+        description: samples count
+        type: integer
+      read_latency_p50_ms:
+        type: integer
+      read_latency_p90_ms:
+        type: integer
+      read_latency_samples_count:
+        type: integer
+      rows_read:
+        type: integer
+      rows_streamed:
+        type: integer
+      uncompressed_bytes_read:
+        description: Counters
+        type: integer
+      write_latency_samples_count:
+        type: integer
+      write_p50_ms:
+        type: integer
+      write_p90_ms:
+        type: integer
+      write_retries:
+        type: object
+        additionalProperties:
+          type: integer
+          format: int64
+  core.RehydrationMetrics:
+    type: object
+    properties:
+      average_chunk_size_bytes:
+        type: integer
+      average_chunk_size_count:
+        type: integer
+      batch_duration_samples_count:
+        type: integer
+      batch_p50_ms:
+        type: integer
+      batch_p90_ms:
+        type: integer
+      chunk_metrics:
+        type: object
+        additionalProperties:
+          $ref: '#/definitions/core.ChunkMetrics'
+      chunks_built:
+        type: integer
+      env_variables:
+        type: object
+        additionalProperties:
+          type: string
+      latency_p50_ms:
+        description: Latencies
+        type: integer
+      latency_p90_ms:
+        type: integer
+      latency_samples_count:
+        description: samples count
+        type: integer
+      objects_count_after_filter:
+        type: integer
+      objects_listed:
+        type: integer
+      read_latency_p50_ms:
+        type: integer
+      read_latency_p90_ms:
+        type: integer
+      read_latency_samples_count:
+        type: integer
+      tasks_failed:
+        type: integer
+      tasks_processed:
+        type: integer
+      tasks_published:
+        type: integer
+      total_bytes_read:
+        type: integer
+      total_bytes_streamed:
+        type: integer
+      total_failed_bytes_streamed:
+        type: integer
+      total_failed_rows_streamed:
+        type: integer
+      total_filtered_rows:
+        type: integer
+      total_invalid_rows:
+        type: integer
+      total_list_requests:
+        type: integer
+      total_rows_read:
+        type: integer
+      total_rows_streamed:
+        type: integer
+      total_slice_count:
+        type: integer
+      total_uncompressed_bytes_read:
+        type: integer
+      write_latency_samples_count:
+        type: integer
+      write_p50_ms:
+        type: integer
+      write_p90_ms:
+        type: integer
+  core.OperationStatus:
+    type: string
+    enum:
+    - created
+    - invoked
+    - in-progress
+    - completed
+    - failed
+    - cancelled
+    - marked-for-delete
+    - polled-for-execution
+    - skipped
+    x-enum-comments:
+      Skipped: used for operations that are skipped due to already being claimed by other clusters
+    x-enum-descriptions:
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - used for operations that are skipped due to already being claimed by other clusters
+    x-enum-varnames:
+    - Created
+    - Invoked
+    - InProgress
+    - Completed
+    - Failed
+    - Cancelled
+    - MarkedForDeletion
+    - PolledForExecution
+    - Skipped
+  core.RehydrationResponse:
+    type: object
+    properties:
+      next_cursor:
+        type: string
+      rehydrations:
+        type: array
+        items:
+          $ref: '#/definitions/core.Rehydration'
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    name: X-ED-API-Token
+    in: header

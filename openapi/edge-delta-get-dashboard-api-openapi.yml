@@ -1,0 +1,147 @@
+swagger: '2.0'
+info:
+  description: 'Edge Delta API provides endpoints to manage your configs/integrations/rehydrations and more. Generate an API token to get started: https://app.edgedelta.com/admin/organization#api-tokens'
+  title: Edge Delta Access Get Dashboard API
+  contact:
+    name: API Support
+    email: support@edgedelta.com
+  version: '1.0'
+host: api.edgedelta.com
+basePath: ''
+schemes:
+- https
+tags:
+- name: Get Dashboard
+paths:
+  /v1/orgs/{org_id}/dashboards/{dashboard_id}:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Returns the dashboard for the given ID.
+      produces:
+      - application/json
+      tags:
+      - Get Dashboard
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Dashboard ID
+        name: dashboard_id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/dashboard.Dashboard'
+definitions:
+  dashboard.Dashboard:
+    type: object
+    properties:
+      created:
+        type: string
+      creator:
+        type: string
+      dashboard_id:
+        type: string
+      dashboard_name:
+        type: string
+      definition:
+        type: object
+        additionalProperties: {}
+      description:
+        type: string
+      org_id:
+        type: string
+      resource_accesses:
+        type: array
+        items:
+          $ref: '#/definitions/dashboard.ResourceAccess'
+      saved_views:
+        type: object
+        additionalProperties:
+          $ref: '#/definitions/dashboard.SavedView'
+      screenshot:
+        $ref: '#/definitions/dashboard.Screenshot'
+      shared_hash:
+        type: string
+      sharing_security_settings:
+        $ref: '#/definitions/dashboard.SharingSecuritySettings'
+      tags:
+        type: array
+        items:
+          type: string
+      updated:
+        type: string
+      updater:
+        type: string
+  dashboard.ResourceAccess:
+    type: object
+    properties:
+      domain:
+        type: string
+      facet_path:
+        type: string
+      query:
+        type: string
+      scope:
+        type: string
+  dashboard.SharingSecuritySettings:
+    type: object
+    properties:
+      allowed_cidrs:
+        type: array
+        items:
+          type: string
+      prefilter:
+        type: string
+      shared_until:
+        description: in ISO format
+        type: string
+  dashboard.ScreenshotStatus:
+    type: string
+    enum:
+    - pending
+    - ok
+    - error
+    x-enum-varnames:
+    - ScreenshotStatusPending
+    - ScreenshotStatusOK
+    - ScreenshotStatusError
+  dashboard.Screenshot:
+    type: object
+    properties:
+      dark_url:
+        type: string
+      last_triggered_at:
+        type: string
+      last_updated_at:
+        type: string
+      light_url:
+        type: string
+      status:
+        $ref: '#/definitions/dashboard.ScreenshotStatus'
+  dashboard.TemplateVariable:
+    type: object
+    properties:
+      identifier:
+        type: string
+      view_value: {}
+  dashboard.SavedView:
+    type: object
+    properties:
+      template_variables:
+        type: array
+        items:
+          $ref: '#/definitions/dashboard.TemplateVariable'
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    name: X-ED-API-Token
+    in: header

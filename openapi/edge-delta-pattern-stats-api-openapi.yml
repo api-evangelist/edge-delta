@@ -1,0 +1,148 @@
+swagger: '2.0'
+info:
+  description: 'Edge Delta API provides endpoints to manage your configs/integrations/rehydrations and more. Generate an API token to get started: https://app.edgedelta.com/admin/organization#api-tokens'
+  title: Edge Delta Access Pattern Stats API
+  contact:
+    name: API Support
+    email: support@edgedelta.com
+  version: '1.0'
+host: api.edgedelta.com
+basePath: ''
+schemes:
+- https
+tags:
+- name: Pattern Stats
+paths:
+  /v1/orgs/{org_id}/clustering/stats:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Returns top log patterns (signatures of log messages) and their stats; count, proportion, sentiment and delta.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Pattern Stats
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Edge Delta Common Query Language expression
+        name: query
+        in: query
+      - type: boolean
+        description: If summary true call returns up to 50 interesting clusters with 10 top anomaly, top/bottom delta, top/bottom count. Param size is ignored
+        name: summary
+        in: query
+      - type: string
+        description: Max number of clusters in response. For AI search, limit should be 20.
+        name: limit
+        in: query
+      - type: string
+        description: Lookback period in golang duration format. e.g. '1h'. Either provide from/to or provide lookback/to or just lookback
+        name: lookback
+        in: query
+      - type: string
+        description: From datetime in ISO format 2006-01-02T15:04:05.000Z
+        name: from
+        in: query
+      - type: string
+        description: To datetime in ISO format 2006-01-02T15:04:05.000Z
+        name: to
+        in: query
+      - type: string
+        description: Comma separated fields to group by
+        name: groupby
+        in: query
+      - type: string
+        description: Valatility can be new, existing, gone, all. Default is all
+        name: volatility
+        in: query
+      - type: string
+        description: Comma separated offsets for delta stat calculation. Each offset is in golang duration format and order of offsets determines order of offset_ fields in cluster stat response. Default value is lookback duration. e.g. '24h'.
+        name: offset
+        in: query
+      - type: string
+        description: Window for on demand anomaly calculation histogram series. e.g. '5m', '1h', '2d'. Combined values like '5m3s' are NOT supported.
+        name: window
+        in: query
+      - type: boolean
+        description: Negative param is used to get negative sentiments.
+        name: negative
+        in: query
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/core.ClusterStatResponse'
+definitions:
+  core.ClusterStat:
+    type: object
+    properties:
+      anomaly:
+        description: 'DEPRECATED
+
+          AnomalyScore is the cluster''s anomaly score'
+        type: number
+      count:
+        description: Count of cluster in the window
+        type: integer
+      delta:
+        description: Delta is the percentage increase of this cluster's count compared to previous window.
+        type: number
+      offset_counts:
+        description: 'DEPRECATED
+
+          OffsetCounts is counts of cluster in previous offset windows.'
+        type: array
+        items:
+          type: integer
+      offset_deltas:
+        description: 'DEPRECATED
+
+          OffsetDeltas is the percentage increase of this cluster''s count compared to previous windows.'
+        type: array
+        items:
+          type: number
+      offset_proportions:
+        description: 'DEPRECATED
+
+          OffsetProportions is proportions of this cluster''s count within all clusters counts in previous windows.'
+        type: array
+        items:
+          type: number
+      past_count:
+        description: 'DEPRECATED
+
+          PastCount is count of cluster in previous window.'
+        type: integer
+      past_proportion:
+        description: 'DEPRECATED
+
+          PastProportion is proportion of this cluster''s count within all clusters counts in previous window.'
+        type: number
+      pattern:
+        description: Pattern of the cluster
+        type: string
+      proportion:
+        description: Proportion of this cluster to rest of the cluster. Rest of the cluster can be scoped to tag or source.
+        type: number
+      sentiment:
+        description: Sentiment analysis results
+        type: number
+  core.ClusterStatResponse:
+    type: object
+    properties:
+      stats:
+        type: array
+        items:
+          $ref: '#/definitions/core.ClusterStat'
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    name: X-ED-API-Token
+    in: header

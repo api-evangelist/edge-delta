@@ -1,0 +1,924 @@
+swagger: '2.0'
+info:
+  description: 'Edge Delta API provides endpoints to manage your configs/integrations/rehydrations and more. Generate an API token to get started: https://app.edgedelta.com/admin/organization#api-tokens'
+  title: Edge Delta Access Integrations API
+  contact:
+    name: API Support
+    email: support@edgedelta.com
+  version: '1.0'
+host: api.edgedelta.com
+basePath: ''
+schemes:
+- https
+tags:
+- name: Integrations
+paths:
+  /v1/orgs/{org_id}/http_workflow_input/test:
+    post:
+      security:
+      - ApiKeyAuth: []
+      description: Tests an HTTP Workflow input by executing its configured steps
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Integrations
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - description: YAML config of the HTTP Workflow input to test
+        name: request
+        in: body
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/core.IntegrationTestResponse'
+  /v1/orgs/{org_id}/integrations:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Returns template for streaming/trigger integrations.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Integrations
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Integrations template ID
+        name: template_id
+        in: query
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/core.WizardTemplateResponse'
+    post:
+      security:
+      - ApiKeyAuth: []
+      description: Saves the new integration endpoints in org-settings.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Integrations
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Integrations Template ID
+        name: template_id
+        in: query
+        required: true
+      - description: Dictionary of changed integrations {id:value}
+        name: values
+        in: body
+        required: true
+        schema:
+          type: object
+      responses:
+        '200':
+          description: OK
+    delete:
+      security:
+      - ApiKeyAuth: []
+      description: Delete given integration endpoints in org-settings.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Integrations
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Comma separated names of integration endpoints to delete
+        name: names
+        in: query
+        required: true
+      responses:
+        '200':
+          description: OK
+  /v1/orgs/{org_id}/integrations_v2:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Returns template for streaming/trigger integrations.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Integrations
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Integrations template ID
+        name: template_id
+        in: query
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/core.WizardTemplateResponse'
+  /v1/orgs/{org_id}/integrations_v2/test:
+    post:
+      security:
+      - ApiKeyAuth: []
+      description: Tests the connectivity of the given integration endpoints.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Integrations
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - description: YAML config of the integration to test
+        name: request
+        in: body
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/core.IntegrationTestResponse'
+  /v1/orgs/{org_id}/integrations_v2/test/supported:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Lists of integrations that support testing connectivity.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Integrations
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/admin.SupportedIntegrationsForTestingResponse'
+definitions:
+  core.IntegrationTestResponse:
+    type: object
+    properties:
+      error_details:
+        $ref: '#/definitions/core.IntegrationTestErrorDetails'
+      error_message:
+        type: string
+      http_workflow_result:
+        $ref: '#/definitions/core.HTTPWorkflowTestResult'
+      success:
+        type: boolean
+  nodetype.NodeType:
+    type: string
+    enum:
+    - crowdstrike_fdr_input
+    - datadog_agent_input
+    - demo_input
+    - demo_template_input
+    - telemetrygen_input
+    - docker_input
+    - ed_agent_stats_input
+    - ed_component_health_input
+    - ed_container_stats_input
+    - ed_gateway_input
+    - ed_k8s_metrics_input
+    - ed_node_health_input
+    - ed_pipeline_io_stats_input
+    - ed_source_detection_input
+    - ed_system_stats_input
+    - ed_self_telemetry_input
+    - elastic_api_input
+    - eventhub_input
+    - exec_input
+    - file_input
+    - fluentd_input
+    - http_input
+    - journald_input
+    - k8s_event_input
+    - k8s_traffic_input
+    - k8s_trace_input
+    - kafka_input
+    - kubernetes_input
+    - prometheus_input
+    - memory_input
+    - otlp_input
+    - pubsub_input
+    - http_pull_input
+    - http_workflow_input
+    - s3_input
+    - gcs_input
+    - snmp_pull_input
+    - snmp_trap_input
+    - splunk_hec_input
+    - splunk_tcp_input
+    - syslog_input
+    - tcp_input
+    - udp_input
+    - winevent_input
+    - http_ingestion_input
+    - apache_kudu_output
+    - aws_cloudwatch_output
+    - azure_log_analytics_output
+    - azure_sentinel_output
+    - blob_output
+    - clickhouse_output
+    - crowdstrike_falcon_logscale_output
+    - datadog_output
+    - digitalocean_spaces_output
+    - dynatrace_output
+    - elastic_output
+    - exabeam_output
+    - fluentd_output
+    - gcs_output
+    - google_cloud_logging_output
+    - google_cloud_logging_with_ottl_output
+    - google_cloud_big_query_output
+    - google_secops_output
+    - grokstream_aiops_output
+    - http_output
+    - ibm_object_storage_output
+    - ibm_qradar_output
+    - kafka_output
+    - localstorage_output
+    - loki_output
+    - minio_output
+    - newrelic_output
+    - openmetrics_output
+    - otlp_output
+    - prometheus_exporter_output
+    - prometheus_remote_write_output
+    - s3_output
+    - securonix_output
+    - slack_output
+    - splunk_output
+    - splunk_tcp_output
+    - splunk_lb_output
+    - sumologic_output
+    - tcp_output
+    - teams_output
+    - void_output
+    - webhook_output
+    - zenko_output
+    - ed_archive_output
+    - ed_logs_output
+    - ed_debug_output
+    - ed_health_output
+    - ed_metrics_output
+    - ed_patterns_output
+    - ed_sources_output
+    - ed_traces_output
+    - ed_output
+    - ed_gateway_output
+    - ed_ai_event_output
+    - aggregate_metric
+    - base64_decode
+    - compound_input
+    - compound
+    - compound_output
+    - connector_event_filter
+    - cumulative_to_delta
+    - datadog_mapper
+    - dedup
+    - delete_empty_values
+    - deotel
+    - enrich
+    - extract_json_field
+    - extract_metric
+    - generic_mask
+    - generic_transform
+    - grok
+    - gzip_decompress
+    - json_unroll
+    - log_level_detector
+    - log_to_metric
+    - log_to_pattern_metric
+    - log_to_pattern
+    - log_transform
+    - lookup
+    - mask
+    - opentsdb_parse
+    - ottl_context_filter
+    - ottl_transform
+    - ottl_filter
+    - output_transform
+    - parse_json_attributes
+    - quota
+    - rate_limit
+    - ratio
+    - regex_filter
+    - resource_transform
+    - sample
+    - route
+    - route_ottl
+    - sequence_input
+    - sequence
+    - sequence_output
+    - split_with_delimiter
+    - splunk_mapper
+    - suppress
+    - tail_sample
+    - threshold
+    - top_k
+    - unescape_json
+    - comment
+    - archive_buffered
+    - edge_rollup_service
+    - incoming_stats_processor
+    - item_buffered
+    - generic_monitor
+    - observer
+    x-enum-comments:
+      InputHTTPWorkflowNodeType: '#nosec G101 -- node type identifier, not a credential'
+      OutputEDLogType: ed_logs_output is renamed from ed_archive_output. ed_archive_output is kept for backward compatibility.
+    x-enum-descriptions:
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - '#nosec G101 -- node type identifier, not a credential'
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ed_logs_output is renamed from ed_archive_output. ed_archive_output is kept for backward compatibility.
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    x-enum-varnames:
+    - InputCrowdStrikeFDRNodeType
+    - InputDatadogAgentNodeType
+    - InputDemoNodeType
+    - InputDemoTemplateNodeType
+    - InputTelemetryGenNodeType
+    - InputDockerNodeType
+    - InputEDAgentStatsNodeType
+    - InputEDComponentHealthNodeType
+    - InputEDContainerStatsNodeType
+    - InputEDGatewayNodeType
+    - InputEDK8sMetricsNodeType
+    - InputEDNodeHealthNodeType
+    - InputEDPipelineIOStatsNodeType
+    - InputEDSourceDetectionNodeType
+    - InputEDSystemStatsNodeType
+    - InputEDSelfTelemetryNodeType
+    - InputElasticAPINodeType
+    - InputEventHubNodeType
+    - InputExecNodeType
+    - InputFileNodeType
+    - InputFluentdNodeType
+    - InputHTTPNodeType
+    - InputJournaldNodeType
+    - InputK8sEventNodeType
+    - InputK8sTrafficNodeType
+    - InputK8sTraceNodeType
+    - InputKafkaNodeType
+    - InputKubernetesNodeType
+    - InputPrometheusNodeType
+    - InputMemoryNodeType
+    - InputOTLPNodeType
+    - InputPubSubNodeType
+    - InputHTTPPullNodeType
+    - InputHTTPWorkflowNodeType
+    - InputS3NodeType
+    - InputGCSNodeType
+    - InputSNMPPullNodeType
+    - InputSNMPTrapNodeType
+    - InputSplunkHECNodeType
+    - InputSplunkTCPNodeType
+    - InputSyslogNodeType
+    - InputTCPNodeType
+    - InputUDPNodeType
+    - InputWinEventNodeType
+    - InputHTTPIngestionNodeType
+    - OutputApacheKuduNodeType
+    - OutputAWSCloudwatchNodeType
+    - OutputAzureLogAnalyticsNodeType
+    - OutputAzureSentinelNodeType
+    - OutputBlobNodeType
+    - OutputClickHouseNodeType
+    - OutputCrowdStrikeFalconLogScaleNodeType
+    - OutputDatadogNodeType
+    - OutputDigitalOceanSpacesNodeType
+    - OutputDynatraceNodeType
+    - OutputElasticNodeType
+    - OutputExabeamNodeType
+    - OutputFluentDNodeType
+    - OutputGCSNodeType
+    - OutputGCLNodeType
+    - OutputGCLWithOTTLNodeType
+    - OutputGCBigQueryNodeType
+    - OutputGoogleSecOpsNodeType
+    - OutputGrokstreamAIOpsNodeType
+    - OutputHTTPNodeType
+    - OutputIBMObjectStorageNodeType
+    - OutputIBMQRadarNodeType
+    - OutputKafkaNodeType
+    - OutputLocalStorageNodeType
+    - OutputLokiNodeType
+    - OutputMinioNodeType
+    - OutputNewRelicNodeType
+    - OutputOpenMetricsNodeType
+    - OutputOTLPNodeType
+    - OutputPrometheusExporterNodeType
+    - OutputPrometheusRemoteWriteNodeType
+    - OutputS3NodeType
+    - OutputSecuronixNodeType
+    - OutputSlackNodeType
+    - OutputSplunkNodeType
+    - OutputSplunkTCPNodeType
+    - OutputSplunkLoadBalancedNodeType
+    - OutputSumoLogicNodeType
+    - OutputTCPNodeType
+    - OutputTeamsNodeType
+    - OutputVoidNodeType
+    - OutputWebhookNodeType
+    - OutputZenkoNodeType
+    - OutputEDArchiveType
+    - OutputEDLogType
+    - OutputEDDebugType
+    - OutputEDHealthType
+    - OutputEDMetricType
+    - OutputEDPatternType
+    - OutputEDSourceType
+    - OutputEDTraceType
+    - OutputEDType
+    - OutputEDGatewayNodeType
+    - OutputEDAIEventNodeType
+    - AggregateMetricProcessorNodeType
+    - Base64DecodeProcessorNodeType
+    - CompoundInputNodeType
+    - CompoundNodeType
+    - CompoundOutputNodeType
+    - ConnectorEventFilterProcessorNodeType
+    - CumulativeToDeltaProcessorNodeType
+    - DatadogMapperNodeType
+    - DedupProcessorNodeType
+    - DeleteEmptyValuesProcessorNodeType
+    - DeOtelProcessorNodeType
+    - EnrichmentProcessorNodeType
+    - ExtractJSONFieldProcessorNodeType
+    - ExtractMetricProcessorNodeType
+    - GenericMaskProcessorNodeType
+    - GenericTransformProcessorNodeType
+    - GrokProcessorNodeType
+    - GzipDecompressProcessorNodeType
+    - JSONUnrollProcessorNodeType
+    - LogLevelDetectorNodeType
+    - LogToMetricProcessorNodeType
+    - LogToPatternMetricProcessorNodeType
+    - LogToPatternProcessorNodeType
+    - LogTransformProcessorNodeType
+    - LookupProcessorNodeType
+    - MaskProcessorNodeType
+    - OpenTSDBProcessorNodeType
+    - OTTLContextFilterProcessorNodeType
+    - OTTLTransformProcessorNodeType
+    - OTTLFilterProcessorNodeType
+    - OutputTransformProcessorNodeType
+    - ParseJSONAttributesNodeType
+    - QuotaProcessorNodeType
+    - RateLimitProcessorNodeType
+    - RatioProcessorNodeType
+    - RegexFilterProcessorNodeType
+    - ResourceTransformProcessorNodeType
+    - SampleProcessorNodeType
+    - RouteNodeType
+    - RouteOTTLNodeType
+    - SequenceInputNodeType
+    - SequenceNodeType
+    - SequenceOutputNodeType
+    - SplitWithDelimiterProcessorNodeType
+    - SplunkMapperNodeType
+    - SuppressNodeType
+    - TailSampleProcessorNodeType
+    - ThresholdProcessorNodeType
+    - TopKProcessorNodeType
+    - UnescapeJSONProcessorNodeType
+    - CommentNodeType
+    - ArchiveBufferedProcessorNodeType
+    - EdgeRollUpServiceProcessorType
+    - IncomingStatsProcessorNodeType
+    - ItemBufferedProcessorNodeType
+    - GenericMonitorProcessorType
+    - ObserverProcessorNodeType
+  core.EnvironmentType:
+    type: string
+    enum:
+    - Kubernetes
+    - Helm
+    - Docker
+    - MacOS
+    - Linux
+    - Windows
+    x-enum-varnames:
+    - KubernetesEnvironmentType
+    - HelmEnvironmentType
+    - DockerEnvironmentType
+    - MacOSEnvironmentType
+    - LinuxEnvironmentType
+    - WindowsEnvironmentType
+  core.IntegrationTestErrorDetails:
+    type: object
+    properties:
+      destination:
+        type: string
+      details:
+        type: string
+      resources:
+        type: array
+        items:
+          type: string
+      status_code:
+        type: string
+  core.FleetType:
+    type: string
+    enum:
+    - Edge
+    - Cloud
+    - IngestionPipeline
+    - Edge-extended
+    - Cloud-extended
+    x-enum-varnames:
+    - EdgeFleetType
+    - CloudFleetType
+    - IngestionPipelineFleetType
+    - EdgeExtendedFleetType
+    - CloudExtendedFleetType
+  core.WizardTemplateResponse:
+    type: object
+    properties:
+      config_details:
+        $ref: '#/definitions/core.Conf'
+      config_template:
+        $ref: '#/definitions/core.Template'
+      values:
+        type: object
+        additionalProperties: true
+  core.ConfigVersion:
+    type: string
+    enum:
+    - v2
+    - v3
+    x-enum-varnames:
+    - ConfigV2
+    - ConfigV3
+  core.HTTPWorkflowTestResult:
+    type: object
+    properties:
+      steps:
+        type: array
+        items:
+          $ref: '#/definitions/core.HTTPWorkflowStepResult'
+  core.HTTPWorkflowStepResult:
+    type: object
+    properties:
+      body:
+        type: string
+      error:
+        type: string
+      headers:
+        type: object
+        additionalProperties:
+          type: string
+      index:
+        type: integer
+      latency_ms:
+        type: integer
+      name:
+        type: string
+      status_code:
+        type: integer
+      variables:
+        type: object
+        additionalProperties: {}
+  core.ConfPurpose:
+    type: string
+    enum:
+    - user-defined
+    - edgedelta-ai
+    x-enum-varnames:
+    - ConfPurposeUserDefined
+    - ConfPurposeEdgedeltaAI
+  core.FleetStatus:
+    type: string
+    enum:
+    - running
+    - suspended
+    x-enum-varnames:
+    - FleetRunning
+    - FleetSuspended
+  core.ConfMetadata:
+    type: object
+    properties:
+      compound_nodes:
+        $ref: '#/definitions/core.ConfCompoundNodesMetadata'
+      node_references:
+        type: array
+        items:
+          type: string
+      telemetry_gen_templates:
+        type: array
+        items:
+          type: string
+  core.ConfCompoundNodesMetadata:
+    type: object
+    properties:
+      deleted:
+        description: IDs of compound nodes that have been deleted
+        type: array
+        items:
+          type: string
+      updated:
+        description: IDs of compound nodes updated to latest version
+        type: array
+        items:
+          type: string
+      updates_available:
+        description: IDs of compound nodes that have updates available
+        type: array
+        items:
+          type: string
+  admin.SupportedIntegrationsForTestingResponse:
+    type: object
+    properties:
+      integrations:
+        type: array
+        items:
+          $ref: '#/definitions/nodetype.NodeType'
+  core.Template:
+    type: object
+    properties:
+      configVersion:
+        description: The version of the underlying config YAML
+        allOf:
+        - $ref: '#/definitions/core.ConfigVersion'
+      deploy:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      labels:
+        type: string
+      name:
+        type: string
+      raw_value:
+        type: array
+        items:
+          type: integer
+      type:
+        type: string
+      updated:
+        type: string
+      value:
+        type: string
+      version:
+        type: string
+  core.FleetSubtype:
+    type: string
+    enum:
+    - Edge
+    - Coordinator
+    - Gateway
+    x-enum-varnames:
+    - EdgeFleetSubtype
+    - CoordinatorFleetSubtype
+    - GatewayFleetSubtype
+  core.Conf:
+    type: object
+    properties:
+      cluster_name:
+        type: string
+      content:
+        type: string
+      created:
+        type: string
+      creator:
+        type: string
+      deployed_timestamp:
+        description: Config-history timestamp currently deployed
+        type: integer
+      description:
+        type: string
+      environment:
+        $ref: '#/definitions/core.EnvironmentType'
+      fleet_subtype:
+        $ref: '#/definitions/core.FleetSubtype'
+      fleet_type:
+        $ref: '#/definitions/core.FleetType'
+      id:
+        type: string
+      metadata:
+        description: Stores status (updated/updates available/deleted) of compound nodes
+        allOf:
+        - $ref: '#/definitions/core.ConfMetadata'
+      orgID:
+        type: string
+      purpose:
+        $ref: '#/definitions/core.ConfPurpose'
+      retrieved:
+        description: Latest retrieval time for installation. Will move to a separate table once obscured hostID for install host is implemented
+        type: string
+      rollout_task_id:
+        type: string
+      status:
+        $ref: '#/definitions/core.FleetStatus'
+      tag:
+        type: string
+      updated:
+        type: string
+      updater:
+        type: string
+      version:
+        $ref: '#/definitions/core.ConfigVersion'
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    name: X-ED-API-Token
+    in: header

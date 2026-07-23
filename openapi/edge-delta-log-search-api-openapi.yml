@@ -1,0 +1,395 @@
+swagger: '2.0'
+info:
+  description: 'Edge Delta API provides endpoints to manage your configs/integrations/rehydrations and more. Generate an API token to get started: https://app.edgedelta.com/admin/organization#api-tokens'
+  title: Edge Delta Access Log Search API
+  contact:
+    name: API Support
+    email: support@edgedelta.com
+  version: '1.0'
+host: api.edgedelta.com
+basePath: ''
+schemes:
+- https
+tags:
+- name: Log Search
+paths:
+  /v1/orgs/{org_id}/logs/log_search/query_explain:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Returns EXPLAIN indexes=1 output for a SQL query to show query execution plan
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Log Search
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: SQL query to explain
+        name: query
+        in: query
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              explain:
+                type: string
+  /v1/orgs/{org_id}/logs/log_search/query_log:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Returns ClickHouse query execution metrics for all queries in a log search session
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Log Search
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Session ID to fetch query logs for
+        name: sessionId
+        in: query
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              queries:
+                type: array
+                items:
+                  $ref: '#/definitions/queryext.QueryLog'
+              sessionId:
+                type: string
+  /v1/orgs/{org_id}/logs/log_search/search:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Returns time series log data for given query
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Log Search
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Lookback period in golang duration format. e.g. '1h'. Either provide from/to or provide lookback/to or just lookback
+        name: lookback
+        in: query
+      - type: string
+        description: From datetime in ISO format 2006-01-02T15:04:05.000Z
+        name: from
+        in: query
+      - type: string
+        description: To datetime in ISO format 2006-01-02T15:04:05.000Z
+        name: to
+        in: query
+      - type: string
+        description: Edge Delta Common Query Language expression
+        name: query
+        in: query
+      - type: integer
+        description: Limits the number of logs in the response. Default is 1000. It can be negative to move the cursor prev direction. Wraps to end if the cursor position is 0. For AI search, limit should be 20.
+        name: limit
+        in: query
+      - type: string
+        description: Scope can be audit or log
+        name: scope
+        in: query
+      - type: string
+        description: Cursor provided from previous response, pass it to next request so that we can move the cursor with given limit.
+        name: cursor
+        in: query
+      - type: string
+        description: Comma separated list of custom columns to include in the recent search queries
+        name: custom_columns
+        in: query
+      - type: string
+        description: Order of the logs in the response, either 'ASC', 'asc', 'DESC' or 'desc'
+        name: order
+        in: query
+      - type: string
+        description: Minimum log length to filter for
+        name: length
+        in: query
+      - type: string
+        description: Session ID to track the search session
+        name: sessionId
+        in: query
+      - type: string
+        description: Page ID to track the pagination state
+        name: pageId
+        in: query
+      - type: string
+        description: The boolean to decide whether to save the query in history
+        name: save
+        in: query
+      - type: string
+        description: Disable routing for the search
+        name: disable_routing
+        in: query
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/core.ArchiveResponseV1'
+  /v1/orgs/{org_id}/logs/log_search/stream:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Streams log search results with per-row progress updates
+      produces:
+      - text/event-stream
+      tags:
+      - Log Search
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Lookback period in golang duration format. e.g. '1h'
+        name: lookback
+        in: query
+      - type: string
+        description: From datetime (ISO format)
+        name: from
+        in: query
+      - type: string
+        description: To datetime (ISO format)
+        name: to
+        in: query
+      - type: string
+        description: CQL query
+        name: query
+        in: query
+      - type: integer
+        description: Result limit (default 1000)
+        name: limit
+        in: query
+      - type: string
+        description: Sort order (ASC/DESC)
+        name: order
+        in: query
+      - type: string
+        description: Cursor from previous response for pagination
+        name: cursor
+        in: query
+      - type: string
+        description: Session ID
+        name: sessionId
+        in: query
+      - type: string
+        description: Disable routing
+        name: disable_routing
+        in: query
+      responses:
+        '200':
+          description: SSE stream
+  /v1/orgs/{org_id}/logs/log_search/table_schema:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Returns SHOW CREATE TABLE output to show table schema
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Log Search
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Table suffix (e.g., samp_100, samp_1000, agg_5m, agg_1h). Empty for base table.
+        name: suffix
+        in: query
+      - type: string
+        description: 'Table scope: log or audit. Defaults to log.'
+        name: scope
+        in: query
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              schema:
+                type: string
+definitions:
+  queryext.QueryLog:
+    type: object
+    properties:
+      address:
+        type: string
+      columns:
+        type: array
+        items:
+          type: string
+      currentDatabase:
+        description: Query details
+        type: string
+      databases:
+        type: array
+        items:
+          type: string
+      eventDate:
+        type: string
+      eventTime:
+        type: string
+      eventTimeMicroseconds:
+        type: string
+      exception:
+        type: string
+      exceptionCode:
+        description: Error info
+        type: integer
+      initialAddress:
+        type: string
+      initialPort:
+        type: integer
+      initialQueryId:
+        type: string
+      initialQueryStartTime:
+        type: string
+      initialQueryStartTimeMicroseconds:
+        type: string
+      initialUser:
+        type: string
+      isInitialQuery:
+        description: Query context
+        type: integer
+      logComment:
+        description: Log comment (our custom metadata JSON)
+        type: string
+      memoryUsage:
+        type: integer
+      normalizedQueryHash:
+        type: integer
+      port:
+        type: integer
+      profileEvents:
+        description: Profile events, settings (maps)
+        type: object
+        additionalProperties:
+          type: integer
+          format: int64
+      projections:
+        type: array
+        items:
+          type: string
+      query:
+        type: string
+      queryDurationMs:
+        type: integer
+      queryId:
+        type: string
+      queryKind:
+        type: string
+      queryStartTime:
+        type: string
+      queryStartTimeMicroseconds:
+        type: string
+      readBytes:
+        type: integer
+      readRows:
+        description: I/O metrics
+        type: integer
+      resultBytes:
+        type: integer
+      resultRows:
+        type: integer
+      segmentProfiles:
+        description: Segment profiles (index skip metrics)
+        type: array
+        items:
+          type: string
+      settings:
+        type: object
+        additionalProperties:
+          type: string
+      stackTrace:
+        type: string
+      tables:
+        type: array
+        items:
+          type: string
+      threadIds:
+        description: Thread info
+        type: array
+        items:
+          type: integer
+      type:
+        description: Event timing
+        type: string
+      user:
+        type: string
+      writtenBytes:
+        type: integer
+      writtenRows:
+        type: integer
+  core.ArchiveResponseV1:
+    type: object
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/core.ArchiveRecordV1'
+      next_cursor:
+        type: string
+      query_id:
+        type: string
+  core.ArchiveRecordV1:
+    type: object
+    properties:
+      attributes:
+        type: object
+        additionalProperties:
+          type: string
+      body:
+        type: string
+      id:
+        type: string
+      resource:
+        type: object
+        additionalProperties:
+          type: string
+      severity_text:
+        type: string
+      span_id:
+        type: string
+      timestamp:
+        type: integer
+      trace_id:
+        type: string
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    name: X-ED-API-Token
+    in: header

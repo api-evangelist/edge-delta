@@ -1,0 +1,244 @@
+swagger: '2.0'
+info:
+  description: 'Edge Delta API provides endpoints to manage your configs/integrations/rehydrations and more. Generate an API token to get started: https://app.edgedelta.com/admin/organization#api-tokens'
+  title: Edge Delta Access Lookup Tables API
+  contact:
+    name: API Support
+    email: support@edgedelta.com
+  version: '1.0'
+host: api.edgedelta.com
+basePath: ''
+schemes:
+- https
+tags:
+- name: Lookup Tables
+paths:
+  /v1/orgs/{org_id}/lookup_tables:
+    post:
+      security:
+      - ApiKeyAuth: []
+      description: Creates a Lookup Table metadata and stores its data for the given org and id.
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      tags:
+      - Lookup Tables
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: file
+        description: Table data
+        name: data
+        in: formData
+        required: true
+      - type: string
+        description: Description of the table
+        name: description
+        in: formData
+      - type: string
+        description: Tags for the table
+        name: tags
+        in: formData
+      - type: boolean
+        description: Whether or not this lookup table is being created for ED packs
+        name: is_ed_lookup_table
+        in: query
+      - type: string
+        description: Time the lookup table was created. Only used by packs
+        name: created
+        in: query
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/core.LookupTable'
+  /v1/orgs/{org_id}/lookup_tables/metadata:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Returns metadata of all of the Lookup Tables for the given org.
+      produces:
+      - application/json
+      tags:
+      - Lookup Tables
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/core.LookupTablesMetadataResponse'
+  /v1/orgs/{org_id}/lookup_tables/{id}:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Returns data for the specific Lookup Table.
+      produces:
+      - application/json
+      tags:
+      - Lookup Tables
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Lookup Table ID
+        name: id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/core.LookupTableResponse'
+    put:
+      security:
+      - ApiKeyAuth: []
+      description: Updates data and/or metadata of a Lookup Table for the given org and id.
+      consumes:
+      - application/json
+      tags:
+      - Lookup Tables
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Lookup Table ID
+        name: id
+        in: path
+        required: true
+      - type: file
+        description: Table data
+        name: data
+        in: formData
+        required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      security:
+      - ApiKeyAuth: []
+      description: Deletes the Lookup Table for the given org and id.
+      produces:
+      - application/json
+      tags:
+      - Lookup Tables
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Lookup Table ID
+        name: id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: OK
+  /v1/orgs/{org_id}/lookup_tables/{id}/metadata:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Returns metadata of the Lookup Tables for the given org and id.
+      produces:
+      - application/json
+      tags:
+      - Lookup Tables
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Lookup Table ID
+        name: id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/core.LookupTableMetadataResponse'
+definitions:
+  core.LookupTableMetadataResponse:
+    type: object
+    properties:
+      metadata:
+        $ref: '#/definitions/core.LookupTableMetadata'
+  core.LookupTableMetadata:
+    type: object
+    properties:
+      count:
+        type: integer
+      created_on:
+        type: string
+      description:
+        type: string
+      name:
+        type: string
+      size:
+        type: integer
+      tags:
+        type: string
+      updated_on:
+        type: string
+  core.LookupTableResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          type: integer
+      metadata:
+        $ref: '#/definitions/core.LookupTableMetadata'
+  core.LookupTable:
+    type: object
+    properties:
+      count:
+        type: integer
+      created_on:
+        type: string
+      description:
+        type: string
+      name:
+        type: string
+      pk:
+        description: PK is org ID
+        type: string
+      size:
+        type: integer
+      sk:
+        description: SK is name of each lookup table
+        type: string
+      tags:
+        type: string
+      updated_on:
+        type: string
+  core.LookupTablesMetadataResponse:
+    type: object
+    properties:
+      metadatas:
+        type: array
+        items:
+          $ref: '#/definitions/core.LookupTableMetadata'
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    name: X-ED-API-Token
+    in: header

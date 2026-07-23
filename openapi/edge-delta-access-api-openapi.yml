@@ -1,0 +1,187 @@
+swagger: '2.0'
+info:
+  description: 'Edge Delta API provides endpoints to manage your configs/integrations/rehydrations and more. Generate an API token to get started: https://app.edgedelta.com/admin/organization#api-tokens'
+  title: Edge Delta Access API
+  contact:
+    name: API Support
+    email: support@edgedelta.com
+  version: '1.0'
+host: api.edgedelta.com
+basePath: ''
+schemes:
+- https
+tags:
+- name: Access
+paths:
+  /v1/orgs/{org_id}/access:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Returns accesses for the given org.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Access
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: boolean
+        description: If set to true response includes external state information from auth0
+        name: include_external
+        in: query
+      - type: boolean
+        description: If set to true response includes only items with pending status (to be used in Membership Requests)
+        name: membership_requests
+        in: query
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/core.Access'
+    post:
+      security:
+      - ApiKeyAuth: []
+      description: Creates access entry.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Access
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - description: Accesses Payload
+        name: request
+        in: body
+        required: true
+        schema:
+          type: array
+          items:
+            $ref: '#/definitions/core.AccessesPayload'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/core.Access'
+  /v1/orgs/{org_id}/access/{access_id}:
+    put:
+      security:
+      - ApiKeyAuth: []
+      description: Update access for caller and given id.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Access
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Access ID
+        name: access_id
+        in: path
+        required: true
+      - description: Access Create Request
+        name: request
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/core.AccessCreateRequest'
+      responses:
+        '200':
+          description: OK
+    delete:
+      security:
+      - ApiKeyAuth: []
+      description: Delete access for caller and given id.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Access
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Access ID
+        name: access_id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: OK
+definitions:
+  core.AccessCreateRequest:
+    type: object
+    properties:
+      id:
+        type: string
+      owner:
+        type: string
+      resource:
+        type: string
+      type:
+        type: string
+  core.Access:
+    type: object
+    properties:
+      approval_status:
+        type: string
+      created:
+        type: string
+      creator:
+        type: string
+      external_activated:
+        type: string
+      external_id:
+        type: string
+      external_status:
+        type: string
+      id:
+        type: string
+      owner:
+        description: E.g. "user:user@email.com"
+        type: string
+      resource:
+        description: E.g. "org:<uuid>" or "org:*" for support acccess permission
+        type: string
+      type:
+        description: E.g. "read" or "write"
+        type: string
+      updated:
+        type: string
+      updater:
+        type: string
+  core.AccessesPayload:
+    type: object
+    properties:
+      payload:
+        type: array
+        items:
+          $ref: '#/definitions/core.AccessCreateRequest'
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    name: X-ED-API-Token
+    in: header

@@ -1,0 +1,402 @@
+swagger: '2.0'
+info:
+  description: 'Edge Delta API provides endpoints to manage your configs/integrations/rehydrations and more. Generate an API token to get started: https://app.edgedelta.com/admin/organization#api-tokens'
+  title: Edge Delta Access Agent Configs API
+  contact:
+    name: API Support
+    email: support@edgedelta.com
+  version: '1.0'
+host: api.edgedelta.com
+basePath: ''
+schemes:
+- https
+tags:
+- name: Agent Configs
+paths:
+  /v1/orgs/{org_id}/confs:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Return org's agent configurations that user has read access to
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Agent Configs
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Should be set to 'true' if the contents won't be fetched
+        name: empty_contents
+        in: query
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/core.Conf'
+    post:
+      security:
+      - ApiKeyAuth: []
+      description: Creates a new config from the yml content passed in body
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Agent Configs
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - description: Config Create Request
+        name: request
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/core.ConfCreateRequest'
+      responses:
+        '201':
+          description: Created
+          schema:
+            $ref: '#/definitions/core.Conf'
+  /v1/orgs/{org_id}/confs/validate:
+    post:
+      security:
+      - ApiKeyAuth: []
+      description: Validate agent configuration
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Agent Configs
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - description: Config Validate Request
+        name: request
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/core.ConfValidateRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/core.ConfigValidationResult'
+  /v1/orgs/{org_id}/confs/{conf_id}:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Returns the requested config
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Agent Configs
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Config ID
+        name: conf_id
+        in: path
+        required: true
+      - type: string
+        description: Should be set to 'true' if the content won't be fetched
+        name: empty_content
+        in: query
+      - type: string
+        description: Should be set to 'true' if the content would be fully resolved (i.e with children etc)
+        name: resolve_content
+        in: query
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/core.Conf'
+    put:
+      security:
+      - ApiKeyAuth: []
+      description: Updates the config for given id
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Agent Configs
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Config ID
+        name: conf_id
+        in: path
+        required: true
+      - description: Update config request
+        name: request
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/core.UpdateConfRequest'
+      responses:
+        '200':
+          description: OK
+    delete:
+      security:
+      - ApiKeyAuth: []
+      description: Deletes the config with given id
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Agent Configs
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Config ID
+        name: conf_id
+        in: path
+        required: true
+      responses:
+        '200':
+          description: OK
+definitions:
+  core.EnvironmentType:
+    type: string
+    enum:
+    - Kubernetes
+    - Helm
+    - Docker
+    - MacOS
+    - Linux
+    - Windows
+    x-enum-varnames:
+    - KubernetesEnvironmentType
+    - HelmEnvironmentType
+    - DockerEnvironmentType
+    - MacOSEnvironmentType
+    - LinuxEnvironmentType
+    - WindowsEnvironmentType
+  core.UpdateConfRequest:
+    type: object
+    properties:
+      cluster_name:
+        type: string
+      content:
+        type: string
+      content_changed:
+        type: boolean
+      description:
+        type: string
+      tag:
+        type: string
+  core.FleetType:
+    type: string
+    enum:
+    - Edge
+    - Cloud
+    - IngestionPipeline
+    - Edge-extended
+    - Cloud-extended
+    x-enum-varnames:
+    - EdgeFleetType
+    - CloudFleetType
+    - IngestionPipelineFleetType
+    - EdgeExtendedFleetType
+    - CloudExtendedFleetType
+  core.ConfigVersion:
+    type: string
+    enum:
+    - v2
+    - v3
+    x-enum-varnames:
+    - ConfigV2
+    - ConfigV3
+  core.ConfMetadata:
+    type: object
+    properties:
+      compound_nodes:
+        $ref: '#/definitions/core.ConfCompoundNodesMetadata'
+      node_references:
+        type: array
+        items:
+          type: string
+      telemetry_gen_templates:
+        type: array
+        items:
+          type: string
+  core.ConfPurpose:
+    type: string
+    enum:
+    - user-defined
+    - edgedelta-ai
+    x-enum-varnames:
+    - ConfPurposeUserDefined
+    - ConfPurposeEdgedeltaAI
+  core.FleetStatus:
+    type: string
+    enum:
+    - running
+    - suspended
+    x-enum-varnames:
+    - FleetRunning
+    - FleetSuspended
+  core.ConfCompoundNodesMetadata:
+    type: object
+    properties:
+      deleted:
+        description: IDs of compound nodes that have been deleted
+        type: array
+        items:
+          type: string
+      updated:
+        description: IDs of compound nodes updated to latest version
+        type: array
+        items:
+          type: string
+      updates_available:
+        description: IDs of compound nodes that have updates available
+        type: array
+        items:
+          type: string
+  core.ConfigValidationResult:
+    type: object
+    properties:
+      error: {}
+      reason:
+        type: string
+      valid:
+        type: boolean
+  core.ConfCreateRequest:
+    type: object
+    required:
+    - environment
+    - tag
+    properties:
+      cluster_name:
+        description: Pipelines with same cluster name will be grouped together
+        type: string
+      content:
+        type: string
+      description:
+        description: Description of the pipeline
+        type: string
+      environment:
+        description: Environment where the pipeline will be deployed
+        enum:
+        - Kubernetes
+        - Windows
+        - MacOS
+        - Linux
+        - Docker
+        allOf:
+        - $ref: '#/definitions/core.EnvironmentType'
+      fleet_subtype:
+        description: FleetSubtype is required when Environment is Kubernetes
+        enum:
+        - Edge
+        - Coordinator
+        - Gateway
+        allOf:
+        - $ref: '#/definitions/core.FleetSubtype'
+      fleet_type:
+        $ref: '#/definitions/core.FleetType'
+      tag:
+        description: Tag is used to identify the pipeline
+        type: string
+  core.FleetSubtype:
+    type: string
+    enum:
+    - Edge
+    - Coordinator
+    - Gateway
+    x-enum-varnames:
+    - EdgeFleetSubtype
+    - CoordinatorFleetSubtype
+    - GatewayFleetSubtype
+  core.ConfValidateRequest:
+    type: object
+    properties:
+      content:
+        type: string
+      fleet_type:
+        $ref: '#/definitions/core.FleetType'
+      version:
+        $ref: '#/definitions/core.ConfigVersion'
+  core.Conf:
+    type: object
+    properties:
+      cluster_name:
+        type: string
+      content:
+        type: string
+      created:
+        type: string
+      creator:
+        type: string
+      deployed_timestamp:
+        description: Config-history timestamp currently deployed
+        type: integer
+      description:
+        type: string
+      environment:
+        $ref: '#/definitions/core.EnvironmentType'
+      fleet_subtype:
+        $ref: '#/definitions/core.FleetSubtype'
+      fleet_type:
+        $ref: '#/definitions/core.FleetType'
+      id:
+        type: string
+      metadata:
+        description: Stores status (updated/updates available/deleted) of compound nodes
+        allOf:
+        - $ref: '#/definitions/core.ConfMetadata'
+      orgID:
+        type: string
+      purpose:
+        $ref: '#/definitions/core.ConfPurpose'
+      retrieved:
+        description: Latest retrieval time for installation. Will move to a separate table once obscured hostID for install host is implemented
+        type: string
+      rollout_task_id:
+        type: string
+      status:
+        $ref: '#/definitions/core.FleetStatus'
+      tag:
+        type: string
+      updated:
+        type: string
+      updater:
+        type: string
+      version:
+        $ref: '#/definitions/core.ConfigVersion'
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    name: X-ED-API-Token
+    in: header

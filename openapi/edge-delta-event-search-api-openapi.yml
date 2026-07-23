@@ -1,0 +1,103 @@
+swagger: '2.0'
+info:
+  description: 'Edge Delta API provides endpoints to manage your configs/integrations/rehydrations and more. Generate an API token to get started: https://app.edgedelta.com/admin/organization#api-tokens'
+  title: Edge Delta Access Event Search API
+  contact:
+    name: API Support
+    email: support@edgedelta.com
+  version: '1.0'
+host: api.edgedelta.com
+basePath: ''
+schemes:
+- https
+tags:
+- name: Event Search
+paths:
+  /v1/orgs/{org_id}/events/search:
+    get:
+      security:
+      - ApiKeyAuth: []
+      description: Search query using Edge Delta events search syntax, for anomaly search query should include event.type:pattern_anomaly
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Event Search
+      parameters:
+      - type: string
+        description: Org ID
+        name: org_id
+        in: path
+        required: true
+      - type: string
+        description: Lookback period in golang duration format. e.g. '1h'. Either provide from/to or provide lookback/to or just lookback
+        name: lookback
+        in: query
+      - type: string
+        description: From datetime in ISO format 2006-01-02T15:04:05.000Z
+        name: from
+        in: query
+      - type: string
+        description: To datetime in ISO format 2006-01-02T15:04:05.000Z
+        name: to
+        in: query
+      - type: string
+        description: Edge Delta Common Query Language expression
+        name: query
+        in: query
+      - type: integer
+        description: Limits the number of logs in the response. Default is 1000. It can be negative to move the cursor prev direction. Wraps to end if the cursor position is 0. For AI search, limit should be 20.
+        name: limit
+        in: query
+      - type: string
+        description: Cursor provided from previous response, pass it to next request so that we can move the cursor with given limit.
+        name: cursor
+        in: query
+      - type: string
+        description: Order of the logs in the response, either 'ASC', 'asc', 'DESC' or 'desc'
+        name: order
+        in: query
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/core.EventResponse'
+definitions:
+  core.EventItem:
+    type: object
+    properties:
+      attributes:
+        type: object
+        additionalProperties:
+          type: string
+      body:
+        type: string
+      event_domain:
+        type: string
+      event_type:
+        type: string
+      resource:
+        type: object
+        additionalProperties:
+          type: string
+      severity_text:
+        type: string
+      timestamp:
+        type: integer
+  core.EventResponse:
+    type: object
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/core.EventItem'
+      next_cursor:
+        type: string
+      query_id:
+        type: string
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    name: X-ED-API-Token
+    in: header
