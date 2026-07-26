@@ -1,7 +1,16 @@
 aid: edge-delta
 name: Edge Delta
-description: Edge Delta is a company surfaced as a portfolio company of menlo-ventures and added to the
-  API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Edge Delta is an AI-powered observability platform that pairs enterprise-grade
+  telemetry pipelines with agentic AI Teammates for SRE, security, and DevOps
+  teams. Its intelligent pipelines control and route logs, metrics, traces, and
+  events from any source to any destination with in-stream reduction, shaping,
+  and enrichment, while AI Teammates continuously analyze streaming production
+  data to automate root cause analysis and reduce alert fatigue. Edge Delta
+  exposes a public REST API (X-ED-API-Token auth) for managing pipeline
+  configurations, integrations, dashboards, lookup tables, and rehydrations, plus
+  querying logs, metrics, and events — complemented by the edx CLI, an official
+  MCP server, a Terraform provider, and published Agent Skills.
 url: https://raw.githubusercontent.com/api-evangelist/edge-delta/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -9,17 +18,368 @@ x-backed-by:
 - menlo-ventures
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
+image: https://edgedelta.com/images/edge-delta-logo.png
 tags:
 - Company
-apis: []
+- Observability
+- Telemetry Pipelines
+- Logging
+- Metrics
+- Tracing
+- Monitoring
+- DevOps
+- SRE
+- AI
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: edge-delta:edge-delta-access-api
+  name: Edge Delta Access API
+  description: The Access API from Edge Delta — 2 operation(s) for access.
+  humanURL: https://docs.edgedelta.com/api/
+  baseURL: https://api.edgedelta.com
+  tags:
+  - Access
+  properties:
+  - type: OpenAPI
+    url: openapi/edge-delta-access-api-openapi.yml
+  - type: Documentation
+    url: https://docs.edgedelta.com/api/
+  - type: APIReference
+    url: https://docs.edgedelta.com/api/
+- aid: edge-delta:edge-delta-add-source-api
+  name: Edge Delta Add Source API
+  description: The Add Source API from Edge Delta — 1 operation(s) for add source.
+  humanURL: https://docs.edgedelta.com/api/
+  baseURL: https://api.edgedelta.com
+  tags:
+  - Add Source
+  properties:
+  - type: OpenAPI
+    url: openapi/edge-delta-add-source-api-openapi.yml
+  - type: Documentation
+    url: https://docs.edgedelta.com/api/
+  - type: APIReference
+    url: https://docs.edgedelta.com/api/
+- aid: edge-delta:edge-delta-agent-configs-api
+  name: Edge Delta Agent Configs API
+  description: The Agent Configs API from Edge Delta — 3 operation(s) for agent configs.
+  humanURL: https://docs.edgedelta.com/api/
+  baseURL: https://api.edgedelta.com
+  tags:
+  - Agent Configs
+  properties:
+  - type: OpenAPI
+    url: openapi/edge-delta-agent-configs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.edgedelta.com/api/
+  - type: APIReference
+    url: https://docs.edgedelta.com/api/
+- aid: edge-delta:edge-delta-ai-api
+  name: Edge Delta AI API
+  description: The AI API from Edge Delta — 10 operation(s) for ai.
+  humanURL: https://docs.edgedelta.com/api/
+  baseURL: https://api.edgedelta.com
+  tags:
+  - AI
+  properties:
+  - type: OpenAPI
+    url: openapi/edge-delta-ai-api-openapi.yml
+  - type: Documentation
+    url: https://docs.edgedelta.com/api/
+  - type: APIReference
+    url: https://docs.edgedelta.com/api/
+- aid: edge-delta:edge-delta-event-search-api
+  name: Edge Delta Event Search API
+  description: The Event Search API from Edge Delta — 1 operation(s) for event search.
+  humanURL: https://docs.edgedelta.com/api/
+  baseURL: https://api.edgedelta.com
+  tags:
+  - Event Search
+  properties:
+  - type: OpenAPI
+    url: openapi/edge-delta-event-search-api-openapi.yml
+  - type: Documentation
+    url: https://docs.edgedelta.com/api/
+  - type: APIReference
+    url: https://docs.edgedelta.com/api/
+- aid: edge-delta:edge-delta-get-dashboard-api
+  name: Edge Delta Get Dashboard API
+  description: The Get Dashboard API from Edge Delta — 1 operation(s) for get dashboard.
+  humanURL: https://docs.edgedelta.com/api/
+  baseURL: https://api.edgedelta.com
+  tags:
+  - Get Dashboard
+  properties:
+  - type: OpenAPI
+    url: openapi/edge-delta-get-dashboard-api-openapi.yml
+  - type: Documentation
+    url: https://docs.edgedelta.com/api/
+  - type: APIReference
+    url: https://docs.edgedelta.com/api/
+- aid: edge-delta:edge-delta-get-dashboards-api
+  name: Edge Delta Get Dashboards API
+  description: The Get Dashboards API from Edge Delta — 1 operation(s) for get dashboards.
+  humanURL: https://docs.edgedelta.com/api/
+  baseURL: https://api.edgedelta.com
+  tags:
+  - Get Dashboards
+  properties:
+  - type: OpenAPI
+    url: openapi/edge-delta-get-dashboards-api-openapi.yml
+  - type: Documentation
+    url: https://docs.edgedelta.com/api/
+  - type: APIReference
+    url: https://docs.edgedelta.com/api/
+- aid: edge-delta:edge-delta-get-metrics-api
+  name: Edge Delta Get Metrics API
+  description: The Get Metrics API from Edge Delta — 1 operation(s) for get metrics.
+  humanURL: https://docs.edgedelta.com/api/
+  baseURL: https://api.edgedelta.com
+  tags:
+  - Get Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/edge-delta-get-metrics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.edgedelta.com/api/
+  - type: APIReference
+    url: https://docs.edgedelta.com/api/
+- aid: edge-delta:edge-delta-group-members-api
+  name: Edge Delta Group Members API
+  description: The Group Members API from Edge Delta — 2 operation(s) for group members.
+  humanURL: https://docs.edgedelta.com/api/
+  baseURL: https://api.edgedelta.com
+  tags:
+  - Group Members
+  properties:
+  - type: OpenAPI
+    url: openapi/edge-delta-group-members-api-openapi.yml
+  - type: Documentation
+    url: https://docs.edgedelta.com/api/
+  - type: APIReference
+    url: https://docs.edgedelta.com/api/
+- aid: edge-delta:edge-delta-groups-api
+  name: Edge Delta Groups API
+  description: The Groups API from Edge Delta — 3 operation(s) for groups.
+  humanURL: https://docs.edgedelta.com/api/
+  baseURL: https://api.edgedelta.com
+  tags:
+  - Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/edge-delta-groups-api-openapi.yml
+  - type: Documentation
+    url: https://docs.edgedelta.com/api/
+  - type: APIReference
+    url: https://docs.edgedelta.com/api/
+- aid: edge-delta:edge-delta-integrations-api
+  name: Edge Delta Integrations API
+  description: The Integrations API from Edge Delta — 5 operation(s) for integrations.
+  humanURL: https://docs.edgedelta.com/api/
+  baseURL: https://api.edgedelta.com
+  tags:
+  - Integrations
+  properties:
+  - type: OpenAPI
+    url: openapi/edge-delta-integrations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.edgedelta.com/api/
+  - type: APIReference
+    url: https://docs.edgedelta.com/api/
+- aid: edge-delta:edge-delta-log-search-api
+  name: Edge Delta Log Search API
+  description: The Log Search API from Edge Delta — 5 operation(s) for log search.
+  humanURL: https://docs.edgedelta.com/api/
+  baseURL: https://api.edgedelta.com
+  tags:
+  - Log Search
+  properties:
+  - type: OpenAPI
+    url: openapi/edge-delta-log-search-api-openapi.yml
+  - type: Documentation
+    url: https://docs.edgedelta.com/api/
+  - type: APIReference
+    url: https://docs.edgedelta.com/api/
+- aid: edge-delta:edge-delta-lookup-tables-api
+  name: Edge Delta Lookup Tables API
+  description: The Lookup Tables API from Edge Delta — 4 operation(s) for lookup tables.
+  humanURL: https://docs.edgedelta.com/api/
+  baseURL: https://api.edgedelta.com
+  tags:
+  - Lookup Tables
+  properties:
+  - type: OpenAPI
+    url: openapi/edge-delta-lookup-tables-api-openapi.yml
+  - type: Documentation
+    url: https://docs.edgedelta.com/api/
+  - type: APIReference
+    url: https://docs.edgedelta.com/api/
+- aid: edge-delta:edge-delta-pattern-stats-api
+  name: Edge Delta Pattern Stats API
+  description: The Pattern Stats API from Edge Delta — 1 operation(s) for pattern stats.
+  humanURL: https://docs.edgedelta.com/api/
+  baseURL: https://api.edgedelta.com
+  tags:
+  - Pattern Stats
+  properties:
+  - type: OpenAPI
+    url: openapi/edge-delta-pattern-stats-api-openapi.yml
+  - type: Documentation
+    url: https://docs.edgedelta.com/api/
+  - type: APIReference
+    url: https://docs.edgedelta.com/api/
+- aid: edge-delta:edge-delta-pipeline-api
+  name: Edge Delta Pipeline API
+  description: The Pipeline API from Edge Delta — 4 operation(s) for pipeline.
+  humanURL: https://docs.edgedelta.com/api/
+  baseURL: https://api.edgedelta.com
+  tags:
+  - Pipeline
+  properties:
+  - type: OpenAPI
+    url: openapi/edge-delta-pipeline-api-openapi.yml
+  - type: Documentation
+    url: https://docs.edgedelta.com/api/
+  - type: APIReference
+    url: https://docs.edgedelta.com/api/
+- aid: edge-delta:edge-delta-public-api
+  name: Edge Delta Public API
+  description: The Public API from Edge Delta — 2 operation(s) for public.
+  humanURL: https://docs.edgedelta.com/api/
+  baseURL: https://api.edgedelta.com
+  tags:
+  - Public
+  properties:
+  - type: OpenAPI
+    url: openapi/edge-delta-public-api-openapi.yml
+  - type: Documentation
+    url: https://docs.edgedelta.com/api/
+  - type: APIReference
+    url: https://docs.edgedelta.com/api/
+- aid: edge-delta:edge-delta-rehydrations-api
+  name: Edge Delta Rehydrations API
+  description: The Rehydrations API from Edge Delta — 5 operation(s) for rehydrations.
+  humanURL: https://docs.edgedelta.com/api/
+  baseURL: https://api.edgedelta.com
+  tags:
+  - Rehydrations
+  properties:
+  - type: OpenAPI
+    url: openapi/edge-delta-rehydrations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.edgedelta.com/api/
+  - type: APIReference
+    url: https://docs.edgedelta.com/api/
+- aid: edge-delta:edge-delta-servedbymcp-api
+  name: Edge Delta ServedByMCP API
+  description: The ServedByMCP API from Edge Delta — 8 operation(s) for servedbymcp.
+  humanURL: https://docs.edgedelta.com/api/
+  baseURL: https://api.edgedelta.com
+  tags:
+  - ServedByMCP
+  properties:
+  - type: OpenAPI
+    url: openapi/edge-delta-servedbymcp-api-openapi.yml
+  - type: Documentation
+    url: https://docs.edgedelta.com/api/
+  - type: APIReference
+    url: https://docs.edgedelta.com/api/
+- aid: edge-delta:edge-delta-users-api
+  name: Edge Delta Users API
+  description: The Users API from Edge Delta — 2 operation(s) for users.
+  humanURL: https://docs.edgedelta.com/api/
+  baseURL: https://api.edgedelta.com
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/edge-delta-users-api-openapi.yml
+  - type: Documentation
+    url: https://docs.edgedelta.com/api/
+  - type: APIReference
+    url: https://docs.edgedelta.com/api/
 common:
+- type: DeveloperPortal
+  url: https://docs.edgedelta.com
+- type: Documentation
+  url: https://docs.edgedelta.com
+- type: APIReference
+  url: https://docs.edgedelta.com/api/
+- type: GettingStarted
+  url: https://docs.edgedelta.com/getting-started/
+- type: Support
+  url: https://docs.edgedelta.com/contact-support/
+- type: Blog
+  url: https://edgedelta.com/company/blog/page/1
+- type: GitHubOrganization
+  url: https://github.com/edgedelta
+- type: Pricing
+  url: https://edgedelta.com/pricing
+- type: SignUp
+  url: https://edgedelta.com/start-free-trial
+- type: TermsOfService
+  url: https://edgedelta.com/terms-of-service
+- type: PrivacyPolicy
+  url: https://edgedelta.com/privacy-policy
+- type: StatusPage
+  url: https://status.edgedelta.com/
+- type: ChangeLog
+  url: changelog/edge-delta-changelog.yml
+- type: MCPServer
+  url: mcp/edge-delta-mcp.yml
+- type: CLI
+  url: cli/edge-delta-cli.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Packages
+  url: packages/edge-delta-packages.yml
+- type: LLMsTxt
+  url: llms/edge-delta-llms.txt
+- type: Authentication
+  url: authentication/edge-delta-authentication.yml
+- type: Conventions
+  url: conventions/edge-delta-conventions.yml
+- type: ErrorCatalog
+  url: errors/edge-delta-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/edge-delta-lifecycle.yml
+- type: DataModel
+  url: data-model/edge-delta-data-model.yml
+- type: Overlay
+  url: overlays/edge-delta-overlay.yaml
+- type: Conformance
+  url: conformance/edge-delta-conformance.yml
+- type: Compliance
+  url: https://trust.edgedelta.com/
+- type: AgenticAccess
+  url: agentic-access/edge-delta-agentic-access.yml
+- type: TrustCenter
+  url: security/edge-delta-trust-center.yml
+- type: DomainSecurity
+  url: security/edge-delta-domain-security.yml
 - type: Website
   url: https://edgedelta.com
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

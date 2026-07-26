@@ -1,0 +1,70 @@
+# Edge Delta
+
+> AI-powered observability platform with intelligent telemetry pipelines and agentic AI teammates for SRE, security, and DevOps teams.
+
+Edge Delta is an observability platform built for the AI era. It combines intelligent telemetry pipelines with AI Teammates that continuously analyze real-time production data to automate root cause analysis, reduce alert fatigue, and surface actionable signals from noise.
+
+## Product
+
+- [AI Teammates](https://edgedelta.com/product/agentic-teammates): Agentic observability team that continuously analyzes real-time production data to automate root cause analysis and surface actionable signals from noise.
+- [Telemetry Pipelines](https://edgedelta.com/product/telemetry-pipelines): Intelligent foundation for controlling and routing logs, metrics, traces, and events from any source to any destination.
+- [Anomaly Detection](https://edgedelta.com/product/anomaly-detection): Detect and resolve incidents faster with correlated context across all services.
+- [Security Data Pipelines](https://edgedelta.com/product/security-data-pipelines): Control and visibility over security data with real-time standardization, enrichment, and streaming.
+- [Logs](https://edgedelta.com/product/logs): Process, transform, and enrich every log at the edge or in the cloud.
+- [Metrics](https://edgedelta.com/product/metrics): Analyze metrics end-to-end to improve response times, lower costs, and mute noise.
+- [Traces](https://edgedelta.com/product/traces): Deep visibility and full command over trace data with advanced tracing capabilities.
+- [Integrations](https://edgedelta.com/product/integrations): Seamless integrations to connect with your existing tools and streamline workflows.
+- [Product Overview](https://edgedelta.com/product): Overview of the Edge Delta platform capabilities.
+
+## AI Teammates
+
+- [SRE Teammate](https://edgedelta.com/product/agentic-teammates/sre): AI-powered SRE that automates incident triage, root cause analysis, and remediation.
+- [Security Engineer Teammate](https://edgedelta.com/product/agentic-teammates/security-engineer): AI teammate for automated security monitoring and threat investigation.
+- [Software Engineer Teammate](https://edgedelta.com/product/agentic-teammates/software-engineer): AI teammate that explores codebases, reviews pull requests, fixes bugs, and opens PRs, with read-only-by-default and approval-gated writes.
+- [Issue Coordinator Teammate](https://edgedelta.com/product/agentic-teammates/issue-coordinator): AI teammate for coordinating and managing issues across teams.
+
+## Use Cases
+
+- [Use Cases Overview](https://edgedelta.com/use-cases): Explore how Edge Delta helps teams solve real-world observability challenges.
+
+## Resources
+
+- [Blog](https://edgedelta.com/company/blog/page/1): Latest posts on AI-powered observability, telemetry pipelines, and more.
+- [Knowledge Center](https://edgedelta.com/company/knowledge-center/page/1): In-depth articles and guides on observability topics.
+- [Videos & Demos](https://edgedelta.com/company/videos/page/1): Product walkthroughs and demo videos.
+- [Case Studies](https://edgedelta.com/company/case-studies): Customer success stories and real-world outcomes.
+- [eBooks & Whitepapers](https://edgedelta.com/company/resources): Guides, research, and strategies for optimizing telemetry data.
+- [Events & Webinars](https://edgedelta.com/company/events): Upcoming events and webinars.
+- [Newsletter](https://edgedelta.com/company/newsletter): Subscribe for product news, observability trends, and expert insights.
+- [RSS Feed](https://edgedelta.com/feed.xml): Blog RSS feed.
+
+## Comparison
+
+- [Edge Delta vs Cribl (2026)](https://edgedelta.com/comparison/edge-delta-vs-cribl): Compare Edge Delta and Cribl across data processing, pricing, scalability, and automation.
+- [Edge Delta vs Competitors](https://edgedelta.com/comparison): Compare Edge Delta with other observability and telemetry pipeline solutions.
+
+## Company
+
+- [About Us](https://edgedelta.com/company/about): Our story and mission.
+- [Careers](https://edgedelta.com/company/careers): Join Edge Delta and help shape the future of observability.
+- [Partners](https://edgedelta.com/partners): Edge Delta Partner Program for strategic growth.
+- [News & Press](https://edgedelta.com/company/news/page/1): Latest news and press coverage.
+
+## Getting Started
+
+- [Request a Demo](https://edgedelta.com/request-demo): Schedule a demo to see Edge Delta in action.
+- [Start Free Trial](https://edgedelta.com/start-free-trial): 14-day free trial of AI Teammates.
+- [Pricing](https://edgedelta.com/pricing): AI Teammates pricing information.
+- [Documentation](https://docs.edgedelta.com): Technical documentation and guides.
+
+## Legal
+
+- [Privacy Policy](https://edgedelta.com/privacy-policy)
+- [Terms of Service](https://edgedelta.com/terms-of-service)
+- [Free-Trial Subscription Agreement](https://edgedelta.com/free-trial-agreement)
+- [Subprocessors](https://edgedelta.com/subprocessors)
+- [Do Not Sell / Share My Info](https://edgedelta.com/do-not-sell-share-my-info)
+
+## Sitemap
+
+- [XML Sitemap](https://edgedelta.com/sitemap-index.xml)

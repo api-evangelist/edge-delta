@@ -1,0 +1,92 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/edge-delta-openapi-original.json
+description: >-
+  Entity-relationship graph derived from the Edge Delta OpenAPI (181 schema
+  definitions, 57 operations). The Organization ({org_id}) is the root tenant;
+  nearly every resource is scoped beneath it.
+entities:
+  - name: Organization
+    id_field: org_id
+    notes: Root tenant. Path scope for almost all operations (/v1/orgs/{org_id}/...).
+  - name: Access
+    schema: core.Access
+    notes: An access/permission grant within the org.
+  - name: Group
+    schema: core.Group
+    notes: A group of users; carries accesses.
+  - name: GroupMember
+    schema: core.GroupMember
+    notes: Join entity linking a User to a Group.
+  - name: User
+    notes: A member of the organization.
+  - name: Conf
+    schema: core.Conf
+    notes: An agent/pipeline configuration; versioned via ConfigHistory.
+  - name: ConfigHistory
+    schema: core.ConfigHistory
+  - name: Pipeline
+    schema: pipeline.GetVisualPipelineResponse
+    notes: Visual pipeline built on top of a Conf; source nodes added via add_source.
+  - name: Dashboard
+    schema: dashboard.Dashboard
+  - name: LookupTable
+    schema: core.LookupTable
+  - name: Rehydration
+    schema: core.Rehydration
+    notes: A request to rehydrate archived telemetry for a time window.
+  - name: Integration
+    notes: Streaming/trigger integration endpoints configured in org settings.
+relationships:
+  - from: Access
+    to: Organization
+    kind: belongs_to
+    via: org_id
+  - from: Group
+    to: Organization
+    kind: belongs_to
+    via: org_id
+  - from: Group
+    to: Access
+    kind: has_many
+    via: group_id
+  - from: GroupMember
+    to: Group
+    kind: belongs_to
+    via: group_id
+  - from: GroupMember
+    to: User
+    kind: belongs_to
+    via: user
+  - from: User
+    to: Organization
+    kind: belongs_to
+    via: org_id
+  - from: Conf
+    to: Organization
+    kind: belongs_to
+    via: org_id
+  - from: Conf
+    to: ConfigHistory
+    kind: has_many
+    via: conf_id
+  - from: Pipeline
+    to: Conf
+    kind: belongs_to
+    via: conf_id
+  - from: Dashboard
+    to: Organization
+    kind: belongs_to
+    via: org_id
+  - from: LookupTable
+    to: Organization
+    kind: belongs_to
+    via: org_id
+  - from: Rehydration
+    to: Organization
+    kind: belongs_to
+    via: org_id
+  - from: Integration
+    to: Organization
+    kind: belongs_to
+    via: org_id

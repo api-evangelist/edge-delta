@@ -1,0 +1,43 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.edgedelta.com/release-notes/
+description: >-
+  Edge Delta publishes dated agent release notes. Versioning follows semantic
+  versioning as "Agent vX.Y.Z". The live release-notes page is the source of
+  truth; a recent window is captured here.
+scheme: semver
+current_version: Agent v2.20.0
+entries:
+  - version: v2.20.0
+    date: '2026-07-01'
+    breaking: false
+    highlights:
+      - Experimental parallelism settings for buffer flush and sequence consumers.
+      - Reduced allocations across processors and destinations.
+      - Apache Thrift security upgrade.
+  - version: v2.19.0
+    date: '2026-06-16'
+    breaking: false
+    highlights:
+      - New persistent-queue utilization and disk-buffer failure metrics.
+      - OTTL upgraded to v0.154.0.
+      - Docker source migrated to the moby client.
+  - version: v2.18.0
+    date: '2026-05-26'
+    breaking: false
+    highlights:
+      - Memory and throughput optimizations across destination nodes and gateway.
+      - OTTL evaluator improvements; multiple security updates.
+  - version: v2.17.0
+    date: '2026-05-15'
+    breaking: false
+    highlights:
+      - ORCA load reporting on the gateway input node.
+      - Configurable gRPC max_connection_age.
+      - Archive upload fix for GCS and S3-compatible providers.
+  - version: v2.16.0
+    date: '2026-05-05'
+    breaking: false
+    highlights:
+      - New Incident.IO connector support.
+      - Configurable multiline flush interval.

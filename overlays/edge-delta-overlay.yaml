@@ -1,0 +1,24 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Edge Delta API
+  version: 1.0.0
+extends: openapi/edge-delta-openapi-original.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-enriched: '2026-07-19'
+      x-apievangelist-notes: >-
+        Enhancement overlay captured by the API Evangelist enrichment pipeline.
+        The original Swagger 2.0 spec omits operationIds on all 57 operations and
+        documents only 200/201 responses (no 4xx/5xx). These gaps should be filed
+        with the provider; error semantics are captured in
+        errors/edge-delta-problem-types.yml.
+  - target: $.info
+    update:
+      x-authentication: authentication/edge-delta-authentication.yml
+      x-error-catalog: errors/edge-delta-problem-types.yml
+      x-conventions: conventions/edge-delta-conventions.yml
+      x-lifecycle: lifecycle/edge-delta-lifecycle.yml
+  - target: $.info.contact
+    update:
+      url: https://docs.edgedelta.com/api/

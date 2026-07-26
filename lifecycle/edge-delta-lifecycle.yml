@@ -1,0 +1,18 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.edgedelta.com/
+description: >-
+  Edge Delta versions its REST API on the URI path (v1) and publishes a public
+  status page. No formal deprecation/Sunset-header policy was found in the
+  developer documentation.
+versioning:
+  scheme: uri-path
+  current: v1
+  evidence: All REST paths are prefixed /v1/orgs/{org_id}/... in the OpenAPI.
+status_page: https://status.edgedelta.com/
+release_notes: https://docs.edgedelta.com/release-notes/
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: No published deprecation policy or RFC 8594 Sunset/Deprecation header support found.
+deprecated_operations: []

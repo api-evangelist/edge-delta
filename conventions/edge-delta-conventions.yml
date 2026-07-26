@@ -1,0 +1,51 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.edgedelta.com/api/
+derived_from: openapi/edge-delta-openapi-original.json
+description: >-
+  Cross-cutting request/response conventions for the Edge Delta REST API,
+  derived from the OpenAPI and the API reference docs.
+authentication:
+  style: api-key
+  header: X-ED-API-Token
+  docs: https://docs.edgedelta.com/api-tokens/
+  notes: >-
+    A per-organization API token is passed in the X-ED-API-Token header. Most
+    endpoints are scoped to an organization via the {org_id} path parameter.
+tenancy:
+  scoping: path
+  parameter: org_id
+  notes: Nearly every operation is nested under /v1/orgs/{org_id}/.
+content_type:
+  request: application/json
+  response: application/json
+idempotency:
+  supported: false
+  notes: >-
+    No Idempotency-Key header or idempotent-retry contract is documented or
+    present in the OpenAPI. Writes are not advertised as idempotent.
+pagination:
+  supported: unknown
+  notes: >-
+    List endpoints (confs, groups, users, rehydrations, access) return arrays;
+    no cursor/offset pagination parameters are declared in the OpenAPI.
+versioning:
+  style: uri-path
+  current: v1
+error_envelope:
+  format: json
+  notes: >-
+    Errors are returned as JSON with HTTP status codes (400/401/404). The spec
+    documents only 200/201 success responses; error shapes are described in the
+    API reference docs rather than the spec.
+query_languages:
+  - name: CQL
+    docs: https://docs.edgedelta.com/cql/
+    notes: Edge Delta Query Language, used for log/event search.
+  - name: OTTL
+    docs: https://docs.edgedelta.com/ottl-statements/
+    notes: OpenTelemetry Transformation Language, used in pipeline processors.
+cross_links:
+  authentication: authentication/edge-delta-authentication.yml
+  errors: errors/edge-delta-problem-types.yml
+  lifecycle: lifecycle/edge-delta-lifecycle.yml

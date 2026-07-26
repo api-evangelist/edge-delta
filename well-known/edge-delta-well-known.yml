@@ -1,0 +1,17 @@
+generated: '2026-07-19'
+method: searched
+source: live probes of /.well-known/ on edgedelta.com + api.edgedelta.com
+description: >-
+  No /.well-known/ discovery documents are published on the marketing host or
+  the API host. All probes returned 404. Recorded as an honest negative result.
+hosts:
+  - host: https://edgedelta.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+  - host: https://api.edgedelta.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}

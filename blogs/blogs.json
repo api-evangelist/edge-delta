@@ -1,0 +1,21 @@
+{
+  "repo": "edge-delta",
+  "feeds": [
+    {
+      "source": "https://docs.edgedelta.com/contact-support/index.xml",
+      "feed_url": "https://docs.edgedelta.com/contact-support/index.xml",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://docs.edgedelta.com/contact-support/",
+      "feed_url": "https://docs.edgedelta.com/contact-support/index.xml",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-07-25T15:00:33Z"
+}

@@ -1,0 +1,26 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.edgedelta.com/api/
+derived_from: openapi/edge-delta-openapi-original.json
+format: json
+description: >-
+  Edge Delta REST API error responses. The OpenAPI documents only 200/201
+  success responses, so the error catalog is captured from the API reference
+  documentation rather than derived from the spec. Errors are plain JSON with an
+  HTTP status code (not RFC 9457 problem+json).
+problems:
+  - status: 400
+    title: Bad Request
+    meaning: Malformed JSON body or invalid/unknown field names in the request.
+    remediation: Validate the request body against the OpenAPI schema and correct field names.
+  - status: 401
+    title: Unauthorized
+    meaning: Missing or invalid API token / authentication cookie.
+    remediation: Provide a valid X-ED-API-Token header. See https://docs.edgedelta.com/create-api-token/.
+  - status: 404
+    title: Not Found
+    meaning: Invalid or nonexistent resource ID (e.g. an unknown pipeline/config ID).
+    remediation: Confirm the org_id and resource ID exist and the token has access.
+notes: >-
+  The /confs/validate endpoint returns HTTP 200 with a {"valid": false, "reason": ...}
+  body for invalid configurations rather than a 4xx error.

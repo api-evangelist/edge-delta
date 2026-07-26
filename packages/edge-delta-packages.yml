@@ -1,0 +1,39 @@
+generated: '2026-07-19'
+method: searched
+source: https://github.com/edgedelta
+description: >-
+  Edge Delta ships a first-party CLI (edx), a Terraform provider, Helm charts,
+  and a containerized MCP server. No general-purpose language client-library SDK
+  (Python/JS/Go) is published; the edx CLI is the primary programmatic surface.
+packages:
+  - name: edx
+    kind: cli
+    language: go
+    registry: homebrew
+    url: https://github.com/edgedelta/edx
+    install: brew install edgedelta/tap/edx
+    official: true
+  - name: edgedelta/tap
+    kind: homebrew-tap
+    registry: homebrew
+    url: https://github.com/edgedelta/homebrew-tap
+    install: brew tap edgedelta/tap
+    official: true
+  - name: terraform-provider-edgedelta
+    kind: terraform-provider
+    language: go
+    registry: terraform
+    url: https://github.com/edgedelta/terraform-provider-edgedelta
+    official: true
+  - name: edgedelta-mcp-server
+    kind: container
+    language: go
+    registry: ghcr
+    url: https://github.com/edgedelta/edgedelta-mcp-server
+    install: docker pull ghcr.io/edgedelta/edgedelta-mcp-server:latest
+    official: true
+  - name: edgedelta/charts
+    kind: helm-chart
+    registry: helm
+    url: https://github.com/edgedelta/charts
+    official: true

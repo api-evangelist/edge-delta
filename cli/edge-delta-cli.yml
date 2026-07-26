@@ -1,0 +1,40 @@
+generated: '2026-07-19'
+method: searched
+source: https://github.com/edgedelta/edx
+docs: https://docs.edgedelta.com/
+description: >-
+  edx is Edge Delta's first-party command-line interface for pipelines,
+  observability queries, and AI Teammate interaction. It is also the substrate
+  the official agent-skills (ed-*) are built on.
+name: edx
+language: go
+install:
+  - method: homebrew
+    command: brew install edgedelta/tap/edx
+repository: https://github.com/edgedelta/edx
+authentication:
+  method: api-token
+  notes: Uses Edge Delta API token (X-ED-API-Token) and organization ID.
+command_surface:
+  - group: auth
+    summary: Authenticate and configure the CLI (token, org).
+  - group: logs
+    summary: Search logs with CQL and render log-volume graphs.
+  - group: metrics
+    summary: Discover and aggregate metrics.
+  - group: patterns
+    summary: Inspect log patterns, anomaly and sentiment analysis.
+  - group: traces
+    summary: Query distributed traces and the service map.
+  - group: events
+    summary: Query events — anomalies, monitor alerts, Kubernetes events.
+  - group: monitors
+    summary: Create, manage and resolve monitors.
+  - group: pipelines
+    summary: Fleet management, config changes, deployments, live capture.
+  - group: facets
+    summary: Discovery commands (facets keys / facets options) for query building.
+key_flows:
+  - Search logs with CQL over a configurable time range (JSON output default).
+  - Manage pipeline configs and deploy changes across the fleet.
+  - Run live capture to verify a pipeline transformation on real data.

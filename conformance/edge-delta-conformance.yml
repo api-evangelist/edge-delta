@@ -1,0 +1,32 @@
+generated: '2026-07-19'
+method: searched
+source: https://trust.edgedelta.com/
+derived_from: openapi/edge-delta-openapi-original.json
+description: >-
+  Standards and compliance posture for Edge Delta. Security/compliance claims
+  are searched from the trust center; API-shape conformance is derived from the
+  OpenAPI.
+standards:
+  - id: soc2-type2
+    conforms: true
+    evidence: SOC 2 Type 2 listed on https://trust.edgedelta.com/
+  - id: gdpr
+    conforms: true
+    evidence: GDPR listed on https://trust.edgedelta.com/
+  - id: csa-star-level-1
+    conforms: true
+    evidence: CSA STAR Level 1 listed on https://trust.edgedelta.com/
+  - id: oauth2
+    conforms: false
+    evidence: OpenAPI securityScheme is apiKey (X-ED-API-Token), not oauth2.
+  - id: oidc
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Error responses are plain JSON, not application/problem+json.
+  - id: openapi
+    conforms: true
+    evidence: Publishes a Swagger 2.0 spec at https://api2.edgedelta.com/swagger/doc.json.
+  - id: opentelemetry
+    conforms: true
+    evidence: Pipelines and processors are OpenTelemetry-native (OTTL transformation language).

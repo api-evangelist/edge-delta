@@ -1,0 +1,56 @@
+generated: '2026-07-19'
+method: searched
+status: published
+source: https://github.com/edgedelta/edgedelta-mcp-server
+docs: https://docs.edgedelta.com/edge-delta-mcp-overview/
+description: >-
+  Official first-party Edge Delta MCP server. Self-hosted (Docker container or
+  stdio transport) — no vendor-hosted remote URL is published. Exposes Edge
+  Delta pipeline management, live-capture, and processor dry-run tooling to MCP
+  clients (Claude, Cursor, etc.).
+server:
+  name: edgedelta-mcp-server
+  transport: stdio
+  hosted: false
+  image: ghcr.io/edgedelta/edgedelta-mcp-server:latest
+  install: docker run -i --rm -e ED_ORG_ID -e ED_API_TOKEN ghcr.io/edgedelta/edgedelta-mcp-server:latest
+  auth:
+    env:
+      - ED_API_TOKEN   # Edge Delta API token (X-ED-API-Token)
+      - ED_ORG_ID      # Edge Delta organization ID
+tools:
+  - name: get_pipelines
+    description: Discover pipelines in the organization.
+    source_operation: openapi/edge-delta-openapi-original.json#GET /v1/orgs/{org_id}/confs
+  - name: get_pipeline_config
+    description: Read a pipeline's current configuration.
+    source_operation: openapi/edge-delta-openapi-original.json#GET /v1/orgs/{org_id}/confs/{conf_id}
+  - name: get_pipeline_history
+    description: Read a pipeline configuration's version history.
+    source_operation: openapi/edge-delta-openapi-original.json#GET /v1/orgs/{org_id}/pipelines/{conf_id}/history
+  - name: validate_pipeline_config
+    description: Validate a config YAML without saving it. Returns {valid, reason}.
+    source_operation: openapi/edge-delta-openapi-original.json#POST /v1/orgs/{org_id}/confs/validate
+  - name: save_pipeline_config
+    description: Save the full config YAML as a new version (does not deploy).
+    source_operation: openapi/edge-delta-openapi-original.json#POST /v1/orgs/{org_id}/pipelines/{conf_id}/save
+  - name: deploy_pipeline
+    description: Deploy a saved pipeline version to the fleet.
+    source_operation: openapi/edge-delta-openapi-original.json#POST /v1/orgs/{org_id}/pipelines/{conf_id}/deploy/{version}
+  - name: revert_pipeline
+    description: Roll back to a previously saved version.
+  - name: add_pipeline_source
+    description: Add a data source node to a pipeline.
+    source_operation: openapi/edge-delta-openapi-original.json#POST /v1/orgs/{org_id}/pipelines/{conf_id}/add_source
+  - name: start_pipeline_capture
+    description: Start a live before/after capture task on a pipeline.
+  - name: get_pipeline_capture_status
+    description: Poll per-agent status for a capture task.
+  - name: get_pipeline_capture_results
+    description: Fetch captured before/after samples per node.
+  - name: get_pipeline_capture_task
+    description: Show the currently active capture task, if any.
+  - name: test_pipeline_ottl
+    description: Dry-run OTTL statements against sample OTEL log items.
+  - name: test_pipeline_node
+    description: Dry-run a full processor node against sample logs, offline.
