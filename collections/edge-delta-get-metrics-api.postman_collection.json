@@ -1,0 +1,242 @@
+{
+  "item": [
+    {
+      "id": "ca5d68aa-dd4a-473b-be75-46edd885752f",
+      "name": "Get Metrics",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9a831715-5dab-4a72-9dd9-1c7202882cc2",
+          "name": "Returns metrics with common time series response for the given query.",
+          "request": {
+            "name": "Returns metrics with common time series response for the given query.",
+            "description": {
+              "content": "Returns metrics with common time series response for the given query.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "orgs",
+                ":org_id",
+                "metrics_v2",
+                "graph"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Edge Delta Common Query Language expression"
+                },
+                {
+                  "disabled": false,
+                  "key": "lookback",
+                  "value": "<string>",
+                  "description": "Lookback period in golang duration format. e.g. '1h'. Either provide from/to or provide lookback/to or just lookback"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "From datetime in ISO format 2006-01-02T15:04:05.000Z"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "To datetime in ISO format 2006-01-02T15:04:05.000Z"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "If order_by is specified then metrics are sorted by given field. If no sort is given default sort will be asc"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Default is no sorting. If sort is specified then metrics are sorted by their value. Possible values: asc, desc"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Limits the number of logs in the response. Default has no limit."
+                },
+                {
+                  "disabled": false,
+                  "key": "time_range_adjustment",
+                  "value": "<string>",
+                  "description": "Time range adjustment it can be noop, inclusive or exclusive"
+                },
+                {
+                  "disabled": false,
+                  "key": "save",
+                  "value": "<string>",
+                  "description": "The boolean to decide whether to save the query in history"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org_id",
+                  "description": "(Required) Org ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-ED-API-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "151bc6cb-6161-4d13-bcdc-469706201581",
+              "name": "Common time series response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "metrics_v2",
+                    "graph"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lookback",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "time_range_adjustment",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "save",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) Org ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-ED-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"from\": \"string\",\n  \"keys\": [\n    \"string\",\n    \"string\"\n  ],\n  \"records\": [\n    {\n      \"aggregate\": {\n        \"value\": 2844.367033476983\n      },\n      \"values\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"aggregate\": {\n        \"value\": 4762.18678089255\n      },\n      \"values\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"to\": \"string\",\n  \"window\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.edgedelta.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f8481f96-7d8c-427e-b84c-ef624dd4ef59",
+    "name": "Edge Delta Access Get Metrics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Edge Delta API provides endpoints to manage your configs/integrations/rehydrations and more. Generate an API token to get started: https://app.edgedelta.com/admin/organization#api-tokens\n\nContact Support:\n Name: API Support\n Email: support@edgedelta.com",
+      "type": "text/plain"
+    }
+  }
+}

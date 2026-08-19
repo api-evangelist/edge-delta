@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Edge Delta Access Public API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Public",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /public/dashboards/{dashboard_hash}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/public/dashboards/:dashboard_hash",
+            "params": [
+              {
+                "name": "dashboard_hash",
+                "value": "",
+                "type": "path",
+                "description": "hash"
+              }
+            ]
+          },
+          "docs": "Get"
+        },
+        {
+          "info": {
+            "name": "POST /v1/orgs/{org_id}/pipelines/{conf_id}/save",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/pipelines/:conf_id/save",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "conf_id",
+                "value": "",
+                "type": "path",
+                "description": "Config ID"
+              },
+              {
+                "name": "dry_run",
+                "value": "",
+                "type": "query",
+                "description": "Skip saving to database when true"
+              }
+            ]
+          },
+          "docs": "Saves the pipeline configuration"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

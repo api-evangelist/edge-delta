@@ -1,0 +1,160 @@
+{
+  "item": [
+    {
+      "id": "49e1e743-782f-4ad1-b5c7-7cc54add3fa1",
+      "name": "Get Dashboards",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e885bfff-f311-473f-9d19-524bb334bd9c",
+          "name": "Returns all dashboards of users in the org.",
+          "request": {
+            "name": "Returns all dashboards of users in the org.",
+            "description": {
+              "content": "Returns all dashboards of users in the org.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "orgs",
+                ":org_id",
+                "dashboards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include_definitions",
+                  "value": "<boolean>",
+                  "description": "Include definitions in the response"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org_id",
+                  "description": "(Required) Org ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-ED-API-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b1d463a7-7317-498c-b968-e770f212fee1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "dashboards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_definitions",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) Org ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-ED-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"created\": \"string\",\n    \"creator\": \"string\",\n    \"dashboard_id\": \"string\",\n    \"dashboard_name\": \"string\",\n    \"definition\": {\n      \"key_0\": {}\n    },\n    \"description\": \"string\",\n    \"org_id\": \"string\",\n    \"resource_accesses\": [\n      {\n        \"domain\": \"string\",\n        \"facet_path\": \"string\",\n        \"query\": \"string\",\n        \"scope\": \"string\"\n      },\n      {\n        \"domain\": \"string\",\n        \"facet_path\": \"string\",\n        \"query\": \"string\",\n        \"scope\": \"string\"\n      }\n    ],\n    \"saved_views\": {\n      \"key_0\": {\n        \"template_variables\": [\n          {\n            \"identifier\": \"string\",\n            \"view_value\": \"\"\n          },\n          {\n            \"identifier\": \"string\",\n            \"view_value\": \"\"\n          }\n        ]\n      },\n      \"key_1\": {\n        \"template_variables\": [\n          {\n            \"identifier\": \"string\",\n            \"view_value\": \"\"\n          },\n          {\n            \"identifier\": \"string\",\n            \"view_value\": \"\"\n          }\n        ]\n      },\n      \"key_2\": {\n        \"template_variables\": [\n          {\n            \"identifier\": \"string\",\n            \"view_value\": \"\"\n          },\n          {\n            \"identifier\": \"string\",\n            \"view_value\": \"\"\n          }\n        ]\n      }\n    },\n    \"screenshot\": {\n      \"dark_url\": \"string\",\n      \"last_triggered_at\": \"string\",\n      \"last_updated_at\": \"string\",\n      \"light_url\": \"string\",\n      \"status\": \"ok\"\n    },\n    \"shared_hash\": \"string\",\n    \"sharing_security_settings\": {\n      \"allowed_cidrs\": [\n        \"string\",\n        \"string\"\n      ],\n      \"prefilter\": \"string\",\n      \"shared_until\": \"string\"\n    },\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"updated\": \"string\",\n    \"updater\": \"string\"\n  },\n  {\n    \"created\": \"string\",\n    \"creator\": \"string\",\n    \"dashboard_id\": \"string\",\n    \"dashboard_name\": \"string\",\n    \"definition\": {\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    \"description\": \"string\",\n    \"org_id\": \"string\",\n    \"resource_accesses\": [\n      {\n        \"domain\": \"string\",\n        \"facet_path\": \"string\",\n        \"query\": \"string\",\n        \"scope\": \"string\"\n      },\n      {\n        \"domain\": \"string\",\n        \"facet_path\": \"string\",\n        \"query\": \"string\",\n        \"scope\": \"string\"\n      }\n    ],\n    \"saved_views\": {\n      \"key_0\": {\n        \"template_variables\": [\n          {\n            \"identifier\": \"string\",\n            \"view_value\": \"\"\n          },\n          {\n            \"identifier\": \"string\",\n            \"view_value\": \"\"\n          }\n        ]\n      },\n      \"key_1\": {\n        \"template_variables\": [\n          {\n            \"identifier\": \"string\",\n            \"view_value\": \"\"\n          },\n          {\n            \"identifier\": \"string\",\n            \"view_value\": \"\"\n          }\n        ]\n      }\n    },\n    \"screenshot\": {\n      \"dark_url\": \"string\",\n      \"last_triggered_at\": \"string\",\n      \"last_updated_at\": \"string\",\n      \"light_url\": \"string\",\n      \"status\": \"error\"\n    },\n    \"shared_hash\": \"string\",\n    \"sharing_security_settings\": {\n      \"allowed_cidrs\": [\n        \"string\",\n        \"string\"\n      ],\n      \"prefilter\": \"string\",\n      \"shared_until\": \"string\"\n    },\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"updated\": \"string\",\n    \"updater\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.edgedelta.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "668294f0-1ffa-462e-9e65-4c2555b46d62",
+    "name": "Edge Delta Access Get Dashboards API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Edge Delta API provides endpoints to manage your configs/integrations/rehydrations and more. Generate an API token to get started: https://app.edgedelta.com/admin/organization#api-tokens\n\nContact Support:\n Name: API Support\n Email: support@edgedelta.com",
+      "type": "text/plain"
+    }
+  }
+}

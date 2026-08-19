@@ -1,0 +1,275 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Edge Delta Access Log Search API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Log Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/logs/log_search/query_explain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/logs/log_search/query_explain",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "SQL query to explain"
+              }
+            ]
+          },
+          "docs": "Returns EXPLAIN indexes=1 output for a SQL query to show query execution plan"
+        },
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/logs/log_search/query_log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/logs/log_search/query_log",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "query",
+                "description": "Session ID to fetch query logs for"
+              }
+            ]
+          },
+          "docs": "Returns ClickHouse query execution metrics for all queries in a log search session"
+        },
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/logs/log_search/search",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/logs/log_search/search",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "lookback",
+                "value": "",
+                "type": "query",
+                "description": "Lookback period in golang duration format. e.g. '1h'. Either provide from/to or provide lookback/to or just lookback"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "From datetime in ISO format 2006-01-02T15:04:05.000Z"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "To datetime in ISO format 2006-01-02T15:04:05.000Z"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Edge Delta Common Query Language expression"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limits the number of logs in the response. Default is 1000. It can be negative to move the cursor prev direction. Wraps to end if the cursor position is 0. For AI search, limit should be 20."
+              },
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query",
+                "description": "Scope can be audit or log"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor provided from previous response, pass it to next request so that we can move the cursor with given limit."
+              },
+              {
+                "name": "custom_columns",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of custom columns to include in the recent search queries"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Order of the logs in the response, either 'ASC', 'asc', 'DESC' or 'desc'"
+              },
+              {
+                "name": "length",
+                "value": "",
+                "type": "query",
+                "description": "Minimum log length to filter for"
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "query",
+                "description": "Session ID to track the search session"
+              },
+              {
+                "name": "pageId",
+                "value": "",
+                "type": "query",
+                "description": "Page ID to track the pagination state"
+              },
+              {
+                "name": "save",
+                "value": "",
+                "type": "query",
+                "description": "The boolean to decide whether to save the query in history"
+              },
+              {
+                "name": "disable_routing",
+                "value": "",
+                "type": "query",
+                "description": "Disable routing for the search"
+              }
+            ]
+          },
+          "docs": "Returns time series log data for given query"
+        },
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/logs/log_search/stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/logs/log_search/stream",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "lookback",
+                "value": "",
+                "type": "query",
+                "description": "Lookback period in golang duration format. e.g. '1h'"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "From datetime (ISO format)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "To datetime (ISO format)"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "CQL query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Result limit (default 1000)"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order (ASC/DESC)"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor from previous response for pagination"
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "query",
+                "description": "Session ID"
+              },
+              {
+                "name": "disable_routing",
+                "value": "",
+                "type": "query",
+                "description": "Disable routing"
+              }
+            ]
+          },
+          "docs": "Streams log search results with per-row progress updates"
+        },
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/logs/log_search/table_schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/logs/log_search/table_schema",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "suffix",
+                "value": "",
+                "type": "query",
+                "description": "Table suffix (e.g., samp_100, samp_1000, agg_5m, agg_1h). Empty for base table."
+              },
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query",
+                "description": "Table scope: log or audit. Defaults to log."
+              }
+            ]
+          },
+          "docs": "Returns SHOW CREATE TABLE output to show table schema"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

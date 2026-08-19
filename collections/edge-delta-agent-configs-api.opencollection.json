@@ -1,0 +1,168 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Edge Delta Access Agent Configs API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Agent Configs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/confs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/confs",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "empty_contents",
+                "value": "",
+                "type": "query",
+                "description": "Should be set to 'true' if the contents won't be fetched"
+              }
+            ]
+          },
+          "docs": "Return org's agent configurations that user has read access to"
+        },
+        {
+          "info": {
+            "name": "POST /v1/orgs/{org_id}/confs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/confs",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              }
+            ]
+          },
+          "docs": "Creates a new config from the yml content passed in body"
+        },
+        {
+          "info": {
+            "name": "POST /v1/orgs/{org_id}/confs/validate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/confs/validate",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              }
+            ]
+          },
+          "docs": "Validate agent configuration"
+        },
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/confs/{conf_id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/confs/:conf_id",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "conf_id",
+                "value": "",
+                "type": "path",
+                "description": "Config ID"
+              },
+              {
+                "name": "empty_content",
+                "value": "",
+                "type": "query",
+                "description": "Should be set to 'true' if the content won't be fetched"
+              },
+              {
+                "name": "resolve_content",
+                "value": "",
+                "type": "query",
+                "description": "Should be set to 'true' if the content would be fully resolved (i.e with children etc)"
+              }
+            ]
+          },
+          "docs": "Returns the requested config"
+        },
+        {
+          "info": {
+            "name": "PUT /v1/orgs/{org_id}/confs/{conf_id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/confs/:conf_id",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "conf_id",
+                "value": "",
+                "type": "path",
+                "description": "Config ID"
+              }
+            ]
+          },
+          "docs": "Updates the config for given id"
+        },
+        {
+          "info": {
+            "name": "DELETE /v1/orgs/{org_id}/confs/{conf_id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/confs/:conf_id",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "conf_id",
+                "value": "",
+                "type": "path",
+                "description": "Config ID"
+              }
+            ]
+          },
+          "docs": "Deletes the config with given id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

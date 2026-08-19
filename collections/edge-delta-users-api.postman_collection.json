@@ -1,0 +1,289 @@
+{
+  "item": [
+    {
+      "id": "e239d4c9-d80c-4f8a-9805-17a7dc63f619",
+      "name": "Users",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f7395fd6-6710-4f2f-be38-d5636f853514",
+          "name": "send invite email to provided user and create necessary access.",
+          "request": {
+            "name": "send invite email to provided user and create necessary access.",
+            "description": {
+              "content": "send invite email to provided user and create necessary access.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "orgs",
+                ":org_id",
+                "invite"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org_id",
+                  "description": "(Required) Org ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-ED-API-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Company\": \"<string>\",\n  \"Email\": \"<string>\",\n  \"FirstName\": \"<string>\",\n  \"Groups\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"LastName\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "94a42d2c-5222-4b77-802e-b864e969b903",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "invite"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) Org ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-ED-API-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Company\": \"<string>\",\n  \"Email\": \"<string>\",\n  \"FirstName\": \"<string>\",\n  \"Groups\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"LastName\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d14cb100-bf87-413c-acd8-e233483c92f8",
+          "name": "Returns users for the given org.",
+          "request": {
+            "name": "Returns users for the given org.",
+            "description": {
+              "content": "Returns users for the given org.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "orgs",
+                ":org_id",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include_external",
+                  "value": "<boolean>",
+                  "description": "If set to true response includes external state information from okta"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org_id",
+                  "description": "(Required) Org ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-ED-API-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a61ff594-e094-4d93-9b2d-6a77eb0d8edd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_external",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) Org ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-ED-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"accesses\": [\n      {\n        \"approval_status\": \"string\",\n        \"created\": \"string\",\n        \"creator\": \"string\",\n        \"external_activated\": \"string\",\n        \"external_id\": \"string\",\n        \"external_status\": \"string\",\n        \"id\": \"string\",\n        \"owner\": \"string\",\n        \"resource\": \"string\",\n        \"type\": \"string\",\n        \"updated\": \"string\",\n        \"updater\": \"string\"\n      },\n      {\n        \"approval_status\": \"string\",\n        \"created\": \"string\",\n        \"creator\": \"string\",\n        \"external_activated\": \"string\",\n        \"external_id\": \"string\",\n        \"external_status\": \"string\",\n        \"id\": \"string\",\n        \"owner\": \"string\",\n        \"resource\": \"string\",\n        \"type\": \"string\",\n        \"updated\": \"string\",\n        \"updater\": \"string\"\n      }\n    ],\n    \"approval_status\": \"string\",\n    \"company\": \"string\",\n    \"created\": \"string\",\n    \"creator\": \"string\",\n    \"email\": \"string\",\n    \"external_activated\": \"string\",\n    \"external_id\": \"string\",\n    \"external_status\": \"string\",\n    \"firstName\": \"string\",\n    \"fullName\": \"string\",\n    \"group_memberships\": [\n      {\n        \"accesses\": [\n          {\n            \"approval_status\": \"string\",\n            \"created\": \"string\",\n            \"creator\": \"string\",\n            \"external_activated\": \"string\",\n            \"external_id\": \"string\",\n            \"external_status\": \"string\",\n            \"id\": \"string\",\n            \"owner\": \"string\",\n            \"resource\": \"string\",\n            \"type\": \"string\",\n            \"updated\": \"string\",\n            \"updater\": \"string\"\n          },\n          {\n            \"approval_status\": \"string\",\n            \"created\": \"string\",\n            \"creator\": \"string\",\n            \"external_activated\": \"string\",\n            \"external_id\": \"string\",\n            \"external_status\": \"string\",\n            \"id\": \"string\",\n            \"owner\": \"string\",\n            \"resource\": \"string\",\n            \"type\": \"string\",\n            \"updated\": \"string\",\n            \"updater\": \"string\"\n          }\n        ],\n        \"group_member_id\": \"string\",\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"accesses\": [\n          {\n            \"approval_status\": \"string\",\n            \"created\": \"string\",\n            \"creator\": \"string\",\n            \"external_activated\": \"string\",\n            \"external_id\": \"string\",\n            \"external_status\": \"string\",\n            \"id\": \"string\",\n            \"owner\": \"string\",\n            \"resource\": \"string\",\n            \"type\": \"string\",\n            \"updated\": \"string\",\n            \"updater\": \"string\"\n          },\n          {\n            \"approval_status\": \"string\",\n            \"created\": \"string\",\n            \"creator\": \"string\",\n            \"external_activated\": \"string\",\n            \"external_id\": \"string\",\n            \"external_status\": \"string\",\n            \"id\": \"string\",\n            \"owner\": \"string\",\n            \"resource\": \"string\",\n            \"type\": \"string\",\n            \"updated\": \"string\",\n            \"updater\": \"string\"\n          }\n        ],\n        \"group_member_id\": \"string\",\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ],\n    \"id\": \"string\",\n    \"lastLogin\": \"string\",\n    \"lastName\": \"string\",\n    \"login\": \"string\",\n    \"loginProviders\": [\n      \"string\",\n      \"string\"\n    ],\n    \"mobilePhone\": \"string\",\n    \"oktaGroups\": [\n      \"string\",\n      \"string\"\n    ],\n    \"owner\": \"string\",\n    \"phoneNumber\": \"string\",\n    \"resource\": \"string\",\n    \"secondEmail\": \"string\",\n    \"supportUser\": false,\n    \"type\": \"string\",\n    \"updated\": \"string\",\n    \"updater\": \"string\"\n  },\n  {\n    \"accesses\": [\n      {\n        \"approval_status\": \"string\",\n        \"created\": \"string\",\n        \"creator\": \"string\",\n        \"external_activated\": \"string\",\n        \"external_id\": \"string\",\n        \"external_status\": \"string\",\n        \"id\": \"string\",\n        \"owner\": \"string\",\n        \"resource\": \"string\",\n        \"type\": \"string\",\n        \"updated\": \"string\",\n        \"updater\": \"string\"\n      },\n      {\n        \"approval_status\": \"string\",\n        \"created\": \"string\",\n        \"creator\": \"string\",\n        \"external_activated\": \"string\",\n        \"external_id\": \"string\",\n        \"external_status\": \"string\",\n        \"id\": \"string\",\n        \"owner\": \"string\",\n        \"resource\": \"string\",\n        \"type\": \"string\",\n        \"updated\": \"string\",\n        \"updater\": \"string\"\n      }\n    ],\n    \"approval_status\": \"string\",\n    \"company\": \"string\",\n    \"created\": \"string\",\n    \"creator\": \"string\",\n    \"email\": \"string\",\n    \"external_activated\": \"string\",\n    \"external_id\": \"string\",\n    \"external_status\": \"string\",\n    \"firstName\": \"string\",\n    \"fullName\": \"string\",\n    \"group_memberships\": [\n      {\n        \"accesses\": [\n          {\n            \"approval_status\": \"string\",\n            \"created\": \"string\",\n            \"creator\": \"string\",\n            \"external_activated\": \"string\",\n            \"external_id\": \"string\",\n            \"external_status\": \"string\",\n            \"id\": \"string\",\n            \"owner\": \"string\",\n            \"resource\": \"string\",\n            \"type\": \"string\",\n            \"updated\": \"string\",\n            \"updater\": \"string\"\n          },\n          {\n            \"approval_status\": \"string\",\n            \"created\": \"string\",\n            \"creator\": \"string\",\n            \"external_activated\": \"string\",\n            \"external_id\": \"string\",\n            \"external_status\": \"string\",\n            \"id\": \"string\",\n            \"owner\": \"string\",\n            \"resource\": \"string\",\n            \"type\": \"string\",\n            \"updated\": \"string\",\n            \"updater\": \"string\"\n          }\n        ],\n        \"group_member_id\": \"string\",\n        \"id\": \"string\",\n        \"name\": \"string\"\n      },\n      {\n        \"accesses\": [\n          {\n            \"approval_status\": \"string\",\n            \"created\": \"string\",\n            \"creator\": \"string\",\n            \"external_activated\": \"string\",\n            \"external_id\": \"string\",\n            \"external_status\": \"string\",\n            \"id\": \"string\",\n            \"owner\": \"string\",\n            \"resource\": \"string\",\n            \"type\": \"string\",\n            \"updated\": \"string\",\n            \"updater\": \"string\"\n          },\n          {\n            \"approval_status\": \"string\",\n            \"created\": \"string\",\n            \"creator\": \"string\",\n            \"external_activated\": \"string\",\n            \"external_id\": \"string\",\n            \"external_status\": \"string\",\n            \"id\": \"string\",\n            \"owner\": \"string\",\n            \"resource\": \"string\",\n            \"type\": \"string\",\n            \"updated\": \"string\",\n            \"updater\": \"string\"\n          }\n        ],\n        \"group_member_id\": \"string\",\n        \"id\": \"string\",\n        \"name\": \"string\"\n      }\n    ],\n    \"id\": \"string\",\n    \"lastLogin\": \"string\",\n    \"lastName\": \"string\",\n    \"login\": \"string\",\n    \"loginProviders\": [\n      \"string\",\n      \"string\"\n    ],\n    \"mobilePhone\": \"string\",\n    \"oktaGroups\": [\n      \"string\",\n      \"string\"\n    ],\n    \"owner\": \"string\",\n    \"phoneNumber\": \"string\",\n    \"resource\": \"string\",\n    \"secondEmail\": \"string\",\n    \"supportUser\": false,\n    \"type\": \"string\",\n    \"updated\": \"string\",\n    \"updater\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.edgedelta.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "27dca0eb-cd6d-4e04-bc2d-25b96008d6ae",
+    "name": "Edge Delta Access Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Edge Delta API provides endpoints to manage your configs/integrations/rehydrations and more. Generate an API token to get started: https://app.edgedelta.com/admin/organization#api-tokens\n\nContact Support:\n Name: API Support\n Email: support@edgedelta.com",
+      "type": "text/plain"
+    }
+  }
+}

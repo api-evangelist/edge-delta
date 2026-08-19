@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Edge Delta Access Get Metrics API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Get Metrics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/metrics_v2/graph",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/metrics_v2/graph",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Edge Delta Common Query Language expression"
+              },
+              {
+                "name": "lookback",
+                "value": "",
+                "type": "query",
+                "description": "Lookback period in golang duration format. e.g. '1h'. Either provide from/to or provide lookback/to or just lookback"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "From datetime in ISO format 2006-01-02T15:04:05.000Z"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "To datetime in ISO format 2006-01-02T15:04:05.000Z"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "If order_by is specified then metrics are sorted by given field. If no sort is given default sort will be asc"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Default is no sorting. If sort is specified then metrics are sorted by their value. Possible values: asc, desc"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limits the number of logs in the response. Default has no limit."
+              },
+              {
+                "name": "time_range_adjustment",
+                "value": "",
+                "type": "query",
+                "description": "Time range adjustment it can be noop, inclusive or exclusive"
+              },
+              {
+                "name": "save",
+                "value": "",
+                "type": "query",
+                "description": "The boolean to decide whether to save the query in history"
+              }
+            ]
+          },
+          "docs": "Returns metrics with common time series response for the given query."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

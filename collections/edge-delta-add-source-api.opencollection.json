@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Edge Delta Access Add Source API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Add Source",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "POST /v1/orgs/{org_id}/pipelines/{conf_id}/add_source",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/pipelines/:conf_id/add_source",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "conf_id",
+                "value": "",
+                "type": "path",
+                "description": "Conf ID"
+              }
+            ]
+          },
+          "docs": "Adds the given source node configuration to the pipeline and connect it to Edgedelta Destination. Saves the updated pipeline configuration without deploying changes.\nExample request body for file_input node:\n{\n\"node\": {\n\"name\": \"my_file_input\",\n\"type\": \"file_input\",\n\"path\": \"path/to/my_logs/logs.txt\",\n\"separate_source\": true,\n\"description\": \"A user-defined description of the Node. Users may add any additional comments describing the function of their node.\\nThis is useful to put some notes into "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

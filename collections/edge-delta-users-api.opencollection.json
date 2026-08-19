@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Edge Delta Access Users API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "POST /v1/orgs/{org_id}/invite",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/invite",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              }
+            ]
+          },
+          "docs": "send invite email to provided user and create necessary access."
+        },
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/users",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "include_external",
+                "value": "",
+                "type": "query",
+                "description": "If set to true response includes external state information from okta"
+              }
+            ]
+          },
+          "docs": "Returns users for the given org."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

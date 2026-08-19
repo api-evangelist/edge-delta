@@ -1,0 +1,168 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Edge Delta Access Lookup Tables API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Lookup Tables",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "POST /v1/orgs/{org_id}/lookup_tables",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/lookup_tables",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "is_ed_lookup_table",
+                "value": "",
+                "type": "query",
+                "description": "Whether or not this lookup table is being created for ED packs"
+              },
+              {
+                "name": "created",
+                "value": "",
+                "type": "query",
+                "description": "Time the lookup table was created. Only used by packs"
+              }
+            ]
+          },
+          "docs": "Creates a Lookup Table metadata and stores its data for the given org and id."
+        },
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/lookup_tables/metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/lookup_tables/metadata",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              }
+            ]
+          },
+          "docs": "Returns metadata of all of the Lookup Tables for the given org."
+        },
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/lookup_tables/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/lookup_tables/:id",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Lookup Table ID"
+              }
+            ]
+          },
+          "docs": "Returns data for the specific Lookup Table."
+        },
+        {
+          "info": {
+            "name": "PUT /v1/orgs/{org_id}/lookup_tables/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/lookup_tables/:id",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Lookup Table ID"
+              }
+            ]
+          },
+          "docs": "Updates data and/or metadata of a Lookup Table for the given org and id."
+        },
+        {
+          "info": {
+            "name": "DELETE /v1/orgs/{org_id}/lookup_tables/{id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/lookup_tables/:id",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Lookup Table ID"
+              }
+            ]
+          },
+          "docs": "Deletes the Lookup Table for the given org and id."
+        },
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/lookup_tables/{id}/metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/lookup_tables/:id/metadata",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Lookup Table ID"
+              }
+            ]
+          },
+          "docs": "Returns metadata of the Lookup Tables for the given org and id."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

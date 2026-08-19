@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Edge Delta Access Event Search API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Event Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/events/search",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/events/search",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "lookback",
+                "value": "",
+                "type": "query",
+                "description": "Lookback period in golang duration format. e.g. '1h'. Either provide from/to or provide lookback/to or just lookback"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "From datetime in ISO format 2006-01-02T15:04:05.000Z"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "To datetime in ISO format 2006-01-02T15:04:05.000Z"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Edge Delta Common Query Language expression"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limits the number of logs in the response. Default is 1000. It can be negative to move the cursor prev direction. Wraps to end if the cursor position is 0. For AI search, limit should be 20."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor provided from previous response, pass it to next request so that we can move the cursor with given limit."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Order of the logs in the response, either 'ASC', 'asc', 'DESC' or 'desc'"
+              }
+            ]
+          },
+          "docs": "Search query using Edge Delta events search syntax, for anomaly search query should include event.type:pattern_anomaly"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

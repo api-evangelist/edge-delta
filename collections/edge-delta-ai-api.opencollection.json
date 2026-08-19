@@ -1,0 +1,496 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Edge Delta Access AI API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AI",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/clustering/stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/clustering/stats",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Edge Delta Common Query Language expression"
+              },
+              {
+                "name": "summary",
+                "value": "",
+                "type": "query",
+                "description": "If summary true call returns up to 50 interesting clusters with 10 top anomaly, top/bottom delta, top/bottom count. Param size is ignored"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max number of clusters in response. For AI search, limit should be 20."
+              },
+              {
+                "name": "lookback",
+                "value": "",
+                "type": "query",
+                "description": "Lookback period in golang duration format. e.g. '1h'. Either provide from/to or provide lookback/to or just lookback"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "From datetime in ISO format 2006-01-02T15:04:05.000Z"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "To datetime in ISO format 2006-01-02T15:04:05.000Z"
+              },
+              {
+                "name": "groupby",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated fields to group by"
+              },
+              {
+                "name": "volatility",
+                "value": "",
+                "type": "query",
+                "description": "Valatility can be new, existing, gone, all. Default is all"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated offsets for delta stat calculation. Each offset is in golang duration format and order of offsets determines order of offset_ fields in cluster stat response. Default value is lookback duration. e.g. '24h'."
+              },
+              {
+                "name": "window",
+                "value": "",
+                "type": "query",
+                "description": "Window for on demand anomaly calculation histogram series. e.g. '5m', '1h', '2d'. Combined values like '5m3s' are NOT supported."
+              },
+              {
+                "name": "negative",
+                "value": "",
+                "type": "query",
+                "description": "Negative param is used to get negative sentiments."
+              }
+            ]
+          },
+          "docs": "Returns top log patterns (signatures of log messages) and their stats; count, proportion, sentiment and delta."
+        },
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/dashboards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/dashboards",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "include_definitions",
+                "value": "",
+                "type": "query",
+                "description": "Include definitions in the response"
+              }
+            ]
+          },
+          "docs": "Returns all dashboards of users in the org."
+        },
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/dashboards/{dashboard_id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/dashboards/:dashboard_id",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "dashboard_id",
+                "value": "",
+                "type": "path",
+                "description": "Dashboard ID"
+              }
+            ]
+          },
+          "docs": "Returns the dashboard for the given ID."
+        },
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/events/search",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/events/search",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "lookback",
+                "value": "",
+                "type": "query",
+                "description": "Lookback period in golang duration format. e.g. '1h'. Either provide from/to or provide lookback/to or just lookback"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "From datetime in ISO format 2006-01-02T15:04:05.000Z"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "To datetime in ISO format 2006-01-02T15:04:05.000Z"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Edge Delta Common Query Language expression"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limits the number of logs in the response. Default is 1000. It can be negative to move the cursor prev direction. Wraps to end if the cursor position is 0. For AI search, limit should be 20."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor provided from previous response, pass it to next request so that we can move the cursor with given limit."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Order of the logs in the response, either 'ASC', 'asc', 'DESC' or 'desc'"
+              }
+            ]
+          },
+          "docs": "Search query using Edge Delta events search syntax, for anomaly search query should include event.type:pattern_anomaly"
+        },
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/logs/log_search/search",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/logs/log_search/search",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "lookback",
+                "value": "",
+                "type": "query",
+                "description": "Lookback period in golang duration format. e.g. '1h'. Either provide from/to or provide lookback/to or just lookback"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "From datetime in ISO format 2006-01-02T15:04:05.000Z"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "To datetime in ISO format 2006-01-02T15:04:05.000Z"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Edge Delta Common Query Language expression"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limits the number of logs in the response. Default is 1000. It can be negative to move the cursor prev direction. Wraps to end if the cursor position is 0. For AI search, limit should be 20."
+              },
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query",
+                "description": "Scope can be audit or log"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor provided from previous response, pass it to next request so that we can move the cursor with given limit."
+              },
+              {
+                "name": "custom_columns",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of custom columns to include in the recent search queries"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Order of the logs in the response, either 'ASC', 'asc', 'DESC' or 'desc'"
+              },
+              {
+                "name": "length",
+                "value": "",
+                "type": "query",
+                "description": "Minimum log length to filter for"
+              },
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "query",
+                "description": "Session ID to track the search session"
+              },
+              {
+                "name": "pageId",
+                "value": "",
+                "type": "query",
+                "description": "Page ID to track the pagination state"
+              },
+              {
+                "name": "save",
+                "value": "",
+                "type": "query",
+                "description": "The boolean to decide whether to save the query in history"
+              },
+              {
+                "name": "disable_routing",
+                "value": "",
+                "type": "query",
+                "description": "Disable routing for the search"
+              }
+            ]
+          },
+          "docs": "Returns time series log data for given query"
+        },
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/metrics_v2/graph",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/metrics_v2/graph",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Edge Delta Common Query Language expression"
+              },
+              {
+                "name": "lookback",
+                "value": "",
+                "type": "query",
+                "description": "Lookback period in golang duration format. e.g. '1h'. Either provide from/to or provide lookback/to or just lookback"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "From datetime in ISO format 2006-01-02T15:04:05.000Z"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "To datetime in ISO format 2006-01-02T15:04:05.000Z"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "If order_by is specified then metrics are sorted by given field. If no sort is given default sort will be asc"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Default is no sorting. If sort is specified then metrics are sorted by their value. Possible values: asc, desc"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limits the number of logs in the response. Default has no limit."
+              },
+              {
+                "name": "time_range_adjustment",
+                "value": "",
+                "type": "query",
+                "description": "Time range adjustment it can be noop, inclusive or exclusive"
+              },
+              {
+                "name": "save",
+                "value": "",
+                "type": "query",
+                "description": "The boolean to decide whether to save the query in history"
+              }
+            ]
+          },
+          "docs": "Returns metrics with common time series response for the given query."
+        },
+        {
+          "info": {
+            "name": "POST /v1/orgs/{org_id}/pipelines/base",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/pipelines/base",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              }
+            ]
+          },
+          "docs": "Creates a Pipeline with base configuration according to environment and fleet subtype"
+        },
+        {
+          "info": {
+            "name": "POST /v1/orgs/{org_id}/pipelines/{conf_id}/add_source",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/pipelines/:conf_id/add_source",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "conf_id",
+                "value": "",
+                "type": "path",
+                "description": "Conf ID"
+              }
+            ]
+          },
+          "docs": "Adds the given source node configuration to the pipeline and connect it to Edgedelta Destination. Saves the updated pipeline configuration without deploying changes.\nExample request body for file_input node:\n{\n\"node\": {\n\"name\": \"my_file_input\",\n\"type\": \"file_input\",\n\"path\": \"path/to/my_logs/logs.txt\",\n\"separate_source\": true,\n\"description\": \"A user-defined description of the Node. Users may add any additional comments describing the function of their node.\\nThis is useful to put some notes into "
+        },
+        {
+          "info": {
+            "name": "POST /v1/orgs/{org_id}/pipelines/{conf_id}/deploy/{version}",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/pipelines/:conf_id/deploy/:version",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "conf_id",
+                "value": "",
+                "type": "path",
+                "description": "Config ID"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Version use lastUpdated field from pipeline in milliseconds timestamp format. Example: 1752190141312. This is the timestamp field of the most recent element in the result of pipeline history. So, pipeline_history should be called before this tool to get the latest version of the pipeline."
+              }
+            ]
+          },
+          "docs": "Deploys the pipeline configuration. Version is the timestamp of the Pipeline history. Pipeline history should be called to get the version."
+        },
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/pipelines/{conf_id}/history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/pipelines/:conf_id/history",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "conf_id",
+                "value": "",
+                "type": "path",
+                "description": "Config ID"
+              },
+              {
+                "name": "only_latest",
+                "value": "",
+                "type": "query",
+                "description": "If true only retrieve latest history"
+              }
+            ]
+          },
+          "docs": "Returns the history of a Pipeline configuration. Timestamp of the Pipeline history is used as version when deploying the Pipeline."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

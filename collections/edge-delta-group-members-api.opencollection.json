@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Edge Delta Access Group Members API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Group Members",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/group_member",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/group_member",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "User ID (particularly email)"
+              },
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "query",
+                "description": "Group ID"
+              }
+            ]
+          },
+          "docs": "Return org's group memberships"
+        },
+        {
+          "info": {
+            "name": "POST /v1/orgs/{org_id}/group_member",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/group_member",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              }
+            ]
+          },
+          "docs": "Creates a new user & group relationship from the json content passed in body"
+        },
+        {
+          "info": {
+            "name": "DELETE /v1/orgs/{org_id}/group_member/{group_member_id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/group_member/:group_member_id",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "group_member_id",
+                "value": "",
+                "type": "path",
+                "description": "Group Member ID"
+              }
+            ]
+          },
+          "docs": "Deletes the group member with given id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

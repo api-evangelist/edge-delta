@@ -1,0 +1,130 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Edge Delta Access Pipeline API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pipeline",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "POST /v1/orgs/{org_id}/pipelines/base",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/pipelines/base",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              }
+            ]
+          },
+          "docs": "Creates a Pipeline with base configuration according to environment and fleet subtype"
+        },
+        {
+          "info": {
+            "name": "POST /v1/orgs/{org_id}/pipelines/{conf_id}/deploy/{version}",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/pipelines/:conf_id/deploy/:version",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "conf_id",
+                "value": "",
+                "type": "path",
+                "description": "Config ID"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Version use lastUpdated field from pipeline in milliseconds timestamp format. Example: 1752190141312. This is the timestamp field of the most recent element in the result of pipeline history. So, pipeline_history should be called before this tool to get the latest version of the pipeline."
+              }
+            ]
+          },
+          "docs": "Deploys the pipeline configuration. Version is the timestamp of the Pipeline history. Pipeline history should be called to get the version."
+        },
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/pipelines/{conf_id}/history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/pipelines/:conf_id/history",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "conf_id",
+                "value": "",
+                "type": "path",
+                "description": "Config ID"
+              },
+              {
+                "name": "only_latest",
+                "value": "",
+                "type": "query",
+                "description": "If true only retrieve latest history"
+              }
+            ]
+          },
+          "docs": "Returns the history of a Pipeline configuration. Timestamp of the Pipeline history is used as version when deploying the Pipeline."
+        },
+        {
+          "info": {
+            "name": "POST /v1/orgs/{org_id}/pipelines/{conf_id}/save",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/pipelines/:conf_id/save",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "conf_id",
+                "value": "",
+                "type": "path",
+                "description": "Config ID"
+              },
+              {
+                "name": "dry_run",
+                "value": "",
+                "type": "query",
+                "description": "Skip saving to database when true"
+              }
+            ]
+          },
+          "docs": "Saves the pipeline configuration"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

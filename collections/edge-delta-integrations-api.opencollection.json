@@ -1,0 +1,175 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Edge Delta Access Integrations API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Integrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "POST /v1/orgs/{org_id}/http_workflow_input/test",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/http_workflow_input/test",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              }
+            ]
+          },
+          "docs": "Tests an HTTP Workflow input by executing its configured steps"
+        },
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/integrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/integrations",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "template_id",
+                "value": "",
+                "type": "query",
+                "description": "Integrations template ID"
+              }
+            ]
+          },
+          "docs": "Returns template for streaming/trigger integrations."
+        },
+        {
+          "info": {
+            "name": "POST /v1/orgs/{org_id}/integrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/integrations",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "template_id",
+                "value": "",
+                "type": "query",
+                "description": "Integrations Template ID"
+              }
+            ]
+          },
+          "docs": "Saves the new integration endpoints in org-settings."
+        },
+        {
+          "info": {
+            "name": "DELETE /v1/orgs/{org_id}/integrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/integrations",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "names",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated names of integration endpoints to delete"
+              }
+            ]
+          },
+          "docs": "Delete given integration endpoints in org-settings."
+        },
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/integrations_v2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/integrations_v2",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              },
+              {
+                "name": "template_id",
+                "value": "",
+                "type": "query",
+                "description": "Integrations template ID"
+              }
+            ]
+          },
+          "docs": "Returns template for streaming/trigger integrations."
+        },
+        {
+          "info": {
+            "name": "POST /v1/orgs/{org_id}/integrations_v2/test",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/integrations_v2/test",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              }
+            ]
+          },
+          "docs": "Tests the connectivity of the given integration endpoints."
+        },
+        {
+          "info": {
+            "name": "GET /v1/orgs/{org_id}/integrations_v2/test/supported",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/orgs/:org_id/integrations_v2/test/supported",
+            "params": [
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "path",
+                "description": "Org ID"
+              }
+            ]
+          },
+          "docs": "Lists of integrations that support testing connectivity."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

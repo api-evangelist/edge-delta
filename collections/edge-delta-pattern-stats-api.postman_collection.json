@@ -1,0 +1,262 @@
+{
+  "item": [
+    {
+      "id": "dddf4178-568f-41fe-a81d-38a6dfb65b9e",
+      "name": "Pattern Stats",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ee2cf64d-cbbb-45a6-8edd-e4014c627cb6",
+          "name": "Returns top log patterns (signatures of log messages) and their stats; count, proportion, sentiment and delta.",
+          "request": {
+            "name": "Returns top log patterns (signatures of log messages) and their stats; count, proportion, sentiment and delta.",
+            "description": {
+              "content": "Returns top log patterns (signatures of log messages) and their stats; count, proportion, sentiment and delta.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "orgs",
+                ":org_id",
+                "clustering",
+                "stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Edge Delta Common Query Language expression"
+                },
+                {
+                  "disabled": false,
+                  "key": "summary",
+                  "value": "<boolean>",
+                  "description": "If summary true call returns up to 50 interesting clusters with 10 top anomaly, top/bottom delta, top/bottom count. Param size is ignored"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<string>",
+                  "description": "Max number of clusters in response. For AI search, limit should be 20."
+                },
+                {
+                  "disabled": false,
+                  "key": "lookback",
+                  "value": "<string>",
+                  "description": "Lookback period in golang duration format. e.g. '1h'. Either provide from/to or provide lookback/to or just lookback"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "From datetime in ISO format 2006-01-02T15:04:05.000Z"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "To datetime in ISO format 2006-01-02T15:04:05.000Z"
+                },
+                {
+                  "disabled": false,
+                  "key": "groupby",
+                  "value": "<string>",
+                  "description": "Comma separated fields to group by"
+                },
+                {
+                  "disabled": false,
+                  "key": "volatility",
+                  "value": "<string>",
+                  "description": "Valatility can be new, existing, gone, all. Default is all"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<string>",
+                  "description": "Comma separated offsets for delta stat calculation. Each offset is in golang duration format and order of offsets determines order of offset_ fields in cluster stat response. Default value is lookback duration. e.g. '24h'."
+                },
+                {
+                  "disabled": false,
+                  "key": "window",
+                  "value": "<string>",
+                  "description": "Window for on demand anomaly calculation histogram series. e.g. '5m', '1h', '2d'. Combined values like '5m3s' are NOT supported."
+                },
+                {
+                  "disabled": false,
+                  "key": "negative",
+                  "value": "<boolean>",
+                  "description": "Negative param is used to get negative sentiments."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org_id",
+                  "description": "(Required) Org ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-ED-API-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7c4b15e4-0bd8-449d-843b-2e913285a30d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "clustering",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "summary",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lookback",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "groupby",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "volatility",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "window",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "negative",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) Org ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-ED-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"stats\": [\n    {\n      \"anomaly\": 709.8141849173778,\n      \"count\": 760,\n      \"delta\": 9705.351558012846,\n      \"offset_counts\": [\n        9515,\n        608\n      ],\n      \"offset_deltas\": [\n        5782.098044619305,\n        3398.659575873346\n      ],\n      \"offset_proportions\": [\n        7243.567711089692,\n        6224.930885551917\n      ],\n      \"past_count\": 9098,\n      \"past_proportion\": 2864.332668192924,\n      \"pattern\": \"string\",\n      \"proportion\": 3868.262219313644,\n      \"sentiment\": 4429.718515112475\n    },\n    {\n      \"anomaly\": 908.999268212961,\n      \"count\": 3132,\n      \"delta\": 4201.430552856567,\n      \"offset_counts\": [\n        9445,\n        117\n      ],\n      \"offset_deltas\": [\n        7408.685709414252,\n        3793.820304562193\n      ],\n      \"offset_proportions\": [\n        2443.274361221911,\n        7828.071638941347\n      ],\n      \"past_count\": 8147,\n      \"past_proportion\": 7006.0646698815635,\n      \"pattern\": \"string\",\n      \"proportion\": 4697.154908166728,\n      \"sentiment\": 4588.596289126716\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.edgedelta.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "42dc7455-d591-413a-a471-4949741f34b5",
+    "name": "Edge Delta Access Pattern Stats API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Edge Delta API provides endpoints to manage your configs/integrations/rehydrations and more. Generate an API token to get started: https://app.edgedelta.com/admin/organization#api-tokens\n\nContact Support:\n Name: API Support\n Email: support@edgedelta.com",
+      "type": "text/plain"
+    }
+  }
+}

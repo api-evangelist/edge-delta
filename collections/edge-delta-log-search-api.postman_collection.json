@@ -1,0 +1,902 @@
+{
+  "item": [
+    {
+      "id": "caf597f5-96f4-420e-a906-b3e70fa4f03a",
+      "name": "Log Search",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "84a56606-9678-414c-a434-49df1ff613a8",
+          "name": "Returns EXPLAIN indexes=1 output for a SQL query to show query execution plan",
+          "request": {
+            "name": "Returns EXPLAIN indexes=1 output for a SQL query to show query execution plan",
+            "description": {
+              "content": "Returns EXPLAIN indexes=1 output for a SQL query to show query execution plan",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "orgs",
+                ":org_id",
+                "logs",
+                "log_search",
+                "query_explain"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) SQL query to explain"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org_id",
+                  "description": "(Required) Org ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-ED-API-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "00b48227-3e27-471a-8b1f-64388362fac8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "logs",
+                    "log_search",
+                    "query_explain"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) Org ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-ED-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"explain\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6156b82a-cf14-47d6-b6ff-75e7fb50de7c",
+          "name": "Returns ClickHouse query execution metrics for all queries in a log search session",
+          "request": {
+            "name": "Returns ClickHouse query execution metrics for all queries in a log search session",
+            "description": {
+              "content": "Returns ClickHouse query execution metrics for all queries in a log search session",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "orgs",
+                ":org_id",
+                "logs",
+                "log_search",
+                "query_log"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sessionId",
+                  "value": "<string>",
+                  "description": "(Required) Session ID to fetch query logs for"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org_id",
+                  "description": "(Required) Org ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-ED-API-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f01a2e90-2e81-416d-88da-fcd62990318e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "logs",
+                    "log_search",
+                    "query_log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sessionId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) Org ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-ED-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"queries\": [\n    {\n      \"address\": \"string\",\n      \"columns\": [\n        \"string\",\n        \"string\"\n      ],\n      \"currentDatabase\": \"string\",\n      \"databases\": [\n        \"string\",\n        \"string\"\n      ],\n      \"eventDate\": \"string\",\n      \"eventTime\": \"string\",\n      \"eventTimeMicroseconds\": \"string\",\n      \"exception\": \"string\",\n      \"exceptionCode\": 3487,\n      \"initialAddress\": \"string\",\n      \"initialPort\": 7672,\n      \"initialQueryId\": \"string\",\n      \"initialQueryStartTime\": \"string\",\n      \"initialQueryStartTimeMicroseconds\": \"string\",\n      \"initialUser\": \"string\",\n      \"isInitialQuery\": 2057,\n      \"logComment\": \"string\",\n      \"memoryUsage\": 6662,\n      \"normalizedQueryHash\": 4148,\n      \"port\": 1,\n      \"profileEvents\": {\n        \"key_0\": 7633,\n        \"key_1\": 3442\n      },\n      \"projections\": [\n        \"string\",\n        \"string\"\n      ],\n      \"query\": \"string\",\n      \"queryDurationMs\": 5340,\n      \"queryId\": \"string\",\n      \"queryKind\": \"string\",\n      \"queryStartTime\": \"string\",\n      \"queryStartTimeMicroseconds\": \"string\",\n      \"readBytes\": 5245,\n      \"readRows\": 7070,\n      \"resultBytes\": 3045,\n      \"resultRows\": 5376,\n      \"segmentProfiles\": [\n        \"string\",\n        \"string\"\n      ],\n      \"settings\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"stackTrace\": \"string\",\n      \"tables\": [\n        \"string\",\n        \"string\"\n      ],\n      \"threadIds\": [\n        3405,\n        1652\n      ],\n      \"type\": \"string\",\n      \"user\": \"string\",\n      \"writtenBytes\": 5624,\n      \"writtenRows\": 3893\n    },\n    {\n      \"address\": \"string\",\n      \"columns\": [\n        \"string\",\n        \"string\"\n      ],\n      \"currentDatabase\": \"string\",\n      \"databases\": [\n        \"string\",\n        \"string\"\n      ],\n      \"eventDate\": \"string\",\n      \"eventTime\": \"string\",\n      \"eventTimeMicroseconds\": \"string\",\n      \"exception\": \"string\",\n      \"exceptionCode\": 4009,\n      \"initialAddress\": \"string\",\n      \"initialPort\": 8576,\n      \"initialQueryId\": \"string\",\n      \"initialQueryStartTime\": \"string\",\n      \"initialQueryStartTimeMicroseconds\": \"string\",\n      \"initialUser\": \"string\",\n      \"isInitialQuery\": 6879,\n      \"logComment\": \"string\",\n      \"memoryUsage\": 5708,\n      \"normalizedQueryHash\": 5845,\n      \"port\": 1176,\n      \"profileEvents\": {\n        \"key_0\": 4484\n      },\n      \"projections\": [\n        \"string\",\n        \"string\"\n      ],\n      \"query\": \"string\",\n      \"queryDurationMs\": 7198,\n      \"queryId\": \"string\",\n      \"queryKind\": \"string\",\n      \"queryStartTime\": \"string\",\n      \"queryStartTimeMicroseconds\": \"string\",\n      \"readBytes\": 7398,\n      \"readRows\": 904,\n      \"resultBytes\": 8190,\n      \"resultRows\": 9686,\n      \"segmentProfiles\": [\n        \"string\",\n        \"string\"\n      ],\n      \"settings\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"stackTrace\": \"string\",\n      \"tables\": [\n        \"string\",\n        \"string\"\n      ],\n      \"threadIds\": [\n        6361,\n        803\n      ],\n      \"type\": \"string\",\n      \"user\": \"string\",\n      \"writtenBytes\": 6390,\n      \"writtenRows\": 5970\n    }\n  ],\n  \"sessionId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e378fdb-7125-4b72-bbba-7195f1e0967d",
+          "name": "Returns time series log data for given query",
+          "request": {
+            "name": "Returns time series log data for given query",
+            "description": {
+              "content": "Returns time series log data for given query",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "orgs",
+                ":org_id",
+                "logs",
+                "log_search",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lookback",
+                  "value": "<string>",
+                  "description": "Lookback period in golang duration format. e.g. '1h'. Either provide from/to or provide lookback/to or just lookback"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "From datetime in ISO format 2006-01-02T15:04:05.000Z"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "To datetime in ISO format 2006-01-02T15:04:05.000Z"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Edge Delta Common Query Language expression"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Limits the number of logs in the response. Default is 1000. It can be negative to move the cursor prev direction. Wraps to end if the cursor position is 0. For AI search, limit should be 20."
+                },
+                {
+                  "disabled": false,
+                  "key": "scope",
+                  "value": "<string>",
+                  "description": "Scope can be audit or log"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor provided from previous response, pass it to next request so that we can move the cursor with given limit."
+                },
+                {
+                  "disabled": false,
+                  "key": "custom_columns",
+                  "value": "<string>",
+                  "description": "Comma separated list of custom columns to include in the recent search queries"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "Order of the logs in the response, either 'ASC', 'asc', 'DESC' or 'desc'"
+                },
+                {
+                  "disabled": false,
+                  "key": "length",
+                  "value": "<string>",
+                  "description": "Minimum log length to filter for"
+                },
+                {
+                  "disabled": false,
+                  "key": "sessionId",
+                  "value": "<string>",
+                  "description": "Session ID to track the search session"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageId",
+                  "value": "<string>",
+                  "description": "Page ID to track the pagination state"
+                },
+                {
+                  "disabled": false,
+                  "key": "save",
+                  "value": "<string>",
+                  "description": "The boolean to decide whether to save the query in history"
+                },
+                {
+                  "disabled": false,
+                  "key": "disable_routing",
+                  "value": "<string>",
+                  "description": "Disable routing for the search"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org_id",
+                  "description": "(Required) Org ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-ED-API-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "98b70b30-28d1-489d-9e1f-7d08ea350796",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "logs",
+                    "log_search",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lookback",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "custom_columns",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "length",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sessionId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "save",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "disable_routing",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) Org ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-ED-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"attributes\": {\n        \"key_0\": \"string\"\n      },\n      \"body\": \"string\",\n      \"id\": \"string\",\n      \"resource\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"severity_text\": \"string\",\n      \"span_id\": \"string\",\n      \"timestamp\": 7149,\n      \"trace_id\": \"string\"\n    },\n    {\n      \"attributes\": {\n        \"key_0\": \"string\"\n      },\n      \"body\": \"string\",\n      \"id\": \"string\",\n      \"resource\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"severity_text\": \"string\",\n      \"span_id\": \"string\",\n      \"timestamp\": 1206,\n      \"trace_id\": \"string\"\n    }\n  ],\n  \"next_cursor\": \"string\",\n  \"query_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f33c8571-d0c7-4a43-a602-f28754e7e5c7",
+          "name": "Streams log search results with per-row progress updates",
+          "request": {
+            "name": "Streams log search results with per-row progress updates",
+            "description": {
+              "content": "Streams log search results with per-row progress updates",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "orgs",
+                ":org_id",
+                "logs",
+                "log_search",
+                "stream"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lookback",
+                  "value": "<string>",
+                  "description": "Lookback period in golang duration format. e.g. '1h'"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "From datetime (ISO format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "To datetime (ISO format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "CQL query"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Result limit (default 1000)"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "Sort order (ASC/DESC)"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor from previous response for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "sessionId",
+                  "value": "<string>",
+                  "description": "Session ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "disable_routing",
+                  "value": "<string>",
+                  "description": "Disable routing"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org_id",
+                  "description": "(Required) Org ID"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-ED-API-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "97cbff5f-db15-4e7f-852e-bc9f6f1243ce",
+              "name": "SSE stream",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "logs",
+                    "log_search",
+                    "stream"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lookback",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sessionId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "disable_routing",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) Org ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-ED-API-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e5e55a2f-16f4-4570-bd72-244fd674f0d4",
+          "name": "Returns SHOW CREATE TABLE output to show table schema",
+          "request": {
+            "name": "Returns SHOW CREATE TABLE output to show table schema",
+            "description": {
+              "content": "Returns SHOW CREATE TABLE output to show table schema",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "orgs",
+                ":org_id",
+                "logs",
+                "log_search",
+                "table_schema"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "suffix",
+                  "value": "<string>",
+                  "description": "Table suffix (e.g., samp_100, samp_1000, agg_5m, agg_1h). Empty for base table."
+                },
+                {
+                  "disabled": false,
+                  "key": "scope",
+                  "value": "<string>",
+                  "description": "Table scope: log or audit. Defaults to log."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "org_id",
+                  "description": "(Required) Org ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-ED-API-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a281e817-0482-4473-a182-7fcdb8e3698b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orgs",
+                    ":org_id",
+                    "logs",
+                    "log_search",
+                    "table_schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "suffix",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "org_id",
+                      "description": "(Required) Org ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-ED-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schema\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.edgedelta.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "fb00a8f3-2196-49f2-82e5-3a011f850ee7",
+    "name": "Edge Delta Access Log Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Edge Delta API provides endpoints to manage your configs/integrations/rehydrations and more. Generate an API token to get started: https://app.edgedelta.com/admin/organization#api-tokens\n\nContact Support:\n Name: API Support\n Email: support@edgedelta.com",
+      "type": "text/plain"
+    }
+  }
+}
