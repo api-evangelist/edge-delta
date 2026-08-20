@@ -44,6 +44,17 @@ tags:
 - Monitoring
 - DevOps
 - SRE
+- Artificial Intelligence
+tags_raw:
+- Company
+- Observability
+- Telemetry Pipelines
+- Logging
+- Metrics
+- Tracing
+- Monitoring
+- DevOps
+- SRE
 - AI
 maintainers:
 - FN: Kin Lane
@@ -99,6 +110,8 @@ apis:
   humanURL: https://docs.edgedelta.com/api/
   baseURL: https://api.edgedelta.com
   tags:
+  - Artificial Intelligence
+  tags_raw:
   - AI
   properties:
   - type: OpenAPI
@@ -183,6 +196,8 @@ apis:
   humanURL: https://docs.edgedelta.com/api/
   baseURL: https://api.edgedelta.com
   tags:
+  - Group
+  tags_raw:
   - Groups
   properties:
   - type: OpenAPI
@@ -197,6 +212,8 @@ apis:
   humanURL: https://docs.edgedelta.com/api/
   baseURL: https://api.edgedelta.com
   tags:
+  - Integration
+  tags_raw:
   - Integrations
   properties:
   - type: OpenAPI
@@ -309,6 +326,8 @@ apis:
   humanURL: https://docs.edgedelta.com/api/
   baseURL: https://api.edgedelta.com
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
