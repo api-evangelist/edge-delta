@@ -283,6 +283,8 @@ apis:
   humanURL: https://docs.edgedelta.com/api/
   baseURL: https://api.edgedelta.com
   tags:
+  - Pipelines
+  tags_raw:
   - Pipeline
   properties:
   - type: OpenAPI
