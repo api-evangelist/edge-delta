@@ -230,116 +230,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/nodetype.NodeType'
-    core.WizardTemplateResponse:
-      type: object
-      properties:
-        config_details:
-          $ref: '#/components/schemas/core.Conf'
-        config_template:
-          $ref: '#/components/schemas/core.Template'
-        values:
-          type: object
-          additionalProperties: true
-    core.Conf:
-      type: object
-      properties:
-        cluster_name:
-          type: string
-        content:
-          type: string
-        created:
-          type: string
-        creator:
-          type: string
-        deployed_timestamp:
-          description: Config-history timestamp currently deployed
-          type: integer
-        description:
-          type: string
-        environment:
-          $ref: '#/components/schemas/core.EnvironmentType'
-        fleet_subtype:
-          $ref: '#/components/schemas/core.FleetSubtype'
-        fleet_type:
-          $ref: '#/components/schemas/core.FleetType'
-        id:
-          type: string
-        metadata:
-          description: Stores status (updated/updates available/deleted) of compound nodes
-          allOf:
-          - $ref: '#/components/schemas/core.ConfMetadata'
-        orgID:
-          type: string
-        purpose:
-          $ref: '#/components/schemas/core.ConfPurpose'
-        retrieved:
-          description: Latest retrieval time for installation. Will move to a separate table once obscured hostID for install host is implemented
-          type: string
-        rollout_task_id:
-          type: string
-        status:
-          $ref: '#/components/schemas/core.FleetStatus'
-        tag:
-          type: string
-        updated:
-          type: string
-        updater:
-          type: string
-        version:
-          $ref: '#/components/schemas/core.ConfigVersion'
-    core.ConfMetadata:
-      type: object
-      properties:
-        compound_nodes:
-          $ref: '#/components/schemas/core.ConfCompoundNodesMetadata'
-        node_references:
-          type: array
-          items:
-            type: string
-        telemetry_gen_templates:
-          type: array
-          items:
-            type: string
-    core.ConfigVersion:
-      type: string
-      enum:
-      - v2
-      - v3
-      x-enum-varnames:
-      - ConfigV2
-      - ConfigV3
-    core.FleetType:
-      type: string
-      enum:
-      - Edge
-      - Cloud
-      - IngestionPipeline
-      - Edge-extended
-      - Cloud-extended
-      x-enum-varnames:
-      - EdgeFleetType
-      - CloudFleetType
-      - IngestionPipelineFleetType
-      - EdgeExtendedFleetType
-      - CloudExtendedFleetType
-    core.FleetSubtype:
-      type: string
-      enum:
-      - Edge
-      - Coordinator
-      - Gateway
-      x-enum-varnames:
-      - EdgeFleetSubtype
-      - CoordinatorFleetSubtype
-      - GatewayFleetSubtype
-    core.ConfPurpose:
-      type: string
-      enum:
-      - user-defined
-      - edgedelta-ai
-      x-enum-varnames:
-      - ConfPurposeUserDefined
-      - ConfPurposeEdgedeltaAI
     core.EnvironmentType:
       type: string
       enum:
@@ -356,24 +246,47 @@ components:
       - MacOSEnvironmentType
       - LinuxEnvironmentType
       - WindowsEnvironmentType
-    core.ConfCompoundNodesMetadata:
+    core.IntegrationTestResponse:
       type: object
       properties:
-        deleted:
-          description: IDs of compound nodes that have been deleted
-          type: array
-          items:
-            type: string
-        updated:
-          description: IDs of compound nodes updated to latest version
-          type: array
-          items:
-            type: string
-        updates_available:
-          description: IDs of compound nodes that have updates available
-          type: array
-          items:
-            type: string
+        error_details:
+          $ref: '#/components/schemas/core.IntegrationTestErrorDetails'
+        error_message:
+          type: string
+        http_workflow_result:
+          $ref: '#/components/schemas/core.HTTPWorkflowTestResult'
+        success:
+          type: boolean
+    core.FleetType:
+      type: string
+      enum:
+      - Edge
+      - Cloud
+      - IngestionPipeline
+      - Edge-extended
+      - Cloud-extended
+      x-enum-varnames:
+      - EdgeFleetType
+      - CloudFleetType
+      - IngestionPipelineFleetType
+      - EdgeExtendedFleetType
+      - CloudExtendedFleetType
+    core.ConfigVersion:
+      type: string
+      enum:
+      - v2
+      - v3
+      x-enum-varnames:
+      - ConfigV2
+      - ConfigV3
+    core.FleetStatus:
+      type: string
+      enum:
+      - running
+      - suspended
+      x-enum-varnames:
+      - FleetRunning
+      - FleetSuspended
     core.IntegrationTestErrorDetails:
       type: object
       properties:
@@ -387,47 +300,27 @@ components:
             type: string
         status_code:
           type: string
-    core.HTTPWorkflowStepResult:
-      type: object
-      properties:
-        body:
-          type: string
-        error:
-          type: string
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-        index:
-          type: integer
-        latency_ms:
-          type: integer
-        name:
-          type: string
-        status_code:
-          type: integer
-        variables:
-          type: object
-          additionalProperties: {}
-    core.FleetStatus:
+    core.ConfPurpose:
       type: string
       enum:
-      - running
-      - suspended
+      - user-defined
+      - edgedelta-ai
       x-enum-varnames:
-      - FleetRunning
-      - FleetSuspended
-    core.IntegrationTestResponse:
+      - ConfPurposeUserDefined
+      - ConfPurposeEdgedeltaAI
+    core.ConfMetadata:
       type: object
       properties:
-        error_details:
-          $ref: '#/components/schemas/core.IntegrationTestErrorDetails'
-        error_message:
-          type: string
-        http_workflow_result:
-          $ref: '#/components/schemas/core.HTTPWorkflowTestResult'
-        success:
-          type: boolean
+        compound_nodes:
+          $ref: '#/components/schemas/core.ConfCompoundNodesMetadata'
+        node_references:
+          type: array
+          items:
+            type: string
+        telemetry_gen_templates:
+          type: array
+          items:
+            type: string
     core.Template:
       type: object
       properties:
@@ -457,6 +350,16 @@ components:
           type: string
         version:
           type: string
+    core.FleetSubtype:
+      type: string
+      enum:
+      - Edge
+      - Coordinator
+      - Gateway
+      x-enum-varnames:
+      - EdgeFleetSubtype
+      - CoordinatorFleetSubtype
+      - GatewayFleetSubtype
     nodetype.NodeType:
       type: string
       enum:
@@ -940,6 +843,103 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/core.HTTPWorkflowStepResult'
+    core.WizardTemplateResponse:
+      type: object
+      properties:
+        config_details:
+          $ref: '#/components/schemas/core.Conf'
+        config_template:
+          $ref: '#/components/schemas/core.Template'
+        values:
+          type: object
+          additionalProperties: true
+    core.Conf:
+      type: object
+      properties:
+        cluster_name:
+          type: string
+        content:
+          type: string
+        created:
+          type: string
+        creator:
+          type: string
+        deployed_timestamp:
+          description: Config-history timestamp currently deployed
+          type: integer
+        description:
+          type: string
+        environment:
+          $ref: '#/components/schemas/core.EnvironmentType'
+        fleet_subtype:
+          $ref: '#/components/schemas/core.FleetSubtype'
+        fleet_type:
+          $ref: '#/components/schemas/core.FleetType'
+        id:
+          type: string
+        metadata:
+          description: Stores status (updated/updates available/deleted) of compound nodes
+          allOf:
+          - $ref: '#/components/schemas/core.ConfMetadata'
+        orgID:
+          type: string
+        purpose:
+          $ref: '#/components/schemas/core.ConfPurpose'
+        retrieved:
+          description: Latest retrieval time for installation. Will move to a separate table once obscured hostID for install host is implemented
+          type: string
+        rollout_task_id:
+          type: string
+        status:
+          $ref: '#/components/schemas/core.FleetStatus'
+        tag:
+          type: string
+        updated:
+          type: string
+        updater:
+          type: string
+        version:
+          $ref: '#/components/schemas/core.ConfigVersion'
+    core.ConfCompoundNodesMetadata:
+      type: object
+      properties:
+        deleted:
+          description: IDs of compound nodes that have been deleted
+          type: array
+          items:
+            type: string
+        updated:
+          description: IDs of compound nodes updated to latest version
+          type: array
+          items:
+            type: string
+        updates_available:
+          description: IDs of compound nodes that have updates available
+          type: array
+          items:
+            type: string
+    core.HTTPWorkflowStepResult:
+      type: object
+      properties:
+        body:
+          type: string
+        error:
+          type: string
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        index:
+          type: integer
+        latency_ms:
+          type: integer
+        name:
+          type: string
+        status_code:
+          type: integer
+        variables:
+          type: object
+          additionalProperties: {}
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -46,6 +46,36 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    dashboard.SharingSecuritySettings:
+      type: object
+      properties:
+        allowed_cidrs:
+          type: array
+          items:
+            type: string
+        prefilter:
+          type: string
+        shared_until:
+          description: in ISO format
+          type: string
+    dashboard.SavedView:
+      type: object
+      properties:
+        template_variables:
+          type: array
+          items:
+            $ref: '#/components/schemas/dashboard.TemplateVariable'
+    dashboard.ResourceAccess:
+      type: object
+      properties:
+        domain:
+          type: string
+        facet_path:
+          type: string
+        query:
+          type: string
+        scope:
+          type: string
     dashboard.Screenshot:
       type: object
       properties:
@@ -99,13 +129,6 @@ components:
           type: string
         updater:
           type: string
-    dashboard.SavedView:
-      type: object
-      properties:
-        template_variables:
-          type: array
-          items:
-            $ref: '#/components/schemas/dashboard.TemplateVariable'
     dashboard.ScreenshotStatus:
       type: string
       enum:
@@ -122,29 +145,6 @@ components:
         identifier:
           type: string
         view_value: {}
-    dashboard.SharingSecuritySettings:
-      type: object
-      properties:
-        allowed_cidrs:
-          type: array
-          items:
-            type: string
-        prefilter:
-          type: string
-        shared_until:
-          description: in ISO format
-          type: string
-    dashboard.ResourceAccess:
-      type: object
-      properties:
-        domain:
-          type: string
-        facet_path:
-          type: string
-        query:
-          type: string
-        scope:
-          type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -108,6 +108,13 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    core.GroupMemberRequest:
+      type: object
+      properties:
+        group_id:
+          type: string
+        user_id:
+          type: string
     core.GroupMember:
       type: object
       properties:
@@ -124,13 +131,6 @@ components:
         updater:
           type: string
         userID:
-          type: string
-    core.GroupMemberRequest:
-      type: object
-      properties:
-        group_id:
-          type: string
-        user_id:
           type: string
   securitySchemes:
     ApiKeyAuth:

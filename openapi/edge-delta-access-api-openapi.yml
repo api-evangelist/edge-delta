@@ -145,6 +145,24 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    core.AccessesPayload:
+      type: object
+      properties:
+        payload:
+          type: array
+          items:
+            $ref: '#/components/schemas/core.AccessCreateRequest'
+    core.AccessCreateRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        owner:
+          type: string
+        resource:
+          type: string
+        type:
+          type: string
     core.Access:
       type: object
       properties:
@@ -175,24 +193,6 @@ components:
           type: string
         updater:
           type: string
-    core.AccessCreateRequest:
-      type: object
-      properties:
-        id:
-          type: string
-        owner:
-          type: string
-        resource:
-          type: string
-        type:
-          type: string
-    core.AccessesPayload:
-      type: object
-      properties:
-        payload:
-          type: array
-          items:
-            $ref: '#/components/schemas/core.AccessCreateRequest'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -307,6 +307,17 @@ components:
           type: integer
         trace_id:
           type: string
+    core.ArchiveResponseV1:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/core.ArchiveRecordV1'
+        next_cursor:
+          type: string
+        query_id:
+          type: string
     queryext.QueryLog:
       type: object
       properties:
@@ -418,17 +429,6 @@ components:
           type: integer
         writtenRows:
           type: integer
-    core.ArchiveResponseV1:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/core.ArchiveRecordV1'
-        next_cursor:
-          type: string
-        query_id:
-          type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

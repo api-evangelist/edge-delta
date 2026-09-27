@@ -208,6 +208,104 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    core.EnvironmentType:
+      type: string
+      enum:
+      - Kubernetes
+      - Helm
+      - Docker
+      - MacOS
+      - Linux
+      - Windows
+      x-enum-varnames:
+      - KubernetesEnvironmentType
+      - HelmEnvironmentType
+      - DockerEnvironmentType
+      - MacOSEnvironmentType
+      - LinuxEnvironmentType
+      - WindowsEnvironmentType
+    core.FleetType:
+      type: string
+      enum:
+      - Edge
+      - Cloud
+      - IngestionPipeline
+      - Edge-extended
+      - Cloud-extended
+      x-enum-varnames:
+      - EdgeFleetType
+      - CloudFleetType
+      - IngestionPipelineFleetType
+      - EdgeExtendedFleetType
+      - CloudExtendedFleetType
+    core.ConfigValidationResult:
+      type: object
+      properties:
+        error: {}
+        reason:
+          type: string
+        valid:
+          type: boolean
+    core.ConfigVersion:
+      type: string
+      enum:
+      - v2
+      - v3
+      x-enum-varnames:
+      - ConfigV2
+      - ConfigV3
+    core.FleetStatus:
+      type: string
+      enum:
+      - running
+      - suspended
+      x-enum-varnames:
+      - FleetRunning
+      - FleetSuspended
+    core.UpdateConfRequest:
+      type: object
+      properties:
+        cluster_name:
+          type: string
+        content:
+          type: string
+        content_changed:
+          type: boolean
+        description:
+          type: string
+        tag:
+          type: string
+    core.ConfPurpose:
+      type: string
+      enum:
+      - user-defined
+      - edgedelta-ai
+      x-enum-varnames:
+      - ConfPurposeUserDefined
+      - ConfPurposeEdgedeltaAI
+    core.ConfMetadata:
+      type: object
+      properties:
+        compound_nodes:
+          $ref: '#/components/schemas/core.ConfCompoundNodesMetadata'
+        node_references:
+          type: array
+          items:
+            type: string
+        telemetry_gen_templates:
+          type: array
+          items:
+            type: string
+    core.FleetSubtype:
+      type: string
+      enum:
+      - Edge
+      - Coordinator
+      - Gateway
+      x-enum-varnames:
+      - EdgeFleetSubtype
+      - CoordinatorFleetSubtype
+      - GatewayFleetSubtype
     core.ConfValidateRequest:
       type: object
       properties:
@@ -264,106 +362,6 @@ components:
           type: string
         version:
           $ref: '#/components/schemas/core.ConfigVersion'
-    core.ConfMetadata:
-      type: object
-      properties:
-        compound_nodes:
-          $ref: '#/components/schemas/core.ConfCompoundNodesMetadata'
-        node_references:
-          type: array
-          items:
-            type: string
-        telemetry_gen_templates:
-          type: array
-          items:
-            type: string
-    core.ConfigVersion:
-      type: string
-      enum:
-      - v2
-      - v3
-      x-enum-varnames:
-      - ConfigV2
-      - ConfigV3
-    core.FleetType:
-      type: string
-      enum:
-      - Edge
-      - Cloud
-      - IngestionPipeline
-      - Edge-extended
-      - Cloud-extended
-      x-enum-varnames:
-      - EdgeFleetType
-      - CloudFleetType
-      - IngestionPipelineFleetType
-      - EdgeExtendedFleetType
-      - CloudExtendedFleetType
-    core.FleetSubtype:
-      type: string
-      enum:
-      - Edge
-      - Coordinator
-      - Gateway
-      x-enum-varnames:
-      - EdgeFleetSubtype
-      - CoordinatorFleetSubtype
-      - GatewayFleetSubtype
-    core.ConfPurpose:
-      type: string
-      enum:
-      - user-defined
-      - edgedelta-ai
-      x-enum-varnames:
-      - ConfPurposeUserDefined
-      - ConfPurposeEdgedeltaAI
-    core.EnvironmentType:
-      type: string
-      enum:
-      - Kubernetes
-      - Helm
-      - Docker
-      - MacOS
-      - Linux
-      - Windows
-      x-enum-varnames:
-      - KubernetesEnvironmentType
-      - HelmEnvironmentType
-      - DockerEnvironmentType
-      - MacOSEnvironmentType
-      - LinuxEnvironmentType
-      - WindowsEnvironmentType
-    core.UpdateConfRequest:
-      type: object
-      properties:
-        cluster_name:
-          type: string
-        content:
-          type: string
-        content_changed:
-          type: boolean
-        description:
-          type: string
-        tag:
-          type: string
-    core.ConfCompoundNodesMetadata:
-      type: object
-      properties:
-        deleted:
-          description: IDs of compound nodes that have been deleted
-          type: array
-          items:
-            type: string
-        updated:
-          description: IDs of compound nodes updated to latest version
-          type: array
-          items:
-            type: string
-        updates_available:
-          description: IDs of compound nodes that have updates available
-          type: array
-          items:
-            type: string
     core.ConfCreateRequest:
       type: object
       required:
@@ -401,22 +399,24 @@ components:
         tag:
           description: Tag is used to identify the pipeline
           type: string
-    core.ConfigValidationResult:
+    core.ConfCompoundNodesMetadata:
       type: object
       properties:
-        error: {}
-        reason:
-          type: string
-        valid:
-          type: boolean
-    core.FleetStatus:
-      type: string
-      enum:
-      - running
-      - suspended
-      x-enum-varnames:
-      - FleetRunning
-      - FleetSuspended
+        deleted:
+          description: IDs of compound nodes that have been deleted
+          type: array
+          items:
+            type: string
+        updated:
+          description: IDs of compound nodes updated to latest version
+          type: array
+          items:
+            type: string
+        updates_available:
+          description: IDs of compound nodes that have updates available
+          type: array
+          items:
+            type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

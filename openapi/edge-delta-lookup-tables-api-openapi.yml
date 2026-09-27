@@ -217,32 +217,11 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    core.LookupTableResponse:
+    core.LookupTableMetadataResponse:
       type: object
       properties:
-        data:
-          type: array
-          items:
-            type: integer
         metadata:
           $ref: '#/components/schemas/core.LookupTableMetadata'
-    core.LookupTableMetadata:
-      type: object
-      properties:
-        count:
-          type: integer
-        created_on:
-          type: string
-        description:
-          type: string
-        name:
-          type: string
-        size:
-          type: integer
-        tags:
-          type: string
-        updated_on:
-          type: string
     core.LookupTable:
       type: object
       properties:
@@ -273,9 +252,30 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/core.LookupTableMetadata'
-    core.LookupTableMetadataResponse:
+    core.LookupTableMetadata:
       type: object
       properties:
+        count:
+          type: integer
+        created_on:
+          type: string
+        description:
+          type: string
+        name:
+          type: string
+        size:
+          type: integer
+        tags:
+          type: string
+        updated_on:
+          type: string
+    core.LookupTableResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: integer
         metadata:
           $ref: '#/components/schemas/core.LookupTableMetadata'
   securitySchemes:
