@@ -46,36 +46,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    dashboard.SharingSecuritySettings:
-      type: object
-      properties:
-        allowed_cidrs:
-          type: array
-          items:
-            type: string
-        prefilter:
-          type: string
-        shared_until:
-          description: in ISO format
-          type: string
-    dashboard.SavedView:
-      type: object
-      properties:
-        template_variables:
-          type: array
-          items:
-            $ref: '#/components/schemas/dashboard.TemplateVariable'
-    dashboard.ResourceAccess:
-      type: object
-      properties:
-        domain:
-          type: string
-        facet_path:
-          type: string
-        query:
-          type: string
-        scope:
-          type: string
     dashboard.Screenshot:
       type: object
       properties:
@@ -89,6 +59,39 @@ components:
           type: string
         status:
           $ref: '#/components/schemas/dashboard.ScreenshotStatus'
+    dashboard.ResourceAccess:
+      type: object
+      properties:
+        domain:
+          type: string
+        facet_path:
+          type: string
+        query:
+          type: string
+        scope:
+          type: string
+    dashboard.ScreenshotStatus:
+      type: string
+      enum:
+      - pending
+      - ok
+      - error
+      x-enum-varnames:
+      - ScreenshotStatusPending
+      - ScreenshotStatusOK
+      - ScreenshotStatusError
+    dashboard.SharingSecuritySettings:
+      type: object
+      properties:
+        allowed_cidrs:
+          type: array
+          items:
+            type: string
+        prefilter:
+          type: string
+        shared_until:
+          description: in ISO format
+          type: string
     dashboard.Dashboard:
       type: object
       properties:
@@ -129,16 +132,13 @@ components:
           type: string
         updater:
           type: string
-    dashboard.ScreenshotStatus:
-      type: string
-      enum:
-      - pending
-      - ok
-      - error
-      x-enum-varnames:
-      - ScreenshotStatusPending
-      - ScreenshotStatusOK
-      - ScreenshotStatusError
+    dashboard.SavedView:
+      type: object
+      properties:
+        template_variables:
+          type: array
+          items:
+            $ref: '#/components/schemas/dashboard.TemplateVariable'
     dashboard.TemplateVariable:
       type: object
       properties:

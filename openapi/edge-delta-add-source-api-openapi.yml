@@ -125,253 +125,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    configv3.DimGroup:
-      type: object
-      properties:
-        anomaly_coefficient:
-          type: number
-        anomaly_confidence_period:
-          type: string
-        anomaly_tolerance:
-          type: number
-        custom_suffix:
-          type: string
-        dimensions:
-          type: array
-          items:
-            type: string
-        dimensions_as_attributes:
-          description: 'DEPRECATED: It is always assumed as true, changing the value will result in no-op. Left for backwards compatibility reasons'
-          type: boolean
-        enabled_stats:
-          type: array
-          items:
-            type: string
-        field_dimensions:
-          type: array
-          items:
-            type: string
-        field_numeric_dimension:
-          type: string
-        interval:
-          type: string
-        numeric_dimension:
-          type: string
-        only_report_nonzeros:
-          type: boolean
-        retention:
-          type: string
-        skip_empty_intervals:
-          type: boolean
-        value_adjustment_rule:
-          type: string
-    configv3.MetadataMapping:
-      type: object
-      properties:
-        labels:
-          description: Labels mapping for user-defined labels. Path must resolve to map[string]any.
-          allOf:
-          - $ref: '#/components/schemas/configv3.FieldMapping'
-        log_name:
-          description: LogName mapping for GCL log name. When enabled, uses extracted value or falls back to node.LogName.
-          allOf:
-          - $ref: '#/components/schemas/configv3.FieldMapping'
-        resource_labels:
-          description: ResourceLabels mapping for GCL resource labels. Path must resolve to map[string]any.
-          allOf:
-          - $ref: '#/components/schemas/configv3.FieldMapping'
-        resource_type:
-          description: ResourceType mapping for GCL resource type. When enabled, uses extracted value or defaults to "logging_log".
-          allOf:
-          - $ref: '#/components/schemas/configv3.FieldMapping'
-        severity:
-          description: Severity mapping for log severity level (INFO, WARN, ERROR, etc.).
-          allOf:
-          - $ref: '#/components/schemas/configv3.FieldMapping'
-        span_id:
-          description: SpanID mapping for span ID within trace.
-          allOf:
-          - $ref: '#/components/schemas/configv3.FieldMapping'
-        trace_id:
-          description: TraceID mapping for distributed trace ID.
-          allOf:
-          - $ref: '#/components/schemas/configv3.FieldMapping'
-    configv3.MetricColumnOptions:
-      type: object
-      properties:
-        drop_columns:
-          type: array
-          items:
-            $ref: '#/components/schemas/configv3.DroppedColumn'
-    configv3.EDLogs:
-      type: object
-      properties:
-        buffer_size:
-          type: integer
-        flush_bytesize:
-          $ref: '#/components/schemas/datasize.Size'
-        flush_interval:
-          type: string
-        level:
-          type: string
-        post_config_change_flush_interval:
-          type: string
-        post_config_change_flush_interval_window:
-          type: string
-        secure_logging:
-          description: If enabled, some of the sensitive information will be redacted (can affect performance of agent)
-          type: boolean
-    configv3.InputRateLimitPolicy:
-      type: object
-      properties:
-        absolute_limit:
-          description: AbsoluteLimit defines the absolute limit for certain policies, see pkg/ratelimiter/type.go
-          type: number
-        evaluation_mode:
-          description: EvaluationMode defines how evaluation will be handled, such as if it is only going to be monitored or enforced
-          type: string
-        policy_type:
-          description: PolicyType defines what kind of rate limiting policy will be pursued
-          type: string
-        refresh_interval:
-          description: RefreshInterval defines when to refresh current value for certain policies, see pkg/ratelimiter/type.go
-          type: string
-        relative_limit:
-          description: RelativeLimit defines the relative limit for certain policies, see pkg/ratelimiter/type.go
-          type: number
-        sub_policies:
-          description: SubPolicies are used for composite (ie. depends on multiple policies) policy types such as "and" & "or"
-          type: array
-          items:
-            $ref: '#/components/schemas/configv3.InputRateLimitPolicy'
-    configv3.RoutePath:
-      type: object
-      properties:
-        condition:
-          type: string
-        exit_if_matched:
-          type: boolean
-        path:
-          type: string
-    datasize.Size:
-      type: integer
-      format: int64
-      enum:
-      - 1
-      - 1000
-      - 1000000
-      - 1000000000
-      - 1000000000000
-      - 1000000000000000
-      - 1000000000000000000
-      - 1024
-      - 1048576
-      - 1073741824
-      - 1099511627776
-      - 1125899906842624
-      - 1152921504606846976
-      x-enum-varnames:
-      - Byte
-      - KiloByte
-      - MegaByte
-      - GigaByte
-      - TeraByte
-      - PetaByte
-      - ExaByte
-      - KibiByte
-      - MebiByte
-      - GigiByte
-      - TebiByte
-      - PebiByte
-      - ExbiByte
-    configv3.EDSetting:
-      type: object
-      properties:
-        anomaly_coefficient:
-          type: number
-        anomaly_confidence_period:
-          type: string
-        anomaly_tolerance:
-          type: number
-        archive_flush_interval:
-          type: string
-        archive_max_byte_limit:
-          $ref: '#/components/schemas/datasize.Size'
-        item_buffer_flush_interval:
-          type: string
-        item_buffer_max_byte_limit:
-          $ref: '#/components/schemas/datasize.Size'
-        item_schema:
-          $ref: '#/components/schemas/core.ItemSchema'
-        live_tail_settings:
-          $ref: '#/components/schemas/configv3.LiveTailSettings'
-        log:
-          $ref: '#/components/schemas/configv3.EDLogs'
-        max_incomplete_line_buffer_size:
-          $ref: '#/components/schemas/datasize.Size'
-        metric_column_opts:
-          $ref: '#/components/schemas/configv3.MetricColumnOptions'
-        multiline_flush_interval:
-          type: string
-        multiline_max_byte_size:
-          $ref: '#/components/schemas/datasize.Size'
-        multiline_max_size:
-          type: integer
-        only_report_nonzeros:
-          type: boolean
-        parallelism_settings:
-          $ref: '#/components/schemas/configv3.ParallelismSettings'
-        persisting_cursor_settings:
-          $ref: '#/components/schemas/configv3.PersistingCursorSettings'
-        read_settings:
-          $ref: '#/components/schemas/configv3.ReadSettings'
-        skip_empty_intervals:
-          type: boolean
-        source_discovery_interval:
-          type: string
-        tag:
-          type: string
-    configv3.ResourceFields:
-      type: object
-      properties:
-        namespace_labels:
-          description: NamespaceLabels is for K8s
-          type: array
-          items:
-            type: string
-        node_labels:
-          description: NodeLabels is for K8s
-          type: array
-          items:
-            type: string
-        pod_annotations:
-          description: PodAnnotations is for K8s
-          type: array
-          items:
-            type: string
-        pod_labels:
-          description: PodLabels is for K8s
-          type: array
-          items:
-            type: string
-    configv3.KuduConnectionConfig:
-      type: object
-      properties:
-        max_connections:
-          type: integer
-        retry_attempts:
-          type: integer
-        retry_delay:
-          type: string
-        timeout:
-          type: string
-    configv3.Secret:
-      type: object
-      properties:
-        description:
-          type: string
-        value:
-          type: string
     configv3.KerberosConfig:
       type: object
       properties:
@@ -386,874 +139,23 @@ components:
           type: string
         sasl_protocol_name:
           type: string
-    configv3.ValueAdjustmentRule:
+    configv3.ExtractMetricRule:
       type: object
       properties:
-        expression:
+        conditions:
+          type: array
+          items:
+            type: string
+        description:
           type: string
-        field_numeric_dimension:
-          type: string
-        numeric_dimension:
-          type: string
-    configv3.SyslogAsync:
-      type: object
-      properties:
-        max_queue_length:
-          type: integer
-        processors_count:
-          type: integer
-        readers:
-          type: integer
-    configv3.Attribute:
-      type: object
-      properties:
+        gauge:
+          $ref: '#/components/schemas/configv3.ExtractMetricGauge'
         name:
           type: string
-        value:
+        sum:
+          $ref: '#/components/schemas/configv3.ExtractMetricSum'
+        unit:
           type: string
-    configv3.EndpointResolution:
-      type: string
-      enum:
-      - dns
-      - k8s
-      - static
-      x-enum-varnames:
-      - DNSEndpointResolution
-      - K8sEndpointResolution
-      - StaticEndpointResolution
-    configv3.SamplingCaches:
-      type: object
-      properties:
-        batch:
-          $ref: '#/components/schemas/configv3.SamplingCache'
-        drop:
-          $ref: '#/components/schemas/configv3.SamplingCache'
-        keep:
-          $ref: '#/components/schemas/configv3.SamplingCache'
-    configv3.PersistentQueue:
-      type: object
-      properties:
-        drain_rate_limit:
-          type: integer
-        max_byte_size:
-          $ref: '#/components/schemas/datasize.Size'
-        mode:
-          type: string
-        path:
-          type: string
-        strict_ordering:
-          type: boolean
-    types.DataFormat:
-      type: string
-      enum:
-      - json
-      - msgpack
-      - splunk
-      - raw
-      x-enum-varnames:
-      - JSON
-      - MsgPack
-      - Splunk
-      - Raw
-    configv3.MemoryBuffer:
-      type: object
-      properties:
-        size:
-          type: integer
-    configv3.ParameterExpression:
-      type: object
-      properties:
-        name:
-          type: string
-        value_expression:
-          type: string
-    configv3.LookupField:
-      type: object
-      properties:
-        append_mode:
-          type: boolean
-        default_value:
-          type: string
-        event_field:
-          type: string
-        lookup_field:
-          type: string
-    configv3.Config:
-      type: object
-      required:
-      - settings
-      properties:
-        keys:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/configv3.Key'
-        last_updated:
-          description: internal fields. these are not part of config yaml but internally populated and used
-          type: string
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/configv3.Link'
-        nodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/configv3.Node'
-        org_id:
-          type: string
-        secrets:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/configv3.Secret'
-        settings:
-          $ref: '#/components/schemas/configv3.EDSetting'
-        version:
-          type: string
-    configv3.TargetAllocation:
-      type: string
-      enum:
-      - consistent
-      - round_robin
-      x-enum-varnames:
-      - ConsistentTargetAllocation
-      - RoundRobinTargetAllocation
-    configv3.InheritHeaders:
-      type: object
-      properties:
-        all:
-          description: Inherit all headers (except blocked ones)
-          type: boolean
-        authSet:
-          description: Use predefined auth headers
-          type: boolean
-        names:
-          description: Specific header names to inherit (normalized/lowercased)
-          type: array
-          items:
-            type: string
-    configv3.OTTLContextFilterContext:
-      type: object
-      properties:
-        condition:
-          type: string
-        interval:
-          type: string
-        length:
-          type: integer
-    configv3.SASL:
-      type: object
-      properties:
-        kerberos_config:
-          description: Configuration for Kerberos/GSSAPI mechanism
-          allOf:
-          - $ref: '#/components/schemas/configv3.KerberosConfig'
-        mechanism:
-          description: 'Supported SASL mechanism: PLAIN, SCRAM-SHA-256, SCRAM-SHA-512, GSSAPI'
-          type: string
-        password:
-          description: SASL authentication password (for PLAIN and SCRAM mechanisms)
-          type: string
-        username:
-          description: SASL authentication username (for PLAIN and SCRAM mechanisms)
-          type: string
-    configv3.KuduBatchConfig:
-      type: object
-      properties:
-        flush_interval:
-          type: string
-        flush_mode:
-          type: string
-        rows_limit:
-          type: integer
-    configv3.HTTPWorkflowRedisCache:
-      type: object
-      properties:
-        address:
-          description: 'Redis connection settings
-
-            Address is the Redis server address (e.g., "localhost:6379" or "redis://localhost:6379")'
-          type: string
-        ca_cert_path:
-          description: CACertPath is the path to CA certificate for TLS
-          type: string
-        cert_path:
-          description: CertPath is the path to client certificate for mTLS
-          type: string
-        check_before_request:
-          description: CheckBeforeRequest indicates whether to check cache before making HTTP request
-          type: boolean
-        db:
-          description: DB is the Redis database number to use
-          type: integer
-        deployment_type:
-          description: 'DeploymentType: Standalone, Cluster, or Sentinel'
-          type: string
-        key_expression:
-          description: 'Caching behavior settings
-
-            KeyExpression is the OTTL expression to compute the cache key'
-          type: string
-        key_path:
-          description: KeyPath is the path to client key for mTLS
-          type: string
-        password:
-          description: Password for Redis authentication
-          type: string
-        populate_on_success:
-          description: PopulateOnSuccess indicates whether to store response in cache after successful HTTP request
-          type: boolean
-        sentinel_master_name:
-          description: SentinelMasterName is the master name when using Sentinel mode
-          type: string
-        server_name:
-          description: ServerName for TLS SNI
-          type: string
-        skip_remaining_on_hit:
-          description: SkipRemainingOnHit indicates whether to skip remaining steps on cache hit
-          type: boolean
-        tls:
-          description: TLS enables TLS connection to Redis
-          type: boolean
-        ttl:
-          description: TTL is the cache entry time-to-live
-          type: string
-        username:
-          description: Username for Redis ACL authentication (Redis 6.0+)
-          type: string
-        validate_certs:
-          description: ValidateCerts enables TLS certificate validation
-          type: boolean
-        value_expression:
-          description: 'ValueExpression is an OTTL expression for the value to store in Redis.
-
-            If set, this value is stored instead of the HTTP response body.
-
-            For Redis-only SET steps (no endpoint), this is required.'
-          type: string
-    nodetype.NodeType:
-      type: string
-      enum:
-      - crowdstrike_fdr_input
-      - datadog_agent_input
-      - demo_input
-      - demo_template_input
-      - telemetrygen_input
-      - docker_input
-      - ed_agent_stats_input
-      - ed_component_health_input
-      - ed_container_stats_input
-      - ed_gateway_input
-      - ed_k8s_metrics_input
-      - ed_node_health_input
-      - ed_pipeline_io_stats_input
-      - ed_source_detection_input
-      - ed_system_stats_input
-      - ed_self_telemetry_input
-      - elastic_api_input
-      - eventhub_input
-      - exec_input
-      - file_input
-      - fluentd_input
-      - http_input
-      - journald_input
-      - k8s_event_input
-      - k8s_traffic_input
-      - k8s_trace_input
-      - kafka_input
-      - kubernetes_input
-      - prometheus_input
-      - memory_input
-      - otlp_input
-      - pubsub_input
-      - http_pull_input
-      - http_workflow_input
-      - s3_input
-      - gcs_input
-      - snmp_pull_input
-      - snmp_trap_input
-      - splunk_hec_input
-      - splunk_tcp_input
-      - syslog_input
-      - tcp_input
-      - udp_input
-      - winevent_input
-      - http_ingestion_input
-      - apache_kudu_output
-      - aws_cloudwatch_output
-      - azure_log_analytics_output
-      - azure_sentinel_output
-      - blob_output
-      - clickhouse_output
-      - crowdstrike_falcon_logscale_output
-      - datadog_output
-      - digitalocean_spaces_output
-      - dynatrace_output
-      - elastic_output
-      - exabeam_output
-      - fluentd_output
-      - gcs_output
-      - google_cloud_logging_output
-      - google_cloud_logging_with_ottl_output
-      - google_cloud_big_query_output
-      - google_secops_output
-      - grokstream_aiops_output
-      - http_output
-      - ibm_object_storage_output
-      - ibm_qradar_output
-      - kafka_output
-      - localstorage_output
-      - loki_output
-      - minio_output
-      - newrelic_output
-      - openmetrics_output
-      - otlp_output
-      - prometheus_exporter_output
-      - prometheus_remote_write_output
-      - s3_output
-      - securonix_output
-      - slack_output
-      - splunk_output
-      - splunk_tcp_output
-      - splunk_lb_output
-      - sumologic_output
-      - tcp_output
-      - teams_output
-      - void_output
-      - webhook_output
-      - zenko_output
-      - ed_archive_output
-      - ed_logs_output
-      - ed_debug_output
-      - ed_health_output
-      - ed_metrics_output
-      - ed_patterns_output
-      - ed_sources_output
-      - ed_traces_output
-      - ed_output
-      - ed_gateway_output
-      - ed_ai_event_output
-      - aggregate_metric
-      - base64_decode
-      - compound_input
-      - compound
-      - compound_output
-      - connector_event_filter
-      - cumulative_to_delta
-      - datadog_mapper
-      - dedup
-      - delete_empty_values
-      - deotel
-      - enrich
-      - extract_json_field
-      - extract_metric
-      - generic_mask
-      - generic_transform
-      - grok
-      - gzip_decompress
-      - json_unroll
-      - log_level_detector
-      - log_to_metric
-      - log_to_pattern_metric
-      - log_to_pattern
-      - log_transform
-      - lookup
-      - mask
-      - opentsdb_parse
-      - ottl_context_filter
-      - ottl_transform
-      - ottl_filter
-      - output_transform
-      - parse_json_attributes
-      - quota
-      - rate_limit
-      - ratio
-      - regex_filter
-      - resource_transform
-      - sample
-      - route
-      - route_ottl
-      - sequence_input
-      - sequence
-      - sequence_output
-      - split_with_delimiter
-      - splunk_mapper
-      - suppress
-      - tail_sample
-      - threshold
-      - top_k
-      - unescape_json
-      - comment
-      - archive_buffered
-      - edge_rollup_service
-      - incoming_stats_processor
-      - item_buffered
-      - generic_monitor
-      - observer
-      x-enum-comments:
-        InputHTTPWorkflowNodeType: '#nosec G101 -- node type identifier, not a credential'
-        OutputEDLogType: ed_logs_output is renamed from ed_archive_output. ed_archive_output is kept for backward compatibility.
-      x-enum-descriptions:
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - '#nosec G101 -- node type identifier, not a credential'
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ed_logs_output is renamed from ed_archive_output. ed_archive_output is kept for backward compatibility.
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      x-enum-varnames:
-      - InputCrowdStrikeFDRNodeType
-      - InputDatadogAgentNodeType
-      - InputDemoNodeType
-      - InputDemoTemplateNodeType
-      - InputTelemetryGenNodeType
-      - InputDockerNodeType
-      - InputEDAgentStatsNodeType
-      - InputEDComponentHealthNodeType
-      - InputEDContainerStatsNodeType
-      - InputEDGatewayNodeType
-      - InputEDK8sMetricsNodeType
-      - InputEDNodeHealthNodeType
-      - InputEDPipelineIOStatsNodeType
-      - InputEDSourceDetectionNodeType
-      - InputEDSystemStatsNodeType
-      - InputEDSelfTelemetryNodeType
-      - InputElasticAPINodeType
-      - InputEventHubNodeType
-      - InputExecNodeType
-      - InputFileNodeType
-      - InputFluentdNodeType
-      - InputHTTPNodeType
-      - InputJournaldNodeType
-      - InputK8sEventNodeType
-      - InputK8sTrafficNodeType
-      - InputK8sTraceNodeType
-      - InputKafkaNodeType
-      - InputKubernetesNodeType
-      - InputPrometheusNodeType
-      - InputMemoryNodeType
-      - InputOTLPNodeType
-      - InputPubSubNodeType
-      - InputHTTPPullNodeType
-      - InputHTTPWorkflowNodeType
-      - InputS3NodeType
-      - InputGCSNodeType
-      - InputSNMPPullNodeType
-      - InputSNMPTrapNodeType
-      - InputSplunkHECNodeType
-      - InputSplunkTCPNodeType
-      - InputSyslogNodeType
-      - InputTCPNodeType
-      - InputUDPNodeType
-      - InputWinEventNodeType
-      - InputHTTPIngestionNodeType
-      - OutputApacheKuduNodeType
-      - OutputAWSCloudwatchNodeType
-      - OutputAzureLogAnalyticsNodeType
-      - OutputAzureSentinelNodeType
-      - OutputBlobNodeType
-      - OutputClickHouseNodeType
-      - OutputCrowdStrikeFalconLogScaleNodeType
-      - OutputDatadogNodeType
-      - OutputDigitalOceanSpacesNodeType
-      - OutputDynatraceNodeType
-      - OutputElasticNodeType
-      - OutputExabeamNodeType
-      - OutputFluentDNodeType
-      - OutputGCSNodeType
-      - OutputGCLNodeType
-      - OutputGCLWithOTTLNodeType
-      - OutputGCBigQueryNodeType
-      - OutputGoogleSecOpsNodeType
-      - OutputGrokstreamAIOpsNodeType
-      - OutputHTTPNodeType
-      - OutputIBMObjectStorageNodeType
-      - OutputIBMQRadarNodeType
-      - OutputKafkaNodeType
-      - OutputLocalStorageNodeType
-      - OutputLokiNodeType
-      - OutputMinioNodeType
-      - OutputNewRelicNodeType
-      - OutputOpenMetricsNodeType
-      - OutputOTLPNodeType
-      - OutputPrometheusExporterNodeType
-      - OutputPrometheusRemoteWriteNodeType
-      - OutputS3NodeType
-      - OutputSecuronixNodeType
-      - OutputSlackNodeType
-      - OutputSplunkNodeType
-      - OutputSplunkTCPNodeType
-      - OutputSplunkLoadBalancedNodeType
-      - OutputSumoLogicNodeType
-      - OutputTCPNodeType
-      - OutputTeamsNodeType
-      - OutputVoidNodeType
-      - OutputWebhookNodeType
-      - OutputZenkoNodeType
-      - OutputEDArchiveType
-      - OutputEDLogType
-      - OutputEDDebugType
-      - OutputEDHealthType
-      - OutputEDMetricType
-      - OutputEDPatternType
-      - OutputEDSourceType
-      - OutputEDTraceType
-      - OutputEDType
-      - OutputEDGatewayNodeType
-      - OutputEDAIEventNodeType
-      - AggregateMetricProcessorNodeType
-      - Base64DecodeProcessorNodeType
-      - CompoundInputNodeType
-      - CompoundNodeType
-      - CompoundOutputNodeType
-      - ConnectorEventFilterProcessorNodeType
-      - CumulativeToDeltaProcessorNodeType
-      - DatadogMapperNodeType
-      - DedupProcessorNodeType
-      - DeleteEmptyValuesProcessorNodeType
-      - DeOtelProcessorNodeType
-      - EnrichmentProcessorNodeType
-      - ExtractJSONFieldProcessorNodeType
-      - ExtractMetricProcessorNodeType
-      - GenericMaskProcessorNodeType
-      - GenericTransformProcessorNodeType
-      - GrokProcessorNodeType
-      - GzipDecompressProcessorNodeType
-      - JSONUnrollProcessorNodeType
-      - LogLevelDetectorNodeType
-      - LogToMetricProcessorNodeType
-      - LogToPatternMetricProcessorNodeType
-      - LogToPatternProcessorNodeType
-      - LogTransformProcessorNodeType
-      - LookupProcessorNodeType
-      - MaskProcessorNodeType
-      - OpenTSDBProcessorNodeType
-      - OTTLContextFilterProcessorNodeType
-      - OTTLTransformProcessorNodeType
-      - OTTLFilterProcessorNodeType
-      - OutputTransformProcessorNodeType
-      - ParseJSONAttributesNodeType
-      - QuotaProcessorNodeType
-      - RateLimitProcessorNodeType
-      - RatioProcessorNodeType
-      - RegexFilterProcessorNodeType
-      - ResourceTransformProcessorNodeType
-      - SampleProcessorNodeType
-      - RouteNodeType
-      - RouteOTTLNodeType
-      - SequenceInputNodeType
-      - SequenceNodeType
-      - SequenceOutputNodeType
-      - SplitWithDelimiterProcessorNodeType
-      - SplunkMapperNodeType
-      - SuppressNodeType
-      - TailSampleProcessorNodeType
-      - ThresholdProcessorNodeType
-      - TopKProcessorNodeType
-      - UnescapeJSONProcessorNodeType
-      - CommentNodeType
-      - ArchiveBufferedProcessorNodeType
-      - EdgeRollUpServiceProcessorType
-      - IncomingStatsProcessorNodeType
-      - ItemBufferedProcessorNodeType
-      - GenericMonitorProcessorType
-      - ObserverProcessorNodeType
-    configv3.FieldMapping:
-      type: object
-      properties:
-        enabled:
-          description: Enabled controls whether this field mapping is active.
-          type: boolean
-        keep_in_item:
-          description: KeepInItem controls whether to keep the field in item data after extraction.
-          type: boolean
-        path:
-          description: 'Path is the OTTL expression to extract value from OTEL item.
-
-            Example: ''attributes["ed.gcl.name"]'', ''resource["host.name"]'', "severity_text"'
-          type: string
-    configv3.K8sEventRBACRule:
-      type: object
-      properties:
-        api_groups:
-          description: APIGroups is a list of API groups (e.g., ["monitoring.coreos.com"])
-          type: array
-          items:
-            type: string
-        resources:
-          description: Resources is a list of resources (e.g., ["prometheusrules"])
-          type: array
-          items:
-            type: string
-        verbs:
-          description: Verbs is a list of verbs (e.g., ["get", "list", "watch"])
-          type: array
-          items:
-            type: string
-    configv3.Authorization:
-      type: object
-      properties:
-        client_credentials:
-          $ref: '#/components/schemas/configv3.AuthorizationClientCredentials'
-        strategy:
-          type: string
-    configv3.AuthenticationConf:
-      type: object
-      properties:
-        password:
-          description: '#nosec G117 -- auth password in config'
-          type: string
-        secret:
-          description: '#nosec G117 -- auth secret in config'
-          type: string
-        strategy:
-          type: string
-        username:
-          type: string
-    configv3.OID:
-      type: object
-      properties:
-        attributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/configv3.Attribute'
-        oid:
-          type: string
-        resource_attributes:
-          type: array
-          items:
-            type: string
-    configv3.DroppedColumn:
-      type: object
-      properties:
-        exceptions:
-          type: array
-          items:
-            type: string
-        metric_categories:
-          type: array
-          items:
-            type: string
-        name:
-          type: string
-    core.TLS:
-      type: object
-      properties:
-        ca_file:
-          description: absolute path to CA certificate file
-          type: string
-        ca_path:
-          description: absolute path to scan CA certificate files
-          type: string
-        client_auth_type:
-          description: 'possible options: noclientcert, requestclientcert, requireanyclientcert, verifyclientcertifgiven, requireandverifyclientcert
-
-            default is noclientcert'
-          type: string
-        crt_file:
-          description: absolute path to Certificate file
-          type: string
-        disable_verify:
-          description: disable certificate validation
-          type: boolean
-        key_file:
-          description: absolute path to private Key file
-          type: string
-        key_password:
-          description: optional password for tls.key_file file
-          type: string
-        max_version:
-          description: optional max version for TLS
-          type: string
-        min_version:
-          description: optional min version for TLS
-          type: string
-    configv3.LiveTailSettings:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        item_max_body_size:
-          $ref: '#/components/schemas/datasize.Size'
-        item_truncation_size:
-          $ref: '#/components/schemas/datasize.Size'
-        lower_threshold_size:
-          description: 'Deprecated: These fields are retained for backward compatibility with existing configs.
-
-            They are parsed but ignored at runtime. Use ItemTruncationSize and ItemMaxBodySize instead.'
-          allOf:
-          - $ref: '#/components/schemas/datasize.Size'
-        max_items:
-          type: integer
-        polling_interval:
-          type: string
-        retention:
-          type: string
-        upper_threshold_size:
-          $ref: '#/components/schemas/datasize.Size'
-    configv3.OTTLContextFilter:
-      type: object
-      properties:
-        condition:
-          type: string
-        ottl_context_filter_context:
-          $ref: '#/components/schemas/configv3.OTTLContextFilterContext'
-    configv3.WeightedDestination:
-      type: object
-      properties:
-        endpoint:
-          description: 'Required: "host:port"'
-          type: string
-        weight:
-          description: 'Optional: default 1'
-          type: integer
     configv3.AggregateMetricRule:
       type: object
       properties:
@@ -1274,6 +176,33 @@ components:
         keep_only_group_by_keys:
           type: boolean
         name:
+          type: string
+    configv3.PathPrefix:
+      type: object
+      properties:
+        format:
+          type: string
+        order:
+          type: array
+          items:
+            type: string
+    configv3.OTTLContextFilter:
+      type: object
+      properties:
+        condition:
+          type: string
+        ottl_context_filter_context:
+          $ref: '#/components/schemas/configv3.OTTLContextFilterContext'
+    configv3.LookupField:
+      type: object
+      properties:
+        append_mode:
+          type: boolean
+        default_value:
+          type: string
+        event_field:
+          type: string
+        lookup_field:
           type: string
     configv3.AuthorizationClientCredentials:
       type: object
@@ -1297,142 +226,13 @@ components:
             type: string
         token_url:
           type: string
-    configv3.SamplingPolicy:
+    configv3.CustomTag:
       type: object
       properties:
-        conditions:
-          type: array
-          items:
-            type: string
-        hash_salt:
-          type: string
-        key:
-          type: string
-        lower_threshold:
-          type: string
-        max_span_count:
-          type: integer
-        max_value:
-          type: number
-        min_span_count:
-          type: integer
-        min_value:
-          type: number
         name:
           type: string
-        percentage:
-          type: number
-        policy_type:
-          type: string
-        regex_cache_size:
-          type: integer
-        status_codes:
-          type: array
-          items:
-            type: string
-        sub_policies:
-          type: array
-          items:
-            $ref: '#/components/schemas/configv3.SamplingPolicy'
-        support_regex:
-          type: boolean
-        upper_threshold:
-          type: string
-        value:
-          type: boolean
-        values:
-          type: array
-          items:
-            type: string
-    configv3.PathPrefix:
-      type: object
-      properties:
-        format:
-          type: string
-        order:
-          type: array
-          items:
-            type: string
-    configv3.Header:
-      type: object
-      properties:
-        header:
-          type: string
         value:
           type: string
-    configv3.Key:
-      type: object
-      properties:
-        value:
-          type: string
-    configv3.ConnectorMetadata:
-      type: object
-      properties:
-        additional_tags:
-          type: object
-          additionalProperties:
-            type: string
-        connector_name:
-          type: string
-        connector_type:
-          type: string
-        enabled:
-          type: boolean
-    configv3.PersistingCursorSettings:
-      type: object
-      properties:
-        file_name:
-          type: string
-        flush_interval:
-          type: string
-        path:
-          type: string
-    configv3.ClickHouseColumn:
-      type: object
-      properties:
-        column_name:
-          type: string
-        column_type:
-          type: string
-        default_value:
-          type: string
-        expression:
-          type: string
-        required:
-          type: boolean
-    configv3.BodyMapping:
-      type: object
-      properties:
-        enabled:
-          description: Enabled controls whether to send only the mapped path (true) or entire OTEL item (false) as body.
-          type: boolean
-        path:
-          description: 'Path is the OTTL expression to extract as body. Default: "body".'
-          type: string
-    configv3.ParallelismSettings:
-      type: object
-      properties:
-        buffer_flush_workers:
-          type: string
-        compound_consumers:
-          type: string
-        sequence_consumers:
-          type: string
-    configv3.KuduColumn:
-      type: object
-      properties:
-        column_name:
-          type: string
-        column_type:
-          type: string
-        default_value:
-          type: string
-        expression:
-          type: string
-        is_key:
-          type: boolean
-        required:
-          type: boolean
     configv3.AggregateMetricAggregationOptions:
       type: object
       properties:
@@ -1442,68 +242,16 @@ components:
             type: string
         distinct_count_mode:
           type: string
-    configv3.K8sCustomResourceConfig:
-      type: object
-      properties:
-        group:
-          description: Group is the API group of the custom resource (e.g., "monitoring.coreos.com")
-          type: string
-        resource:
-          description: Resource is the plural resource name (e.g., "prometheusrules")
-          type: string
-        version:
-          description: Version is the API version of the custom resource (e.g., "v1")
-          type: string
-    configv3.FieldMappings:
-      type: object
-      properties:
-        field_name:
-          type: string
-        override_if_exists:
-          type: boolean
-        value:
-          type: string
-        value_hint:
-          type: string
-    configv3.MetricConfig:
-      type: object
-      properties:
-        aggregation:
-          description: Aggregation is required for "sum" and can be cumulative or delta
-          type: string
-        column_oids:
-          type: array
-          items:
-            $ref: '#/components/schemas/configv3.OID'
-        description:
-          description: Description is optional and describes what this metric represents
-          type: string
-        metric_type:
-          description: Type is required and can be either "gauge" or "sum".
-          type: string
-        monotonic:
-          description: Monotonic is required for "sum" and can be true or false
-          type: boolean
-        name:
-          description: 'Name is the name of the metric as it will be reported in the OpenTelemetry Collector.
-
-            It is required and must be unique across all metrics.'
-          type: string
-        scalar_oids:
-          description: 'Either ScalarOIDs or ColumnOIDs is required.
-
-            ScalarOIDs is used if one or more scalar OID values is used for this metric.
-
-            ColumnOIDs is used if one or more column OID indexed set of values is used for this metric.'
-          type: array
-          items:
-            $ref: '#/components/schemas/configv3.OID'
-        unit:
-          description: Unit is required
-          type: string
-        value_type:
-          description: ValueType is required and can be either int or double
-          type: string
+    configv3.EndpointResolution:
+      type: string
+      enum:
+      - dns
+      - k8s
+      - static
+      x-enum-varnames:
+      - DNSEndpointResolution
+      - K8sEndpointResolution
+      - StaticEndpointResolution
     configv3.SplunkHECAuthentication:
       type: object
       properties:
@@ -1513,135 +261,68 @@ components:
             $ref: '#/components/schemas/configv3.SplunkHECStaticAuth'
         use_legacy_error_codes:
           type: boolean
-    configv3.HTTPPaginationConfig:
+    configv3.SyslogAsync:
       type: object
       properties:
-        error_strategy:
-          description: 'ErrorStrategy defines how to handle failures: continue, stop'
-          type: string
-        follow_link_header:
-          description: FollowLinkHeader enables following URLs from Link header (RFC 5988)
-          type: boolean
-        inherit_auth:
-          description: InheritAuth indicates whether to use same authentication for followed URLs
-          type: boolean
-        inherit_headers:
-          description: 'NEW: Header inheritance configuration
-
-            InheritHeaders specifies which headers to inherit in pagination requests'
-          allOf:
-          - $ref: '#/components/schemas/configv3.InheritHeaders'
-        inherit_headers_allowed_hosts:
-          description: AllowedHosts lists additional hosts allowed for cross-origin header inheritance
-          type: array
-          items:
-            type: string
-        inherit_headers_same_origin:
-          description: 'SameOriginOnly enforces same-origin policy for header inheritance (default: true)'
-          type: boolean
-        link_relation:
-          description: 'LinkRelation specifies which link relation to follow (default: "next")'
-          type: string
-        max_parallel:
-          description: MaxParallel is the maximum number of concurrent URL fetches
+        max_queue_length:
           type: integer
-        response_format:
-          description: 'ResponseFormat specifies how to parse followed URL responses: json, text, binary
-
-            This is distinct from HTTP Content-Type header and controls processing behavior'
-          type: string
-        url_json_path:
-          description: URLJSONPath is a JSONPath expression to extract URLs from JSON response body
-          type: string
-    core.TemplateType:
+        processors_count:
+          type: integer
+        readers:
+          type: integer
+    configv3.MemoryBuffer:
+      type: object
+      properties:
+        size:
+          type: integer
+    types.DataFormat:
       type: string
       enum:
-      - log
-      - metric
-      - trace
+      - json
+      - msgpack
+      - splunk
+      - raw
       x-enum-varnames:
-      - LogTemplateType
-      - MetricTemplateType
-      - TraceTemplateType
-    configv3.ResilienceConfig:
+      - JSON
+      - MsgPack
+      - Splunk
+      - Raw
+    configv3.CaptureGroupMask:
       type: object
       properties:
-        circuit_breaker:
-          description: Circuit breaker configuration
-          allOf:
-          - $ref: '#/components/schemas/configv3.CircuitBreakerConfig'
-    configv3.AWSConfig:
-      type: object
-      properties:
-        aws_key_id:
+        capture_group:
           type: string
-        aws_sec_key:
-          type: string
-        external_id:
-          type: string
-        region:
-          type: string
-        role_arn:
-          type: string
-    configv3.HTTPWorkflowIterator:
-      type: object
-      properties:
-        continue_on_error:
-          description: ContinueOnError determines whether to continue if one iteration fails
+        enabled:
           type: boolean
-        max_parallel:
-          description: MaxParallel controls concurrent execution
-          type: integer
-        source:
-          description: Source is the OTTL expression returning the collection to iterate over
+        mask:
           type: string
-        variable_name:
-          description: VariableName is the name of the current item variable in each iteration
+        name:
           type: string
-    configv3.HTTPWorkflowWebhook:
+    configv3.LoadReporting:
       type: object
       properties:
-        allowed_methods:
-          description: 'AllowedMethods lists HTTP methods this webhook accepts (default: POST)'
-          type: array
-          items:
-            type: string
-        api_key:
-          description: APIKey is the key for API key authentication
-          type: string
-        api_key_header:
-          description: 'APIKeyHeader is the header name for API key (default: X-API-Key)'
-          type: string
-        auth_secret:
-          description: 'Deprecated: use BearerToken or HMACSecret instead'
-          type: string
-        auth_type:
-          description: 'AuthType specifies the authentication method: none, bearer, api_key, hmac'
-          type: string
-        bearer_token:
-          description: BearerToken is the token for bearer authentication
-          type: string
-        hmac_header:
-          description: 'HMACHeader is the header containing the HMAC signature (default: X-Webhook-Signature)'
-          type: string
-        hmac_secret:
-          description: HMACSecret is the secret for HMAC signature validation
-          type: string
-        method:
-          description: 'Method is the HTTP method (default: POST)'
-          type: string
-        path:
-          description: Path is the URL path to listen on (e.g., "/webhook")
-          type: string
-        port:
-          description: 'Port is the webhook server port (default: 8080)'
-          type: integer
-        rate_limit_enabled:
-          description: RateLimitEnabled enables rate limiting for the webhook
+        enable_oob_stream:
+          description: 'EnableOOBStream registers the xds.service.orca.v3.OpenRcaService
+
+            OOB streaming server. Inline ORCA trailers on Export responses
+
+            are emitted regardless of this flag, since Envoy CSWRR consumes
+
+            only the inline path. Enable OOB only when a non-Envoy consumer
+
+            (e.g., grpc-go''s weighted_round_robin, GCP CSM, grpcurl) needs to
+
+            subscribe to load reports.'
           type: boolean
-        rate_limit_max_per_min:
-          description: RateLimitMaxPerMin is the maximum requests per minute when rate limiting is enabled
-          type: integer
+        enabled:
+          description: Enables/disable turns load reporting
+          type: boolean
+        min_reporting_interval:
+          description: MinReportingInterval is the lower bound for how often the gRPC OOB stream pushes a LoadReport.
+          type: string
+        sample_interval:
+          description: SampleInterval is the cadence at which the reporter resamples process CPU, memory, and buffer fullness.
+          type: string
     flog.Format:
       type: string
       enum:
@@ -1722,6 +403,351 @@ components:
       - ZScalerZIAFirewallFlogFormat
       - ZScalerZIATunnelFlogFormat
       - ZScalerZIAWebFlogFormat
+    configv3.DimGroup:
+      type: object
+      properties:
+        anomaly_coefficient:
+          type: number
+        anomaly_confidence_period:
+          type: string
+        anomaly_tolerance:
+          type: number
+        custom_suffix:
+          type: string
+        dimensions:
+          type: array
+          items:
+            type: string
+        dimensions_as_attributes:
+          description: 'DEPRECATED: It is always assumed as true, changing the value will result in no-op. Left for backwards compatibility reasons'
+          type: boolean
+        enabled_stats:
+          type: array
+          items:
+            type: string
+        field_dimensions:
+          type: array
+          items:
+            type: string
+        field_numeric_dimension:
+          type: string
+        interval:
+          type: string
+        numeric_dimension:
+          type: string
+        only_report_nonzeros:
+          type: boolean
+        retention:
+          type: string
+        skip_empty_intervals:
+          type: boolean
+        value_adjustment_rule:
+          type: string
+    configv3.ParameterExpression:
+      type: object
+      properties:
+        name:
+          type: string
+        value_expression:
+          type: string
+    configv3.FieldMappings:
+      type: object
+      properties:
+        field_name:
+          type: string
+        override_if_exists:
+          type: boolean
+        value:
+          type: string
+        value_hint:
+          type: string
+    configv3.PersistentQueue:
+      type: object
+      properties:
+        drain_rate_limit:
+          type: integer
+        max_byte_size:
+          $ref: '#/components/schemas/datasize.Size'
+        mode:
+          type: string
+        path:
+          type: string
+        strict_ordering:
+          type: boolean
+    configv3.HTTPWorkflowIterator:
+      type: object
+      properties:
+        continue_on_error:
+          description: ContinueOnError determines whether to continue if one iteration fails
+          type: boolean
+        max_parallel:
+          description: MaxParallel controls concurrent execution
+          type: integer
+        source:
+          description: Source is the OTTL expression returning the collection to iterate over
+          type: string
+        variable_name:
+          description: VariableName is the name of the current item variable in each iteration
+          type: string
+    configv3.RoutePath:
+      type: object
+      properties:
+        condition:
+          type: string
+        exit_if_matched:
+          type: boolean
+        path:
+          type: string
+    configv3.KuduColumn:
+      type: object
+      properties:
+        column_name:
+          type: string
+        column_type:
+          type: string
+        default_value:
+          type: string
+        expression:
+          type: string
+        is_key:
+          type: boolean
+        required:
+          type: boolean
+    configv3.MetricColumnOptions:
+      type: object
+      properties:
+        drop_columns:
+          type: array
+          items:
+            $ref: '#/components/schemas/configv3.DroppedColumn'
+    configv3.SamplingPolicy:
+      type: object
+      properties:
+        conditions:
+          type: array
+          items:
+            type: string
+        hash_salt:
+          type: string
+        key:
+          type: string
+        lower_threshold:
+          type: string
+        max_span_count:
+          type: integer
+        max_value:
+          type: number
+        min_span_count:
+          type: integer
+        min_value:
+          type: number
+        name:
+          type: string
+        percentage:
+          type: number
+        policy_type:
+          type: string
+        regex_cache_size:
+          type: integer
+        status_codes:
+          type: array
+          items:
+            type: string
+        sub_policies:
+          type: array
+          items:
+            $ref: '#/components/schemas/configv3.SamplingPolicy'
+        support_regex:
+          type: boolean
+        upper_threshold:
+          type: string
+        value:
+          type: boolean
+        values:
+          type: array
+          items:
+            type: string
+    core.TLS:
+      type: object
+      properties:
+        ca_file:
+          description: absolute path to CA certificate file
+          type: string
+        ca_path:
+          description: absolute path to scan CA certificate files
+          type: string
+        client_auth_type:
+          description: 'possible options: noclientcert, requestclientcert, requireanyclientcert, verifyclientcertifgiven, requireandverifyclientcert
+
+            default is noclientcert'
+          type: string
+        crt_file:
+          description: absolute path to Certificate file
+          type: string
+        disable_verify:
+          description: disable certificate validation
+          type: boolean
+        key_file:
+          description: absolute path to private Key file
+          type: string
+        key_password:
+          description: optional password for tls.key_file file
+          type: string
+        max_version:
+          description: optional max version for TLS
+          type: string
+        min_version:
+          description: optional min version for TLS
+          type: string
+    configv3.Attribute:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+    configv3.K8sCustomResourceConfig:
+      type: object
+      properties:
+        group:
+          description: Group is the API group of the custom resource (e.g., "monitoring.coreos.com")
+          type: string
+        resource:
+          description: Resource is the plural resource name (e.g., "prometheusrules")
+          type: string
+        version:
+          description: Version is the API version of the custom resource (e.g., "v1")
+          type: string
+    configv3.SamplingCache:
+      type: object
+      properties:
+        size:
+          type: integer
+    configv3.AWSConfig:
+      type: object
+      properties:
+        aws_key_id:
+          type: string
+        aws_sec_key:
+          type: string
+        external_id:
+          type: string
+        region:
+          type: string
+        role_arn:
+          type: string
+    configv3.FieldMapping:
+      type: object
+      properties:
+        enabled:
+          description: Enabled controls whether this field mapping is active.
+          type: boolean
+        keep_in_item:
+          description: KeepInItem controls whether to keep the field in item data after extraction.
+          type: boolean
+        path:
+          description: 'Path is the OTTL expression to extract value from OTEL item.
+
+            Example: ''attributes["ed.gcl.name"]'', ''resource["host.name"]'', "severity_text"'
+          type: string
+    configv3.KuduConnectionConfig:
+      type: object
+      properties:
+        max_connections:
+          type: integer
+        retry_attempts:
+          type: integer
+        retry_delay:
+          type: string
+        timeout:
+          type: string
+    configv3.TransformField:
+      type: object
+      properties:
+        field_path:
+          type: string
+        ignore_if_empty:
+          type: boolean
+        operation:
+          type: string
+        value:
+          type: string
+    configv3.BodyMapping:
+      type: object
+      properties:
+        enabled:
+          description: Enabled controls whether to send only the mapped path (true) or entire OTEL item (false) as body.
+          type: boolean
+        path:
+          description: 'Path is the OTTL expression to extract as body. Default: "body".'
+          type: string
+    configv3.HeaderExpression:
+      type: object
+      properties:
+        header:
+          type: string
+        value_expression:
+          type: string
+    pipeline.AddSourceRequest:
+      type: object
+      required:
+      - node
+      properties:
+        node:
+          description: Configuration of the source node to be added
+          allOf:
+          - $ref: '#/components/schemas/pipeline.Node'
+    configv3.HTTPWorkflowWebhook:
+      type: object
+      properties:
+        allowed_methods:
+          description: 'AllowedMethods lists HTTP methods this webhook accepts (default: POST)'
+          type: array
+          items:
+            type: string
+        api_key:
+          description: APIKey is the key for API key authentication
+          type: string
+        api_key_header:
+          description: 'APIKeyHeader is the header name for API key (default: X-API-Key)'
+          type: string
+        auth_secret:
+          description: 'Deprecated: use BearerToken or HMACSecret instead'
+          type: string
+        auth_type:
+          description: 'AuthType specifies the authentication method: none, bearer, api_key, hmac'
+          type: string
+        bearer_token:
+          description: BearerToken is the token for bearer authentication
+          type: string
+        hmac_header:
+          description: 'HMACHeader is the header containing the HMAC signature (default: X-Webhook-Signature)'
+          type: string
+        hmac_secret:
+          description: HMACSecret is the secret for HMAC signature validation
+          type: string
+        method:
+          description: 'Method is the HTTP method (default: POST)'
+          type: string
+        path:
+          description: Path is the URL path to listen on (e.g., "/webhook")
+          type: string
+        port:
+          description: 'Port is the webhook server port (default: 8080)'
+          type: integer
+        rate_limit_enabled:
+          description: RateLimitEnabled enables rate limiting for the webhook
+          type: boolean
+        rate_limit_max_per_min:
+          description: RateLimitMaxPerMin is the maximum requests per minute when rate limiting is enabled
+          type: integer
+    configv3.ResilienceConfig:
+      type: object
+      properties:
+        circuit_breaker:
+          description: Circuit breaker configuration
+          allOf:
+          - $ref: '#/components/schemas/configv3.CircuitBreakerConfig'
     configv3.ConnectorEventEntry:
       type: object
       properties:
@@ -1741,23 +767,81 @@ components:
             type: array
             items:
               type: string
-    configv3.CaptureGroupMask:
+    configv3.K8sEventRBACConfig:
       type: object
       properties:
-        capture_group:
-          type: string
-        enabled:
+        custom_rules:
+          description: CustomRules defines additional RBAC rules needed for custom resources
+          type: array
+          items:
+            $ref: '#/components/schemas/configv3.K8sEventRBACRule'
+    configv3.CustomLabels:
+      type: object
+      properties:
+        keep_overridden_path:
           type: boolean
-        mask:
-          type: string
         name:
           type: string
-    core.ItemSchema:
-      type: string
-      enum:
-      - otel
-      x-enum-varnames:
-      - OTELItemSchema
+        path:
+          type: string
+    configv3.HTTPPaginationConfig:
+      type: object
+      properties:
+        error_strategy:
+          description: 'ErrorStrategy defines how to handle failures: continue, stop'
+          type: string
+        follow_link_header:
+          description: FollowLinkHeader enables following URLs from Link header (RFC 5988)
+          type: boolean
+        inherit_auth:
+          description: InheritAuth indicates whether to use same authentication for followed URLs
+          type: boolean
+        inherit_headers:
+          description: 'NEW: Header inheritance configuration
+
+            InheritHeaders specifies which headers to inherit in pagination requests'
+          allOf:
+          - $ref: '#/components/schemas/configv3.InheritHeaders'
+        inherit_headers_allowed_hosts:
+          description: AllowedHosts lists additional hosts allowed for cross-origin header inheritance
+          type: array
+          items:
+            type: string
+        inherit_headers_same_origin:
+          description: 'SameOriginOnly enforces same-origin policy for header inheritance (default: true)'
+          type: boolean
+        link_relation:
+          description: 'LinkRelation specifies which link relation to follow (default: "next")'
+          type: string
+        max_parallel:
+          description: MaxParallel is the maximum number of concurrent URL fetches
+          type: integer
+        response_format:
+          description: 'ResponseFormat specifies how to parse followed URL responses: json, text, binary
+
+            This is distinct from HTTP Content-Type header and controls processing behavior'
+          type: string
+        url_json_path:
+          description: URLJSONPath is a JSONPath expression to extract URLs from JSON response body
+          type: string
+    configv3.WeightedDestination:
+      type: object
+      properties:
+        endpoint:
+          description: 'Required: "host:port"'
+          type: string
+        weight:
+          description: 'Optional: default 1'
+          type: integer
+    configv3.ExtractMetricSum:
+      type: object
+      properties:
+        aggregation_temporality:
+          type: string
+        is_monotonic:
+          type: boolean
+        value:
+          type: string
     configv3.SyslogMultiline:
       type: object
       properties:
@@ -1767,22 +851,168 @@ components:
           type: string
         omit_pattern:
           type: boolean
-    configv3.HeaderExpression:
+    configv3.KuduBatchConfig:
+      type: object
+      properties:
+        flush_interval:
+          type: string
+        flush_mode:
+          type: string
+        rows_limit:
+          type: integer
+    core.TemplateType:
+      type: string
+      enum:
+      - log
+      - metric
+      - trace
+      x-enum-varnames:
+      - LogTemplateType
+      - MetricTemplateType
+      - TraceTemplateType
+    configv3.InputSourceMetadata:
+      type: object
+      properties:
+        attributes:
+          type: object
+          additionalProperties:
+            type: boolean
+        resource_attributes:
+          type: object
+          additionalProperties:
+            type: boolean
+    configv3.KuduSecurityConfig:
+      type: object
+      properties:
+        auth_type:
+          description: Authentication Type
+          type: string
+        kerberos:
+          description: Kerberos Configuration
+          allOf:
+          - $ref: '#/components/schemas/configv3.KerberosConfig'
+        tls:
+          description: TLS Configuration
+          allOf:
+          - $ref: '#/components/schemas/configv3.TLS'
+    configv3.Secret:
+      type: object
+      properties:
+        description:
+          type: string
+        value:
+          type: string
+    configv3.AuthenticationConf:
+      type: object
+      properties:
+        password:
+          description: '#nosec G117 -- auth password in config'
+          type: string
+        secret:
+          description: '#nosec G117 -- auth secret in config'
+          type: string
+        strategy:
+          type: string
+        username:
+          type: string
+    configv3.MetadataMapping:
+      type: object
+      properties:
+        labels:
+          description: Labels mapping for user-defined labels. Path must resolve to map[string]any.
+          allOf:
+          - $ref: '#/components/schemas/configv3.FieldMapping'
+        log_name:
+          description: LogName mapping for GCL log name. When enabled, uses extracted value or falls back to node.LogName.
+          allOf:
+          - $ref: '#/components/schemas/configv3.FieldMapping'
+        resource_labels:
+          description: ResourceLabels mapping for GCL resource labels. Path must resolve to map[string]any.
+          allOf:
+          - $ref: '#/components/schemas/configv3.FieldMapping'
+        resource_type:
+          description: ResourceType mapping for GCL resource type. When enabled, uses extracted value or defaults to "logging_log".
+          allOf:
+          - $ref: '#/components/schemas/configv3.FieldMapping'
+        severity:
+          description: Severity mapping for log severity level (INFO, WARN, ERROR, etc.).
+          allOf:
+          - $ref: '#/components/schemas/configv3.FieldMapping'
+        span_id:
+          description: SpanID mapping for span ID within trace.
+          allOf:
+          - $ref: '#/components/schemas/configv3.FieldMapping'
+        trace_id:
+          description: TraceID mapping for distributed trace ID.
+          allOf:
+          - $ref: '#/components/schemas/configv3.FieldMapping'
+    datasize.Size:
+      type: integer
+      format: int64
+      enum:
+      - 1
+      - 1000
+      - 1000000
+      - 1000000000
+      - 1000000000000
+      - 1000000000000000
+      - 1000000000000000000
+      - 1024
+      - 1048576
+      - 1073741824
+      - 1099511627776
+      - 1125899906842624
+      - 1152921504606846976
+      x-enum-varnames:
+      - Byte
+      - KiloByte
+      - MegaByte
+      - GigaByte
+      - TeraByte
+      - PetaByte
+      - ExaByte
+      - KibiByte
+      - MebiByte
+      - GigiByte
+      - TebiByte
+      - PebiByte
+      - ExbiByte
+    configv3.ValueAdjustmentRule:
+      type: object
+      properties:
+        expression:
+          type: string
+        field_numeric_dimension:
+          type: string
+        numeric_dimension:
+          type: string
+    configv3.InputRateLimit:
+      type: object
+      properties:
+        evaluation_policy:
+          description: Policy defines how rate limiting will be evaluated
+          allOf:
+          - $ref: '#/components/schemas/configv3.InputRateLimitPolicy'
+    configv3.SASL:
+      type: object
+      properties:
+        kerberos_config:
+          description: Configuration for Kerberos/GSSAPI mechanism
+          allOf:
+          - $ref: '#/components/schemas/configv3.KerberosConfig'
+        mechanism:
+          description: 'Supported SASL mechanism: PLAIN, SCRAM-SHA-256, SCRAM-SHA-512, GSSAPI'
+          type: string
+        password:
+          description: SASL authentication password (for PLAIN and SCRAM mechanisms)
+          type: string
+        username:
+          description: SASL authentication username (for PLAIN and SCRAM mechanisms)
+          type: string
+    configv3.Header:
       type: object
       properties:
         header:
-          type: string
-        value_expression:
-          type: string
-    configv3.ExtractMetricGauge:
-      type: object
-      properties:
-        value:
-          type: string
-    configv3.Parameter:
-      type: object
-      properties:
-        name:
           type: string
         value:
           type: string
@@ -2291,410 +1521,84 @@ components:
           $ref: '#/components/schemas/datasize.Size'
         write_timeout:
           type: string
-    configv3.K8sEventRBACConfig:
+    configv3.ParallelismSettings:
       type: object
       properties:
-        custom_rules:
-          description: CustomRules defines additional RBAC rules needed for custom resources
-          type: array
-          items:
-            $ref: '#/components/schemas/configv3.K8sEventRBACRule'
-    configv3.CustomLabels:
+        buffer_flush_workers:
+          type: string
+        compound_consumers:
+          type: string
+        sequence_consumers:
+          type: string
+    configv3.OTTLContextFilterContext:
       type: object
       properties:
-        keep_overridden_path:
-          type: boolean
-        name:
-          type: string
-        path:
-          type: string
-    configv3.InputSourceMetadata:
-      type: object
-      properties:
-        attributes:
-          type: object
-          additionalProperties:
-            type: boolean
-        resource_attributes:
-          type: object
-          additionalProperties:
-            type: boolean
-    configv3.CircuitBreakerConfig:
-      type: object
-      properties:
-        check_interval:
-          type: string
-        enabled:
-          description: Enable/disable circuit breaker
-          type: boolean
-        failure_threshold:
-          description: Circuit breaker thresholds
-          type: integer
-        global_health:
-          description: Global health monitoring
-          allOf:
-          - $ref: '#/components/schemas/configv3.GlobalHealthConfig'
-        half_open_max_calls:
-          description: Half-open testing configuration
-          type: integer
-        half_open_timeout:
-          type: string
-        open_timeout:
-          description: Timeout durations
-          type: string
-    configv3.CustomTag:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-    configv3.TransformField:
-      type: object
-      properties:
-        field_path:
-          type: string
-        ignore_if_empty:
-          type: boolean
-        operation:
-          type: string
-        value:
-          type: string
-    configv3.SourceFieldOverride:
-      type: object
-      properties:
-        expression:
-          type: string
-        field:
-          type: string
-    configv3.SequenceProcessor:
-      type: object
-      properties:
-        aggregate_metric_rules:
-          type: array
-          items:
-            $ref: '#/components/schemas/configv3.AggregateMetricRule'
-        cache:
-          $ref: '#/components/schemas/configv3.SamplingCaches'
-        capture_group_masks:
-          description: 'the mapping for capture groups such as "pw: ******" or "pw: ''''" if removal without replacement desired. If ''Mask'' is defined, this feature will be suppressed by it.'
-          type: array
-          items:
-            $ref: '#/components/schemas/configv3.CaptureGroupMask'
-        comment:
-          type: string
         condition:
           type: string
-        connector_event_entries:
-          type: array
-          items:
-            $ref: '#/components/schemas/configv3.ConnectorEventEntry'
-        connector_metadata:
-          $ref: '#/components/schemas/configv3.ConnectorMetadata'
-        count_field_path:
-          type: string
-        data_types:
-          type: array
-          items:
-            type: string
-        decision_interval:
-          description: For tail sampling
-          type: string
-        delete_empty_lists:
-          type: boolean
-        delete_empty_maps:
-          type: boolean
-        delete_empty_nulls:
-          type: boolean
-        delete_empty_strings:
-          type: boolean
-        delimiter:
-          description: 'Following fields apply to split with delimiter filter type
-
-            Delimiter is the specified delimiting character used to split a single log to multiple logs'
-          type: string
-        disable_clustering_by_severity_level:
-          type: boolean
-        disabled:
-          type: boolean
-        drain_tree_depth:
-          type: integer
-        drain_tree_max_child:
-          type: integer
-        error_mode:
-          description: 'ErrorMode controls error reporting behavior for parse processors.
-
-            Valid values: "silent" (default) - errors are silently ignored, "strict" - errors are logged and reported as metrics.
-
-            Applies to: parse_json_attributes, extract_json_field, grok, json_unroll, ottl_transform, route, route_ottl processors.'
-          type: string
-        excluded_field_paths:
-          type: array
-          items:
-            type: string
-        extract_metric_rules:
-          type: array
-          items:
-            $ref: '#/components/schemas/configv3.ExtractMetricRule'
-        fallback_value:
-          description: 'Following fields apply to log level detector
-
-            FallbackValue is the default value set if log level is not found in the log using given pattern'
-          type: string
-        field_mappings:
-          type: array
-          items:
-            $ref: '#/components/schemas/configv3.FieldMappings'
-        field_path:
-          description: 'Following fields apply to extract-json-field filter type.
-
-            FieldPath specifies the json path (dot separated) to the field whose value will be extracted and rest of the json content will be discarded.'
-          type: string
-        field_paths:
-          description: For probabilistic sampling
-          type: array
-          items:
-            type: string
-        fields:
-          type: string
-        filter_mode:
-          type: string
-        final:
-          type: boolean
-        group_by:
-          type: array
-          items:
-            type: string
-        ignore_case:
-          type: boolean
-        included_field_paths:
-          type: array
-          items:
-            type: string
         interval:
-          description: 'Other processors
-
-            Self-standing'
           type: string
-        item_count_limit:
+        length:
           type: integer
-        json_field_path:
-          description: JSONFieldPath is the path within the JSON that holds the list that needs to be json unrolled
-          type: string
-        keep_item:
-          type: boolean
-        keep_log_if_failed:
-          description: 'Following fields apply to log transformer JavaScript and enrichment using JavaScript
-
-            Starting from agent v0.1.51, filters that were using "required" field will use "keep_log_if_failed" instead. Default value of this field is false
-
-            Reason for change is that script-based filters and alike should fail fast and discard log so the issue could be caught earlier'
-          type: boolean
-        key_field_paths:
-          type: array
-          items:
-            type: string
-        key_fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/configv3.LookupField'
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/configv3.Link'
-        location_path:
-          type: string
-        lookback:
-          type: string
-        mask:
-          description: Mask is the replacement string such as "******" or "" if removal without replacement desired.
-          type: string
-        mask_captured:
-          description: "TODO: (VPB-440) Remove MaskCaptured field\n\n\t\tDeprecated @ 07-06-23 Use CaptureGroupMasks instead\n\n\t\tMaskCaptured is the mapping for capture groups such as \"pw: ******\" or \"pw: ''\" if removal without replacement desired. If 'Mask' is defined, this feature will be suppressed by it."
+    configv3.ConnectorMetadata:
+      type: object
+      properties:
+        additional_tags:
           type: object
           additionalProperties:
             type: string
-        match_mode:
+        connector_name:
           type: string
-        match_option:
+        connector_type:
           type: string
-        metadata:
-          type: string
-        negate:
-          description: Negate reverts the result of filter. Can be applied to regex, attribute and combination filter
+        enabled:
           type: boolean
-        new_field_name:
-          description: 'NewFieldName is currrently used for JSON unroll only. It is the name that the exploded array element will receive in each new event.
-
-            Leave empty to expand the array element with its original name.'
-          type: string
-        node_reference:
-          type: string
-        nodes:
-          description: Compound node specific fields
-          type: array
-          items:
-            $ref: '#/components/schemas/configv3.Node'
-        num_of_clusters:
-          type: integer
-        number_to_allow:
-          type: integer
-        ottl_context_filter:
-          $ref: '#/components/schemas/configv3.OTTLContextFilter'
-        out_fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/configv3.LookupField'
-        pass_through_on_failure:
-          type: boolean
-        percentage:
-          type: integer
-        predefined_pattern:
-          description: 'Following fields apply to mask filter type
-
-            PredefinedPattern names such as "credit_card"'
-          type: string
-        priority_field:
-          type: string
-        processors:
-          description: Subsequence node specific
-          type: array
-          items:
-            $ref: '#/components/schemas/configv3.SequenceProcessor'
-        quota_action:
-          type: string
-        quota_threshold:
-          type: integer
-        quota_type:
-          type: string
-        regex_option:
-          type: string
-        reload_period:
-          type: string
-        reporting_frequency:
-          type: string
-        retire_period:
-          type: string
-        samples_per_cluster:
-          type: integer
-        sampling_policies:
-          type: array
-          items:
-            $ref: '#/components/schemas/configv3.SamplingPolicy'
-        similarity_threshold:
-          type: number
-        statements:
-          type: string
-        strings_to_delete:
+    configv3.DroppedColumn:
+      type: object
+      properties:
+        exceptions:
           type: array
           items:
             type: string
-        throttle_limit_per_sec:
-          type: integer
-        timestamp_granularity:
-          type: string
-        type:
-          $ref: '#/components/schemas/nodetype.NodeType'
-    pipeline.AddSourceRequest:
-      type: object
-      required:
-      - node
-      properties:
-        node:
-          description: Configuration of the source node to be added
-          allOf:
-          - $ref: '#/components/schemas/pipeline.Node'
-    configv3.SamplingCache:
-      type: object
-      properties:
-        size:
-          type: integer
-    configv3.HTTPWorkflowStep:
-      type: object
-      properties:
-        endpoint:
-          description: Endpoint is the URL to call
-          type: string
-        endpoint_expression:
-          description: EndpointExpression is an OTTL expression to dynamically compute the endpoint
-          type: string
-        header_expressions:
-          description: HeaderExpressions are OTTL expressions for dynamic headers
-          type: object
-          additionalProperties:
+        metric_categories:
+          type: array
+          items:
             type: string
-        headers:
-          description: Headers are static headers to send with the request
-          type: object
-          additionalProperties:
-            type: string
-        is_last_step:
-          description: IsLastStep marks this as a terminal step that can use pagination/iterator
-          type: boolean
-        iterator:
-          description: Iterator enables fan-out execution over a collection
-          allOf:
-          - $ref: '#/components/schemas/configv3.HTTPWorkflowIterator'
-        method:
-          description: Method is the HTTP method (GET, POST, etc.)
-          type: string
         name:
-          description: Name is the unique name for this step
           type: string
-        pagination:
-          description: Pagination enables automatic pagination through paginated API responses
-          allOf:
-          - $ref: '#/components/schemas/configv3.HTTPPaginationConfig'
-        parameter_expressions:
-          description: ParameterExpressions are OTTL expressions for dynamic parameters
-          type: object
-          additionalProperties:
-            type: string
-        parameters:
-          description: Parameters are query parameters
-          type: object
-          additionalProperties:
-            type: string
-        redis_cache:
-          description: RedisCache enables caching of responses
-          allOf:
-          - $ref: '#/components/schemas/configv3.HTTPWorkflowRedisCache'
-        request_body:
-          description: RequestBody is the static request body
-          type: string
-        request_body_expression:
-          description: RequestBodyExpression is an OTTL expression for dynamic request body
-          type: string
-        request_timeout:
-          description: RequestTimeout is the timeout for this individual step
-          type: string
-        retry_http_code:
-          description: RetryHTTPCode lists HTTP status codes that should trigger a retry
-          type: array
-          items:
-            type: integer
-        run_condition:
-          description: RunCondition is an OTTL expression that must evaluate to true for this step to run
-          type: string
-        tls:
-          description: TLSConfig defines TLS configuration for this step
-          allOf:
-          - $ref: '#/components/schemas/core.TLS'
-    configv3.InputRateLimit:
+    configv3.TLS:
       type: object
       properties:
-        evaluation_policy:
-          description: Policy defines how rate limiting will be evaluated
-          allOf:
-          - $ref: '#/components/schemas/configv3.InputRateLimitPolicy'
-    configv3.ExtractMetricSum:
-      type: object
-      properties:
-        aggregation_temporality:
+        ca_file:
+          description: absolute path to CA certificate file
           type: string
-        is_monotonic:
+        ca_path:
+          description: absolute path to scan CA certificate files
+          type: string
+        client_auth_type:
+          description: 'possible options: noclientcert, requestclientcert, requireanyclientcert, verifyclientcertifgiven, requireandverifyclientcert
+
+            default is noclientcert'
+          type: string
+        crt_file:
+          description: absolute path to Certificate file
+          type: string
+        enabled:
+          description: a flag for clients with TCP to enable TLS dialing
           type: boolean
-        value:
+        ignore_certificate_check:
+          description: optional flag to ignore certificate check
+          type: boolean
+        key_file:
+          description: absolute path to private Key file
+          type: string
+        key_password:
+          description: optional password for tls.key_file file
+          type: string
+        max_version:
+          description: optional max version for TLS
+          type: string
+        min_version:
+          description: optional min version for TLS
           type: string
     configv3.Node:
       type: object
@@ -3908,67 +2812,22 @@ components:
           $ref: '#/components/schemas/datasize.Size'
         write_timeout:
           type: string
-    configv3.SplunkHECStaticAuth:
+    configv3.SamplingCaches:
       type: object
       properties:
-        allowed_indexes:
-          type: array
-          items:
-            type: string
-        enable_indexer_acknowledgment:
-          type: boolean
-        enable_token:
-          type: boolean
+        batch:
+          $ref: '#/components/schemas/configv3.SamplingCache'
+        drop:
+          $ref: '#/components/schemas/configv3.SamplingCache'
+        keep:
+          $ref: '#/components/schemas/configv3.SamplingCache'
+    configv3.Parameter:
+      type: object
+      properties:
         name:
           type: string
-        token:
+        value:
           type: string
-    configv3.TLS:
-      type: object
-      properties:
-        ca_file:
-          description: absolute path to CA certificate file
-          type: string
-        ca_path:
-          description: absolute path to scan CA certificate files
-          type: string
-        client_auth_type:
-          description: 'possible options: noclientcert, requestclientcert, requireanyclientcert, verifyclientcertifgiven, requireandverifyclientcert
-
-            default is noclientcert'
-          type: string
-        crt_file:
-          description: absolute path to Certificate file
-          type: string
-        enabled:
-          description: a flag for clients with TCP to enable TLS dialing
-          type: boolean
-        ignore_certificate_check:
-          description: optional flag to ignore certificate check
-          type: boolean
-        key_file:
-          description: absolute path to private Key file
-          type: string
-        key_password:
-          description: optional password for tls.key_file file
-          type: string
-        max_version:
-          description: optional max version for TLS
-          type: string
-        min_version:
-          description: optional min version for TLS
-          type: string
-    configv3.ReadSettings:
-      type: object
-      properties:
-        initial_read_size:
-          type: number
-        max_read_size:
-          type: number
-        min_read_size:
-          type: number
-        total_read_capacity:
-          type: number
     configv3.OtelTLS:
       type: object
       properties:
@@ -3980,84 +2839,1023 @@ components:
           type: string
         key_file:
           type: string
-    configv3.KuduSecurityConfig:
+    configv3.ResourceFields:
       type: object
       properties:
-        auth_type:
-          description: Authentication Type
-          type: string
-        kerberos:
-          description: Kerberos Configuration
-          allOf:
-          - $ref: '#/components/schemas/configv3.KerberosConfig'
-        tls:
-          description: TLS Configuration
-          allOf:
-          - $ref: '#/components/schemas/configv3.TLS'
-    configv3.Link:
-      type: object
-      properties:
-        from:
-          type: string
-        path:
-          type: string
-        to:
-          type: string
-    configv3.ExtractMetricRule:
-      type: object
-      properties:
-        conditions:
+        namespace_labels:
+          description: NamespaceLabels is for K8s
           type: array
           items:
             type: string
+        node_labels:
+          description: NodeLabels is for K8s
+          type: array
+          items:
+            type: string
+        pod_annotations:
+          description: PodAnnotations is for K8s
+          type: array
+          items:
+            type: string
+        pod_labels:
+          description: PodLabels is for K8s
+          type: array
+          items:
+            type: string
+    configv3.Authorization:
+      type: object
+      properties:
+        client_credentials:
+          $ref: '#/components/schemas/configv3.AuthorizationClientCredentials'
+        strategy:
+          type: string
+    core.ItemSchema:
+      type: string
+      enum:
+      - otel
+      x-enum-varnames:
+      - OTELItemSchema
+    configv3.InheritHeaders:
+      type: object
+      properties:
+        all:
+          description: Inherit all headers (except blocked ones)
+          type: boolean
+        authSet:
+          description: Use predefined auth headers
+          type: boolean
+        names:
+          description: Specific header names to inherit (normalized/lowercased)
+          type: array
+          items:
+            type: string
+    configv3.OID:
+      type: object
+      properties:
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/configv3.Attribute'
+        oid:
+          type: string
+        resource_attributes:
+          type: array
+          items:
+            type: string
+    configv3.HTTPWorkflowRedisCache:
+      type: object
+      properties:
+        address:
+          description: 'Redis connection settings
+
+            Address is the Redis server address (e.g., "localhost:6379" or "redis://localhost:6379")'
+          type: string
+        ca_cert_path:
+          description: CACertPath is the path to CA certificate for TLS
+          type: string
+        cert_path:
+          description: CertPath is the path to client certificate for mTLS
+          type: string
+        check_before_request:
+          description: CheckBeforeRequest indicates whether to check cache before making HTTP request
+          type: boolean
+        db:
+          description: DB is the Redis database number to use
+          type: integer
+        deployment_type:
+          description: 'DeploymentType: Standalone, Cluster, or Sentinel'
+          type: string
+        key_expression:
+          description: 'Caching behavior settings
+
+            KeyExpression is the OTTL expression to compute the cache key'
+          type: string
+        key_path:
+          description: KeyPath is the path to client key for mTLS
+          type: string
+        password:
+          description: Password for Redis authentication
+          type: string
+        populate_on_success:
+          description: PopulateOnSuccess indicates whether to store response in cache after successful HTTP request
+          type: boolean
+        sentinel_master_name:
+          description: SentinelMasterName is the master name when using Sentinel mode
+          type: string
+        server_name:
+          description: ServerName for TLS SNI
+          type: string
+        skip_remaining_on_hit:
+          description: SkipRemainingOnHit indicates whether to skip remaining steps on cache hit
+          type: boolean
+        tls:
+          description: TLS enables TLS connection to Redis
+          type: boolean
+        ttl:
+          description: TTL is the cache entry time-to-live
+          type: string
+        username:
+          description: Username for Redis ACL authentication (Redis 6.0+)
+          type: string
+        validate_certs:
+          description: ValidateCerts enables TLS certificate validation
+          type: boolean
+        value_expression:
+          description: 'ValueExpression is an OTTL expression for the value to store in Redis.
+
+            If set, this value is stored instead of the HTTP response body.
+
+            For Redis-only SET steps (no endpoint), this is required.'
+          type: string
+    configv3.ExtractMetricGauge:
+      type: object
+      properties:
+        value:
+          type: string
+    configv3.K8sEventRBACRule:
+      type: object
+      properties:
+        api_groups:
+          description: APIGroups is a list of API groups (e.g., ["monitoring.coreos.com"])
+          type: array
+          items:
+            type: string
+        resources:
+          description: Resources is a list of resources (e.g., ["prometheusrules"])
+          type: array
+          items:
+            type: string
+        verbs:
+          description: Verbs is a list of verbs (e.g., ["get", "list", "watch"])
+          type: array
+          items:
+            type: string
+    configv3.MetricConfig:
+      type: object
+      properties:
+        aggregation:
+          description: Aggregation is required for "sum" and can be cumulative or delta
+          type: string
+        column_oids:
+          type: array
+          items:
+            $ref: '#/components/schemas/configv3.OID'
         description:
+          description: Description is optional and describes what this metric represents
           type: string
-        gauge:
-          $ref: '#/components/schemas/configv3.ExtractMetricGauge'
+        metric_type:
+          description: Type is required and can be either "gauge" or "sum".
+          type: string
+        monotonic:
+          description: Monotonic is required for "sum" and can be true or false
+          type: boolean
         name:
+          description: 'Name is the name of the metric as it will be reported in the OpenTelemetry Collector.
+
+            It is required and must be unique across all metrics.'
           type: string
-        sum:
-          $ref: '#/components/schemas/configv3.ExtractMetricSum'
+        scalar_oids:
+          description: 'Either ScalarOIDs or ColumnOIDs is required.
+
+            ScalarOIDs is used if one or more scalar OID values is used for this metric.
+
+            ColumnOIDs is used if one or more column OID indexed set of values is used for this metric.'
+          type: array
+          items:
+            $ref: '#/components/schemas/configv3.OID'
         unit:
+          description: Unit is required
           type: string
-    configv3.LoadReporting:
+        value_type:
+          description: ValueType is required and can be either int or double
+          type: string
+    configv3.EDLogs:
       type: object
       properties:
-        enable_oob_stream:
-          description: 'EnableOOBStream registers the xds.service.orca.v3.OpenRcaService
-
-            OOB streaming server. Inline ORCA trailers on Export responses
-
-            are emitted regardless of this flag, since Envoy CSWRR consumes
-
-            only the inline path. Enable OOB only when a non-Envoy consumer
-
-            (e.g., grpc-go''s weighted_round_robin, GCP CSM, grpcurl) needs to
-
-            subscribe to load reports.'
+        buffer_size:
+          type: integer
+        flush_bytesize:
+          $ref: '#/components/schemas/datasize.Size'
+        flush_interval:
+          type: string
+        level:
+          type: string
+        post_config_change_flush_interval:
+          type: string
+        post_config_change_flush_interval_window:
+          type: string
+        secure_logging:
+          description: If enabled, some of the sensitive information will be redacted (can affect performance of agent)
           type: boolean
+    configv3.SequenceProcessor:
+      type: object
+      properties:
+        aggregate_metric_rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/configv3.AggregateMetricRule'
+        cache:
+          $ref: '#/components/schemas/configv3.SamplingCaches'
+        capture_group_masks:
+          description: 'the mapping for capture groups such as "pw: ******" or "pw: ''''" if removal without replacement desired. If ''Mask'' is defined, this feature will be suppressed by it.'
+          type: array
+          items:
+            $ref: '#/components/schemas/configv3.CaptureGroupMask'
+        comment:
+          type: string
+        condition:
+          type: string
+        connector_event_entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/configv3.ConnectorEventEntry'
+        connector_metadata:
+          $ref: '#/components/schemas/configv3.ConnectorMetadata'
+        count_field_path:
+          type: string
+        data_types:
+          type: array
+          items:
+            type: string
+        decision_interval:
+          description: For tail sampling
+          type: string
+        delete_empty_lists:
+          type: boolean
+        delete_empty_maps:
+          type: boolean
+        delete_empty_nulls:
+          type: boolean
+        delete_empty_strings:
+          type: boolean
+        delimiter:
+          description: 'Following fields apply to split with delimiter filter type
+
+            Delimiter is the specified delimiting character used to split a single log to multiple logs'
+          type: string
+        disable_clustering_by_severity_level:
+          type: boolean
+        disabled:
+          type: boolean
+        drain_tree_depth:
+          type: integer
+        drain_tree_max_child:
+          type: integer
+        error_mode:
+          description: 'ErrorMode controls error reporting behavior for parse processors.
+
+            Valid values: "silent" (default) - errors are silently ignored, "strict" - errors are logged and reported as metrics.
+
+            Applies to: parse_json_attributes, extract_json_field, grok, json_unroll, ottl_transform, route, route_ottl processors.'
+          type: string
+        excluded_field_paths:
+          type: array
+          items:
+            type: string
+        extract_metric_rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/configv3.ExtractMetricRule'
+        fallback_value:
+          description: 'Following fields apply to log level detector
+
+            FallbackValue is the default value set if log level is not found in the log using given pattern'
+          type: string
+        field_mappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/configv3.FieldMappings'
+        field_path:
+          description: 'Following fields apply to extract-json-field filter type.
+
+            FieldPath specifies the json path (dot separated) to the field whose value will be extracted and rest of the json content will be discarded.'
+          type: string
+        field_paths:
+          description: For probabilistic sampling
+          type: array
+          items:
+            type: string
+        fields:
+          type: string
+        filter_mode:
+          type: string
+        final:
+          type: boolean
+        group_by:
+          type: array
+          items:
+            type: string
+        ignore_case:
+          type: boolean
+        included_field_paths:
+          type: array
+          items:
+            type: string
+        interval:
+          description: 'Other processors
+
+            Self-standing'
+          type: string
+        item_count_limit:
+          type: integer
+        json_field_path:
+          description: JSONFieldPath is the path within the JSON that holds the list that needs to be json unrolled
+          type: string
+        keep_item:
+          type: boolean
+        keep_log_if_failed:
+          description: 'Following fields apply to log transformer JavaScript and enrichment using JavaScript
+
+            Starting from agent v0.1.51, filters that were using "required" field will use "keep_log_if_failed" instead. Default value of this field is false
+
+            Reason for change is that script-based filters and alike should fail fast and discard log so the issue could be caught earlier'
+          type: boolean
+        key_field_paths:
+          type: array
+          items:
+            type: string
+        key_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/configv3.LookupField'
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/configv3.Link'
+        location_path:
+          type: string
+        lookback:
+          type: string
+        mask:
+          description: Mask is the replacement string such as "******" or "" if removal without replacement desired.
+          type: string
+        mask_captured:
+          description: "TODO: (VPB-440) Remove MaskCaptured field\n\n\t\tDeprecated @ 07-06-23 Use CaptureGroupMasks instead\n\n\t\tMaskCaptured is the mapping for capture groups such as \"pw: ******\" or \"pw: ''\" if removal without replacement desired. If 'Mask' is defined, this feature will be suppressed by it."
+          type: object
+          additionalProperties:
+            type: string
+        match_mode:
+          type: string
+        match_option:
+          type: string
+        metadata:
+          type: string
+        negate:
+          description: Negate reverts the result of filter. Can be applied to regex, attribute and combination filter
+          type: boolean
+        new_field_name:
+          description: 'NewFieldName is currrently used for JSON unroll only. It is the name that the exploded array element will receive in each new event.
+
+            Leave empty to expand the array element with its original name.'
+          type: string
+        node_reference:
+          type: string
+        nodes:
+          description: Compound node specific fields
+          type: array
+          items:
+            $ref: '#/components/schemas/configv3.Node'
+        num_of_clusters:
+          type: integer
+        number_to_allow:
+          type: integer
+        ottl_context_filter:
+          $ref: '#/components/schemas/configv3.OTTLContextFilter'
+        out_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/configv3.LookupField'
+        pass_through_on_failure:
+          type: boolean
+        percentage:
+          type: integer
+        predefined_pattern:
+          description: 'Following fields apply to mask filter type
+
+            PredefinedPattern names such as "credit_card"'
+          type: string
+        priority_field:
+          type: string
+        processors:
+          description: Subsequence node specific
+          type: array
+          items:
+            $ref: '#/components/schemas/configv3.SequenceProcessor'
+        quota_action:
+          type: string
+        quota_threshold:
+          type: integer
+        quota_type:
+          type: string
+        regex_option:
+          type: string
+        reload_period:
+          type: string
+        reporting_frequency:
+          type: string
+        retire_period:
+          type: string
+        samples_per_cluster:
+          type: integer
+        sampling_policies:
+          type: array
+          items:
+            $ref: '#/components/schemas/configv3.SamplingPolicy'
+        similarity_threshold:
+          type: number
+        statements:
+          type: string
+        strings_to_delete:
+          type: array
+          items:
+            type: string
+        throttle_limit_per_sec:
+          type: integer
+        timestamp_granularity:
+          type: string
+        type:
+          $ref: '#/components/schemas/nodetype.NodeType'
+    configv3.ReadSettings:
+      type: object
+      properties:
+        initial_read_size:
+          type: number
+        max_read_size:
+          type: number
+        min_read_size:
+          type: number
+        total_read_capacity:
+          type: number
+    nodetype.NodeType:
+      type: string
+      enum:
+      - crowdstrike_fdr_input
+      - datadog_agent_input
+      - demo_input
+      - demo_template_input
+      - telemetrygen_input
+      - docker_input
+      - ed_agent_stats_input
+      - ed_component_health_input
+      - ed_container_stats_input
+      - ed_gateway_input
+      - ed_k8s_metrics_input
+      - ed_node_health_input
+      - ed_pipeline_io_stats_input
+      - ed_source_detection_input
+      - ed_system_stats_input
+      - ed_self_telemetry_input
+      - elastic_api_input
+      - eventhub_input
+      - exec_input
+      - file_input
+      - fluentd_input
+      - http_input
+      - journald_input
+      - k8s_event_input
+      - k8s_traffic_input
+      - k8s_trace_input
+      - kafka_input
+      - kubernetes_input
+      - prometheus_input
+      - memory_input
+      - otlp_input
+      - pubsub_input
+      - http_pull_input
+      - http_workflow_input
+      - s3_input
+      - gcs_input
+      - snmp_pull_input
+      - snmp_trap_input
+      - splunk_hec_input
+      - splunk_tcp_input
+      - syslog_input
+      - tcp_input
+      - udp_input
+      - winevent_input
+      - http_ingestion_input
+      - apache_kudu_output
+      - aws_cloudwatch_output
+      - azure_log_analytics_output
+      - azure_sentinel_output
+      - blob_output
+      - clickhouse_output
+      - crowdstrike_falcon_logscale_output
+      - datadog_output
+      - digitalocean_spaces_output
+      - dynatrace_output
+      - elastic_output
+      - exabeam_output
+      - fluentd_output
+      - gcs_output
+      - google_cloud_logging_output
+      - google_cloud_logging_with_ottl_output
+      - google_cloud_big_query_output
+      - google_secops_output
+      - grokstream_aiops_output
+      - http_output
+      - ibm_object_storage_output
+      - ibm_qradar_output
+      - kafka_output
+      - localstorage_output
+      - loki_output
+      - minio_output
+      - newrelic_output
+      - openmetrics_output
+      - otlp_output
+      - prometheus_exporter_output
+      - prometheus_remote_write_output
+      - s3_output
+      - securonix_output
+      - slack_output
+      - splunk_output
+      - splunk_tcp_output
+      - splunk_lb_output
+      - sumologic_output
+      - tcp_output
+      - teams_output
+      - void_output
+      - webhook_output
+      - zenko_output
+      - ed_archive_output
+      - ed_logs_output
+      - ed_debug_output
+      - ed_health_output
+      - ed_metrics_output
+      - ed_patterns_output
+      - ed_sources_output
+      - ed_traces_output
+      - ed_output
+      - ed_gateway_output
+      - ed_ai_event_output
+      - aggregate_metric
+      - base64_decode
+      - compound_input
+      - compound
+      - compound_output
+      - connector_event_filter
+      - cumulative_to_delta
+      - datadog_mapper
+      - dedup
+      - delete_empty_values
+      - deotel
+      - enrich
+      - extract_json_field
+      - extract_metric
+      - generic_mask
+      - generic_transform
+      - grok
+      - gzip_decompress
+      - json_unroll
+      - log_level_detector
+      - log_to_metric
+      - log_to_pattern_metric
+      - log_to_pattern
+      - log_transform
+      - lookup
+      - mask
+      - opentsdb_parse
+      - ottl_context_filter
+      - ottl_transform
+      - ottl_filter
+      - output_transform
+      - parse_json_attributes
+      - quota
+      - rate_limit
+      - ratio
+      - regex_filter
+      - resource_transform
+      - sample
+      - route
+      - route_ottl
+      - sequence_input
+      - sequence
+      - sequence_output
+      - split_with_delimiter
+      - splunk_mapper
+      - suppress
+      - tail_sample
+      - threshold
+      - top_k
+      - unescape_json
+      - comment
+      - archive_buffered
+      - edge_rollup_service
+      - incoming_stats_processor
+      - item_buffered
+      - generic_monitor
+      - observer
+      x-enum-comments:
+        InputHTTPWorkflowNodeType: '#nosec G101 -- node type identifier, not a credential'
+        OutputEDLogType: ed_logs_output is renamed from ed_archive_output. ed_archive_output is kept for backward compatibility.
+      x-enum-descriptions:
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - '#nosec G101 -- node type identifier, not a credential'
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ed_logs_output is renamed from ed_archive_output. ed_archive_output is kept for backward compatibility.
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      x-enum-varnames:
+      - InputCrowdStrikeFDRNodeType
+      - InputDatadogAgentNodeType
+      - InputDemoNodeType
+      - InputDemoTemplateNodeType
+      - InputTelemetryGenNodeType
+      - InputDockerNodeType
+      - InputEDAgentStatsNodeType
+      - InputEDComponentHealthNodeType
+      - InputEDContainerStatsNodeType
+      - InputEDGatewayNodeType
+      - InputEDK8sMetricsNodeType
+      - InputEDNodeHealthNodeType
+      - InputEDPipelineIOStatsNodeType
+      - InputEDSourceDetectionNodeType
+      - InputEDSystemStatsNodeType
+      - InputEDSelfTelemetryNodeType
+      - InputElasticAPINodeType
+      - InputEventHubNodeType
+      - InputExecNodeType
+      - InputFileNodeType
+      - InputFluentdNodeType
+      - InputHTTPNodeType
+      - InputJournaldNodeType
+      - InputK8sEventNodeType
+      - InputK8sTrafficNodeType
+      - InputK8sTraceNodeType
+      - InputKafkaNodeType
+      - InputKubernetesNodeType
+      - InputPrometheusNodeType
+      - InputMemoryNodeType
+      - InputOTLPNodeType
+      - InputPubSubNodeType
+      - InputHTTPPullNodeType
+      - InputHTTPWorkflowNodeType
+      - InputS3NodeType
+      - InputGCSNodeType
+      - InputSNMPPullNodeType
+      - InputSNMPTrapNodeType
+      - InputSplunkHECNodeType
+      - InputSplunkTCPNodeType
+      - InputSyslogNodeType
+      - InputTCPNodeType
+      - InputUDPNodeType
+      - InputWinEventNodeType
+      - InputHTTPIngestionNodeType
+      - OutputApacheKuduNodeType
+      - OutputAWSCloudwatchNodeType
+      - OutputAzureLogAnalyticsNodeType
+      - OutputAzureSentinelNodeType
+      - OutputBlobNodeType
+      - OutputClickHouseNodeType
+      - OutputCrowdStrikeFalconLogScaleNodeType
+      - OutputDatadogNodeType
+      - OutputDigitalOceanSpacesNodeType
+      - OutputDynatraceNodeType
+      - OutputElasticNodeType
+      - OutputExabeamNodeType
+      - OutputFluentDNodeType
+      - OutputGCSNodeType
+      - OutputGCLNodeType
+      - OutputGCLWithOTTLNodeType
+      - OutputGCBigQueryNodeType
+      - OutputGoogleSecOpsNodeType
+      - OutputGrokstreamAIOpsNodeType
+      - OutputHTTPNodeType
+      - OutputIBMObjectStorageNodeType
+      - OutputIBMQRadarNodeType
+      - OutputKafkaNodeType
+      - OutputLocalStorageNodeType
+      - OutputLokiNodeType
+      - OutputMinioNodeType
+      - OutputNewRelicNodeType
+      - OutputOpenMetricsNodeType
+      - OutputOTLPNodeType
+      - OutputPrometheusExporterNodeType
+      - OutputPrometheusRemoteWriteNodeType
+      - OutputS3NodeType
+      - OutputSecuronixNodeType
+      - OutputSlackNodeType
+      - OutputSplunkNodeType
+      - OutputSplunkTCPNodeType
+      - OutputSplunkLoadBalancedNodeType
+      - OutputSumoLogicNodeType
+      - OutputTCPNodeType
+      - OutputTeamsNodeType
+      - OutputVoidNodeType
+      - OutputWebhookNodeType
+      - OutputZenkoNodeType
+      - OutputEDArchiveType
+      - OutputEDLogType
+      - OutputEDDebugType
+      - OutputEDHealthType
+      - OutputEDMetricType
+      - OutputEDPatternType
+      - OutputEDSourceType
+      - OutputEDTraceType
+      - OutputEDType
+      - OutputEDGatewayNodeType
+      - OutputEDAIEventNodeType
+      - AggregateMetricProcessorNodeType
+      - Base64DecodeProcessorNodeType
+      - CompoundInputNodeType
+      - CompoundNodeType
+      - CompoundOutputNodeType
+      - ConnectorEventFilterProcessorNodeType
+      - CumulativeToDeltaProcessorNodeType
+      - DatadogMapperNodeType
+      - DedupProcessorNodeType
+      - DeleteEmptyValuesProcessorNodeType
+      - DeOtelProcessorNodeType
+      - EnrichmentProcessorNodeType
+      - ExtractJSONFieldProcessorNodeType
+      - ExtractMetricProcessorNodeType
+      - GenericMaskProcessorNodeType
+      - GenericTransformProcessorNodeType
+      - GrokProcessorNodeType
+      - GzipDecompressProcessorNodeType
+      - JSONUnrollProcessorNodeType
+      - LogLevelDetectorNodeType
+      - LogToMetricProcessorNodeType
+      - LogToPatternMetricProcessorNodeType
+      - LogToPatternProcessorNodeType
+      - LogTransformProcessorNodeType
+      - LookupProcessorNodeType
+      - MaskProcessorNodeType
+      - OpenTSDBProcessorNodeType
+      - OTTLContextFilterProcessorNodeType
+      - OTTLTransformProcessorNodeType
+      - OTTLFilterProcessorNodeType
+      - OutputTransformProcessorNodeType
+      - ParseJSONAttributesNodeType
+      - QuotaProcessorNodeType
+      - RateLimitProcessorNodeType
+      - RatioProcessorNodeType
+      - RegexFilterProcessorNodeType
+      - ResourceTransformProcessorNodeType
+      - SampleProcessorNodeType
+      - RouteNodeType
+      - RouteOTTLNodeType
+      - SequenceInputNodeType
+      - SequenceNodeType
+      - SequenceOutputNodeType
+      - SplitWithDelimiterProcessorNodeType
+      - SplunkMapperNodeType
+      - SuppressNodeType
+      - TailSampleProcessorNodeType
+      - ThresholdProcessorNodeType
+      - TopKProcessorNodeType
+      - UnescapeJSONProcessorNodeType
+      - CommentNodeType
+      - ArchiveBufferedProcessorNodeType
+      - EdgeRollUpServiceProcessorType
+      - IncomingStatsProcessorNodeType
+      - ItemBufferedProcessorNodeType
+      - GenericMonitorProcessorType
+      - ObserverProcessorNodeType
+    configv3.CircuitBreakerConfig:
+      type: object
+      properties:
+        check_interval:
+          type: string
         enabled:
-          description: Enables/disable turns load reporting
+          description: Enable/disable circuit breaker
           type: boolean
-        min_reporting_interval:
-          description: MinReportingInterval is the lower bound for how often the gRPC OOB stream pushes a LoadReport.
+        failure_threshold:
+          description: Circuit breaker thresholds
+          type: integer
+        global_health:
+          description: Global health monitoring
+          allOf:
+          - $ref: '#/components/schemas/configv3.GlobalHealthConfig'
+        half_open_max_calls:
+          description: Half-open testing configuration
+          type: integer
+        half_open_timeout:
           type: string
-        sample_interval:
-          description: SampleInterval is the cadence at which the reporter resamples process CPU, memory, and buffer fullness.
+        open_timeout:
+          description: Timeout durations
           type: string
-    configv3.InputDiscovery:
+    configv3.HTTPWorkflowStep:
       type: object
       properties:
-        file_path:
-          description: 'FilePath is used for globbing files for. For K8s, we will use this glob path
-
-            instead of well-known ones to handle non-stdout cases'
+        endpoint:
+          description: Endpoint is the URL to call
           type: string
-        parsing_pattern:
-          description: 'ParsingPattern is used for extracting information out of literal file paths.
-
-            For K8s, it will be used for extracting pod UID (required) and container name (optional).'
+        endpoint_expression:
+          description: EndpointExpression is an OTTL expression to dynamically compute the endpoint
           type: string
+        header_expressions:
+          description: HeaderExpressions are OTTL expressions for dynamic headers
+          type: object
+          additionalProperties:
+            type: string
+        headers:
+          description: Headers are static headers to send with the request
+          type: object
+          additionalProperties:
+            type: string
+        is_last_step:
+          description: IsLastStep marks this as a terminal step that can use pagination/iterator
+          type: boolean
+        iterator:
+          description: Iterator enables fan-out execution over a collection
+          allOf:
+          - $ref: '#/components/schemas/configv3.HTTPWorkflowIterator'
+        method:
+          description: Method is the HTTP method (GET, POST, etc.)
+          type: string
+        name:
+          description: Name is the unique name for this step
+          type: string
+        pagination:
+          description: Pagination enables automatic pagination through paginated API responses
+          allOf:
+          - $ref: '#/components/schemas/configv3.HTTPPaginationConfig'
+        parameter_expressions:
+          description: ParameterExpressions are OTTL expressions for dynamic parameters
+          type: object
+          additionalProperties:
+            type: string
+        parameters:
+          description: Parameters are query parameters
+          type: object
+          additionalProperties:
+            type: string
+        redis_cache:
+          description: RedisCache enables caching of responses
+          allOf:
+          - $ref: '#/components/schemas/configv3.HTTPWorkflowRedisCache'
+        request_body:
+          description: RequestBody is the static request body
+          type: string
+        request_body_expression:
+          description: RequestBodyExpression is an OTTL expression for dynamic request body
+          type: string
+        request_timeout:
+          description: RequestTimeout is the timeout for this individual step
+          type: string
+        retry_http_code:
+          description: RetryHTTPCode lists HTTP status codes that should trigger a retry
+          type: array
+          items:
+            type: integer
+        run_condition:
+          description: RunCondition is an OTTL expression that must evaluate to true for this step to run
+          type: string
+        tls:
+          description: TLSConfig defines TLS configuration for this step
+          allOf:
+          - $ref: '#/components/schemas/core.TLS'
     configv3.GlobalHealthConfig:
       type: object
       properties:
@@ -4079,6 +3877,208 @@ components:
         queue_threshold_percentage:
           description: Queue utilization threshold percentage
           type: integer
+    configv3.InputDiscovery:
+      type: object
+      properties:
+        file_path:
+          description: 'FilePath is used for globbing files for. For K8s, we will use this glob path
+
+            instead of well-known ones to handle non-stdout cases'
+          type: string
+        parsing_pattern:
+          description: 'ParsingPattern is used for extracting information out of literal file paths.
+
+            For K8s, it will be used for extracting pod UID (required) and container name (optional).'
+          type: string
+    configv3.EDSetting:
+      type: object
+      properties:
+        anomaly_coefficient:
+          type: number
+        anomaly_confidence_period:
+          type: string
+        anomaly_tolerance:
+          type: number
+        archive_flush_interval:
+          type: string
+        archive_max_byte_limit:
+          $ref: '#/components/schemas/datasize.Size'
+        item_buffer_flush_interval:
+          type: string
+        item_buffer_max_byte_limit:
+          $ref: '#/components/schemas/datasize.Size'
+        item_schema:
+          $ref: '#/components/schemas/core.ItemSchema'
+        live_tail_settings:
+          $ref: '#/components/schemas/configv3.LiveTailSettings'
+        log:
+          $ref: '#/components/schemas/configv3.EDLogs'
+        max_incomplete_line_buffer_size:
+          $ref: '#/components/schemas/datasize.Size'
+        metric_column_opts:
+          $ref: '#/components/schemas/configv3.MetricColumnOptions'
+        multiline_flush_interval:
+          type: string
+        multiline_max_byte_size:
+          $ref: '#/components/schemas/datasize.Size'
+        multiline_max_size:
+          type: integer
+        only_report_nonzeros:
+          type: boolean
+        parallelism_settings:
+          $ref: '#/components/schemas/configv3.ParallelismSettings'
+        persisting_cursor_settings:
+          $ref: '#/components/schemas/configv3.PersistingCursorSettings'
+        read_settings:
+          $ref: '#/components/schemas/configv3.ReadSettings'
+        skip_empty_intervals:
+          type: boolean
+        source_discovery_interval:
+          type: string
+        tag:
+          type: string
+    configv3.Link:
+      type: object
+      properties:
+        from:
+          type: string
+        path:
+          type: string
+        to:
+          type: string
+    configv3.PersistingCursorSettings:
+      type: object
+      properties:
+        file_name:
+          type: string
+        flush_interval:
+          type: string
+        path:
+          type: string
+    configv3.Key:
+      type: object
+      properties:
+        value:
+          type: string
+    configv3.ClickHouseColumn:
+      type: object
+      properties:
+        column_name:
+          type: string
+        column_type:
+          type: string
+        default_value:
+          type: string
+        expression:
+          type: string
+        required:
+          type: boolean
+    configv3.LiveTailSettings:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        item_max_body_size:
+          $ref: '#/components/schemas/datasize.Size'
+        item_truncation_size:
+          $ref: '#/components/schemas/datasize.Size'
+        lower_threshold_size:
+          description: 'Deprecated: These fields are retained for backward compatibility with existing configs.
+
+            They are parsed but ignored at runtime. Use ItemTruncationSize and ItemMaxBodySize instead.'
+          allOf:
+          - $ref: '#/components/schemas/datasize.Size'
+        max_items:
+          type: integer
+        polling_interval:
+          type: string
+        retention:
+          type: string
+        upper_threshold_size:
+          $ref: '#/components/schemas/datasize.Size'
+    configv3.InputRateLimitPolicy:
+      type: object
+      properties:
+        absolute_limit:
+          description: AbsoluteLimit defines the absolute limit for certain policies, see pkg/ratelimiter/type.go
+          type: number
+        evaluation_mode:
+          description: EvaluationMode defines how evaluation will be handled, such as if it is only going to be monitored or enforced
+          type: string
+        policy_type:
+          description: PolicyType defines what kind of rate limiting policy will be pursued
+          type: string
+        refresh_interval:
+          description: RefreshInterval defines when to refresh current value for certain policies, see pkg/ratelimiter/type.go
+          type: string
+        relative_limit:
+          description: RelativeLimit defines the relative limit for certain policies, see pkg/ratelimiter/type.go
+          type: number
+        sub_policies:
+          description: SubPolicies are used for composite (ie. depends on multiple policies) policy types such as "and" & "or"
+          type: array
+          items:
+            $ref: '#/components/schemas/configv3.InputRateLimitPolicy'
+    configv3.SourceFieldOverride:
+      type: object
+      properties:
+        expression:
+          type: string
+        field:
+          type: string
+    configv3.TargetAllocation:
+      type: string
+      enum:
+      - consistent
+      - round_robin
+      x-enum-varnames:
+      - ConsistentTargetAllocation
+      - RoundRobinTargetAllocation
+    configv3.Config:
+      type: object
+      required:
+      - settings
+      properties:
+        keys:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/configv3.Key'
+        last_updated:
+          description: internal fields. these are not part of config yaml but internally populated and used
+          type: string
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/configv3.Link'
+        nodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/configv3.Node'
+        org_id:
+          type: string
+        secrets:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/configv3.Secret'
+        settings:
+          $ref: '#/components/schemas/configv3.EDSetting'
+        version:
+          type: string
+    configv3.SplunkHECStaticAuth:
+      type: object
+      properties:
+        allowed_indexes:
+          type: array
+          items:
+            type: string
+        enable_indexer_acknowledgment:
+          type: boolean
+        enable_token:
+          type: boolean
+        name:
+          type: string
+        token:
+          type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

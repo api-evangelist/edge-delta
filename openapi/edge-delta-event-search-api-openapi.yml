@@ -73,17 +73,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    core.EventResponse:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/core.EventItem'
-        next_cursor:
-          type: string
-        query_id:
-          type: string
     core.EventItem:
       type: object
       properties:
@@ -105,6 +94,17 @@ components:
           type: string
         timestamp:
           type: integer
+    core.EventResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/core.EventItem'
+        next_cursor:
+          type: string
+        query_id:
+          type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

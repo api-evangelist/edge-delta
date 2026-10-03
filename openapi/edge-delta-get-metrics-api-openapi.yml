@@ -83,11 +83,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    core.CommonTimeseriesAggregate:
-      type: object
-      properties:
-        value:
-          type: number
     core.CommonTimeseriesResponse:
       type: object
       properties:
@@ -105,6 +100,11 @@ components:
           type: string
         window:
           type: string
+    core.CommonTimeseriesAggregate:
+      type: object
+      properties:
+        value:
+          type: number
     core.CommonTimeseriesRecord:
       type: object
       properties:

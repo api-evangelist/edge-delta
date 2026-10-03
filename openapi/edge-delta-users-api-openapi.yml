@@ -73,20 +73,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    core.InviteUserRequest:
+    core.SelfAccessGroupMember:
       type: object
       properties:
-        Company:
-          type: string
-        Email:
-          type: string
-        FirstName:
-          type: string
-        Groups:
+        accesses:
           type: array
           items:
-            type: string
-        LastName:
+            $ref: '#/components/schemas/core.Access'
+        group_member_id:
+          type: string
+        id:
+          type: string
+        name:
           type: string
     core.SelfAccessWithProfile:
       type: object
@@ -160,19 +158,6 @@ components:
           type: string
         updater:
           type: string
-    core.SelfAccessGroupMember:
-      type: object
-      properties:
-        accesses:
-          type: array
-          items:
-            $ref: '#/components/schemas/core.Access'
-        group_member_id:
-          type: string
-        id:
-          type: string
-        name:
-          type: string
     core.Access:
       type: object
       properties:
@@ -202,6 +187,21 @@ components:
         updated:
           type: string
         updater:
+          type: string
+    core.InviteUserRequest:
+      type: object
+      properties:
+        Company:
+          type: string
+        Email:
+          type: string
+        FirstName:
+          type: string
+        Groups:
+          type: array
+          items:
+            type: string
+        LastName:
           type: string
   securitySchemes:
     ApiKeyAuth:

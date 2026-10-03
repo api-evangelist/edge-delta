@@ -223,29 +223,24 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    admin.SupportedIntegrationsForTestingResponse:
+    core.ConfCompoundNodesMetadata:
       type: object
       properties:
-        integrations:
+        deleted:
+          description: IDs of compound nodes that have been deleted
           type: array
           items:
-            $ref: '#/components/schemas/nodetype.NodeType'
-    core.EnvironmentType:
-      type: string
-      enum:
-      - Kubernetes
-      - Helm
-      - Docker
-      - MacOS
-      - Linux
-      - Windows
-      x-enum-varnames:
-      - KubernetesEnvironmentType
-      - HelmEnvironmentType
-      - DockerEnvironmentType
-      - MacOSEnvironmentType
-      - LinuxEnvironmentType
-      - WindowsEnvironmentType
+            type: string
+        updated:
+          description: IDs of compound nodes updated to latest version
+          type: array
+          items:
+            type: string
+        updates_available:
+          description: IDs of compound nodes that have updates available
+          type: array
+          items:
+            type: string
     core.IntegrationTestResponse:
       type: object
       properties:
@@ -257,28 +252,6 @@ components:
           $ref: '#/components/schemas/core.HTTPWorkflowTestResult'
         success:
           type: boolean
-    core.FleetType:
-      type: string
-      enum:
-      - Edge
-      - Cloud
-      - IngestionPipeline
-      - Edge-extended
-      - Cloud-extended
-      x-enum-varnames:
-      - EdgeFleetType
-      - CloudFleetType
-      - IngestionPipelineFleetType
-      - EdgeExtendedFleetType
-      - CloudExtendedFleetType
-    core.ConfigVersion:
-      type: string
-      enum:
-      - v2
-      - v3
-      x-enum-varnames:
-      - ConfigV2
-      - ConfigV3
     core.FleetStatus:
       type: string
       enum:
@@ -287,27 +260,28 @@ components:
       x-enum-varnames:
       - FleetRunning
       - FleetSuspended
-    core.IntegrationTestErrorDetails:
+    core.HTTPWorkflowStepResult:
       type: object
       properties:
-        destination:
+        body:
           type: string
-        details:
+        error:
           type: string
-        resources:
-          type: array
-          items:
+        headers:
+          type: object
+          additionalProperties:
             type: string
-        status_code:
+        index:
+          type: integer
+        latency_ms:
+          type: integer
+        name:
           type: string
-    core.ConfPurpose:
-      type: string
-      enum:
-      - user-defined
-      - edgedelta-ai
-      x-enum-varnames:
-      - ConfPurposeUserDefined
-      - ConfPurposeEdgedeltaAI
+        status_code:
+          type: integer
+        variables:
+          type: object
+          additionalProperties: {}
     core.ConfMetadata:
       type: object
       properties:
@@ -350,16 +324,6 @@ components:
           type: string
         version:
           type: string
-    core.FleetSubtype:
-      type: string
-      enum:
-      - Edge
-      - Coordinator
-      - Gateway
-      x-enum-varnames:
-      - EdgeFleetSubtype
-      - CoordinatorFleetSubtype
-      - GatewayFleetSubtype
     nodetype.NodeType:
       type: string
       enum:
@@ -836,6 +800,19 @@ components:
       - ItemBufferedProcessorNodeType
       - GenericMonitorProcessorType
       - ObserverProcessorNodeType
+    core.IntegrationTestErrorDetails:
+      type: object
+      properties:
+        destination:
+          type: string
+        details:
+          type: string
+        resources:
+          type: array
+          items:
+            type: string
+        status_code:
+          type: string
     core.HTTPWorkflowTestResult:
       type: object
       properties:
@@ -843,16 +820,30 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/core.HTTPWorkflowStepResult'
-    core.WizardTemplateResponse:
-      type: object
-      properties:
-        config_details:
-          $ref: '#/components/schemas/core.Conf'
-        config_template:
-          $ref: '#/components/schemas/core.Template'
-        values:
-          type: object
-          additionalProperties: true
+    core.FleetSubtype:
+      type: string
+      enum:
+      - Edge
+      - Coordinator
+      - Gateway
+      x-enum-varnames:
+      - EdgeFleetSubtype
+      - CoordinatorFleetSubtype
+      - GatewayFleetSubtype
+    core.FleetType:
+      type: string
+      enum:
+      - Edge
+      - Cloud
+      - IngestionPipeline
+      - Edge-extended
+      - Cloud-extended
+      x-enum-varnames:
+      - EdgeFleetType
+      - CloudFleetType
+      - IngestionPipelineFleetType
+      - EdgeExtendedFleetType
+      - CloudExtendedFleetType
     core.Conf:
       type: object
       properties:
@@ -900,46 +891,55 @@ components:
           type: string
         version:
           $ref: '#/components/schemas/core.ConfigVersion'
-    core.ConfCompoundNodesMetadata:
+    core.ConfPurpose:
+      type: string
+      enum:
+      - user-defined
+      - edgedelta-ai
+      x-enum-varnames:
+      - ConfPurposeUserDefined
+      - ConfPurposeEdgedeltaAI
+    core.ConfigVersion:
+      type: string
+      enum:
+      - v2
+      - v3
+      x-enum-varnames:
+      - ConfigV2
+      - ConfigV3
+    core.EnvironmentType:
+      type: string
+      enum:
+      - Kubernetes
+      - Helm
+      - Docker
+      - MacOS
+      - Linux
+      - Windows
+      x-enum-varnames:
+      - KubernetesEnvironmentType
+      - HelmEnvironmentType
+      - DockerEnvironmentType
+      - MacOSEnvironmentType
+      - LinuxEnvironmentType
+      - WindowsEnvironmentType
+    core.WizardTemplateResponse:
       type: object
       properties:
-        deleted:
-          description: IDs of compound nodes that have been deleted
-          type: array
-          items:
-            type: string
-        updated:
-          description: IDs of compound nodes updated to latest version
-          type: array
-          items:
-            type: string
-        updates_available:
-          description: IDs of compound nodes that have updates available
-          type: array
-          items:
-            type: string
-    core.HTTPWorkflowStepResult:
+        config_details:
+          $ref: '#/components/schemas/core.Conf'
+        config_template:
+          $ref: '#/components/schemas/core.Template'
+        values:
+          type: object
+          additionalProperties: true
+    admin.SupportedIntegrationsForTestingResponse:
       type: object
       properties:
-        body:
-          type: string
-        error:
-          type: string
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-        index:
-          type: integer
-        latency_ms:
-          type: integer
-        name:
-          type: string
-        status_code:
-          type: integer
-        variables:
-          type: object
-          additionalProperties: {}
+        integrations:
+          type: array
+          items:
+            $ref: '#/components/schemas/nodetype.NodeType'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
