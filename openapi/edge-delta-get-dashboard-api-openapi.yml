@@ -46,52 +46,12 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    dashboard.Screenshot:
+    dashboard.TemplateVariable:
       type: object
       properties:
-        dark_url:
+        identifier:
           type: string
-        last_triggered_at:
-          type: string
-        last_updated_at:
-          type: string
-        light_url:
-          type: string
-        status:
-          $ref: '#/components/schemas/dashboard.ScreenshotStatus'
-    dashboard.ResourceAccess:
-      type: object
-      properties:
-        domain:
-          type: string
-        facet_path:
-          type: string
-        query:
-          type: string
-        scope:
-          type: string
-    dashboard.ScreenshotStatus:
-      type: string
-      enum:
-      - pending
-      - ok
-      - error
-      x-enum-varnames:
-      - ScreenshotStatusPending
-      - ScreenshotStatusOK
-      - ScreenshotStatusError
-    dashboard.SharingSecuritySettings:
-      type: object
-      properties:
-        allowed_cidrs:
-          type: array
-          items:
-            type: string
-        prefilter:
-          type: string
-        shared_until:
-          description: in ISO format
-          type: string
+        view_value: {}
     dashboard.Dashboard:
       type: object
       properties:
@@ -132,6 +92,31 @@ components:
           type: string
         updater:
           type: string
+    dashboard.Screenshot:
+      type: object
+      properties:
+        dark_url:
+          type: string
+        last_triggered_at:
+          type: string
+        last_updated_at:
+          type: string
+        light_url:
+          type: string
+        status:
+          $ref: '#/components/schemas/dashboard.ScreenshotStatus'
+    dashboard.SharingSecuritySettings:
+      type: object
+      properties:
+        allowed_cidrs:
+          type: array
+          items:
+            type: string
+        prefilter:
+          type: string
+        shared_until:
+          description: in ISO format
+          type: string
     dashboard.SavedView:
       type: object
       properties:
@@ -139,12 +124,27 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/dashboard.TemplateVariable'
-    dashboard.TemplateVariable:
+    dashboard.ResourceAccess:
       type: object
       properties:
-        identifier:
+        domain:
           type: string
-        view_value: {}
+        facet_path:
+          type: string
+        query:
+          type: string
+        scope:
+          type: string
+    dashboard.ScreenshotStatus:
+      type: string
+      enum:
+      - pending
+      - ok
+      - error
+      x-enum-varnames:
+      - ScreenshotStatusPending
+      - ScreenshotStatusOK
+      - ScreenshotStatusError
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

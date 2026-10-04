@@ -86,6 +86,51 @@ components:
           type: string
         name:
           type: string
+    core.InviteUserRequest:
+      type: object
+      properties:
+        Company:
+          type: string
+        Email:
+          type: string
+        FirstName:
+          type: string
+        Groups:
+          type: array
+          items:
+            type: string
+        LastName:
+          type: string
+    core.Access:
+      type: object
+      properties:
+        approval_status:
+          type: string
+        created:
+          type: string
+        creator:
+          type: string
+        external_activated:
+          type: string
+        external_id:
+          type: string
+        external_status:
+          type: string
+        id:
+          type: string
+        owner:
+          description: E.g. "user:user@email.com"
+          type: string
+        resource:
+          description: E.g. "org:<uuid>" or "org:*" for support acccess permission
+          type: string
+        type:
+          description: E.g. "read" or "write"
+          type: string
+        updated:
+          type: string
+        updater:
+          type: string
     core.SelfAccessWithProfile:
       type: object
       properties:
@@ -157,51 +202,6 @@ components:
         updated:
           type: string
         updater:
-          type: string
-    core.Access:
-      type: object
-      properties:
-        approval_status:
-          type: string
-        created:
-          type: string
-        creator:
-          type: string
-        external_activated:
-          type: string
-        external_id:
-          type: string
-        external_status:
-          type: string
-        id:
-          type: string
-        owner:
-          description: E.g. "user:user@email.com"
-          type: string
-        resource:
-          description: E.g. "org:<uuid>" or "org:*" for support acccess permission
-          type: string
-        type:
-          description: E.g. "read" or "write"
-          type: string
-        updated:
-          type: string
-        updater:
-          type: string
-    core.InviteUserRequest:
-      type: object
-      properties:
-        Company:
-          type: string
-        Email:
-          type: string
-        FirstName:
-          type: string
-        Groups:
-          type: array
-          items:
-            type: string
-        LastName:
           type: string
   securitySchemes:
     ApiKeyAuth:

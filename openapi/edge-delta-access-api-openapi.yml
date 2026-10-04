@@ -152,6 +152,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/core.AccessCreateRequest'
+    core.AccessCreateRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        owner:
+          type: string
+        resource:
+          type: string
+        type:
+          type: string
     core.Access:
       type: object
       properties:
@@ -181,17 +192,6 @@ components:
         updated:
           type: string
         updater:
-          type: string
-    core.AccessCreateRequest:
-      type: object
-      properties:
-        id:
-          type: string
-        owner:
-          type: string
-        resource:
-          type: string
-        type:
           type: string
   securitySchemes:
     ApiKeyAuth:

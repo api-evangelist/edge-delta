@@ -83,6 +83,23 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    core.CommonTimeseriesRecord:
+      type: object
+      properties:
+        aggregate:
+          $ref: '#/components/schemas/core.CommonTimeseriesAggregate'
+        timeseries:
+          type: array
+          items: {}
+        values:
+          type: array
+          items:
+            type: string
+    core.CommonTimeseriesAggregate:
+      type: object
+      properties:
+        value:
+          type: number
     core.CommonTimeseriesResponse:
       type: object
       properties:
@@ -100,23 +117,6 @@ components:
           type: string
         window:
           type: string
-    core.CommonTimeseriesAggregate:
-      type: object
-      properties:
-        value:
-          type: number
-    core.CommonTimeseriesRecord:
-      type: object
-      properties:
-        aggregate:
-          $ref: '#/components/schemas/core.CommonTimeseriesAggregate'
-        timeseries:
-          type: array
-          items: {}
-        values:
-          type: array
-          items:
-            type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

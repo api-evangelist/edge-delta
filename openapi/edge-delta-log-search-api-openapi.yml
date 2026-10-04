@@ -284,29 +284,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    core.ArchiveRecordV1:
-      type: object
-      properties:
-        attributes:
-          type: object
-          additionalProperties:
-            type: string
-        body:
-          type: string
-        id:
-          type: string
-        resource:
-          type: object
-          additionalProperties:
-            type: string
-        severity_text:
-          type: string
-        span_id:
-          type: string
-        timestamp:
-          type: integer
-        trace_id:
-          type: string
     queryext.QueryLog:
       type: object
       properties:
@@ -418,6 +395,29 @@ components:
           type: integer
         writtenRows:
           type: integer
+    core.ArchiveRecordV1:
+      type: object
+      properties:
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
+        body:
+          type: string
+        id:
+          type: string
+        resource:
+          type: object
+          additionalProperties:
+            type: string
+        severity_text:
+          type: string
+        span_id:
+          type: string
+        timestamp:
+          type: integer
+        trace_id:
+          type: string
     core.ArchiveResponseV1:
       type: object
       properties:

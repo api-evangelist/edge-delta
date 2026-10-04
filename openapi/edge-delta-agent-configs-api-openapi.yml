@@ -226,6 +226,48 @@ components:
           type: array
           items:
             type: string
+    core.EnvironmentType:
+      type: string
+      enum:
+      - Kubernetes
+      - Helm
+      - Docker
+      - MacOS
+      - Linux
+      - Windows
+      x-enum-varnames:
+      - KubernetesEnvironmentType
+      - HelmEnvironmentType
+      - DockerEnvironmentType
+      - MacOSEnvironmentType
+      - LinuxEnvironmentType
+      - WindowsEnvironmentType
+    core.ConfPurpose:
+      type: string
+      enum:
+      - user-defined
+      - edgedelta-ai
+      x-enum-varnames:
+      - ConfPurposeUserDefined
+      - ConfPurposeEdgedeltaAI
+    core.FleetSubtype:
+      type: string
+      enum:
+      - Edge
+      - Coordinator
+      - Gateway
+      x-enum-varnames:
+      - EdgeFleetSubtype
+      - CoordinatorFleetSubtype
+      - GatewayFleetSubtype
+    core.ConfigVersion:
+      type: string
+      enum:
+      - v2
+      - v3
+      x-enum-varnames:
+      - ConfigV2
+      - ConfigV3
     core.ConfigValidationResult:
       type: object
       properties:
@@ -234,23 +276,6 @@ components:
           type: string
         valid:
           type: boolean
-    core.FleetStatus:
-      type: string
-      enum:
-      - running
-      - suspended
-      x-enum-varnames:
-      - FleetRunning
-      - FleetSuspended
-    core.ConfValidateRequest:
-      type: object
-      properties:
-        content:
-          type: string
-        fleet_type:
-          $ref: '#/components/schemas/core.FleetType'
-        version:
-          $ref: '#/components/schemas/core.ConfigVersion'
     core.ConfMetadata:
       type: object
       properties:
@@ -264,80 +289,23 @@ components:
           type: array
           items:
             type: string
-    core.ConfCreateRequest:
+    core.ConfValidateRequest:
       type: object
-      required:
-      - environment
-      - tag
       properties:
-        cluster_name:
-          description: Pipelines with same cluster name will be grouped together
-          type: string
         content:
           type: string
-        description:
-          description: Description of the pipeline
-          type: string
-        environment:
-          description: Environment where the pipeline will be deployed
-          enum:
-          - Kubernetes
-          - Windows
-          - MacOS
-          - Linux
-          - Docker
-          allOf:
-          - $ref: '#/components/schemas/core.EnvironmentType'
-        fleet_subtype:
-          description: FleetSubtype is required when Environment is Kubernetes
-          enum:
-          - Edge
-          - Coordinator
-          - Gateway
-          allOf:
-          - $ref: '#/components/schemas/core.FleetSubtype'
         fleet_type:
           $ref: '#/components/schemas/core.FleetType'
-        tag:
-          description: Tag is used to identify the pipeline
-          type: string
-    core.FleetSubtype:
+        version:
+          $ref: '#/components/schemas/core.ConfigVersion'
+    core.FleetStatus:
       type: string
       enum:
-      - Edge
-      - Coordinator
-      - Gateway
+      - running
+      - suspended
       x-enum-varnames:
-      - EdgeFleetSubtype
-      - CoordinatorFleetSubtype
-      - GatewayFleetSubtype
-    core.UpdateConfRequest:
-      type: object
-      properties:
-        cluster_name:
-          type: string
-        content:
-          type: string
-        content_changed:
-          type: boolean
-        description:
-          type: string
-        tag:
-          type: string
-    core.FleetType:
-      type: string
-      enum:
-      - Edge
-      - Cloud
-      - IngestionPipeline
-      - Edge-extended
-      - Cloud-extended
-      x-enum-varnames:
-      - EdgeFleetType
-      - CloudFleetType
-      - IngestionPipelineFleetType
-      - EdgeExtendedFleetType
-      - CloudExtendedFleetType
+      - FleetRunning
+      - FleetSuspended
     core.Conf:
       type: object
       properties:
@@ -385,38 +353,70 @@ components:
           type: string
         version:
           $ref: '#/components/schemas/core.ConfigVersion'
-    core.ConfPurpose:
+    core.UpdateConfRequest:
+      type: object
+      properties:
+        cluster_name:
+          type: string
+        content:
+          type: string
+        content_changed:
+          type: boolean
+        description:
+          type: string
+        tag:
+          type: string
+    core.FleetType:
       type: string
       enum:
-      - user-defined
-      - edgedelta-ai
+      - Edge
+      - Cloud
+      - IngestionPipeline
+      - Edge-extended
+      - Cloud-extended
       x-enum-varnames:
-      - ConfPurposeUserDefined
-      - ConfPurposeEdgedeltaAI
-    core.ConfigVersion:
-      type: string
-      enum:
-      - v2
-      - v3
-      x-enum-varnames:
-      - ConfigV2
-      - ConfigV3
-    core.EnvironmentType:
-      type: string
-      enum:
-      - Kubernetes
-      - Helm
-      - Docker
-      - MacOS
-      - Linux
-      - Windows
-      x-enum-varnames:
-      - KubernetesEnvironmentType
-      - HelmEnvironmentType
-      - DockerEnvironmentType
-      - MacOSEnvironmentType
-      - LinuxEnvironmentType
-      - WindowsEnvironmentType
+      - EdgeFleetType
+      - CloudFleetType
+      - IngestionPipelineFleetType
+      - EdgeExtendedFleetType
+      - CloudExtendedFleetType
+    core.ConfCreateRequest:
+      type: object
+      required:
+      - environment
+      - tag
+      properties:
+        cluster_name:
+          description: Pipelines with same cluster name will be grouped together
+          type: string
+        content:
+          type: string
+        description:
+          description: Description of the pipeline
+          type: string
+        environment:
+          description: Environment where the pipeline will be deployed
+          enum:
+          - Kubernetes
+          - Windows
+          - MacOS
+          - Linux
+          - Docker
+          allOf:
+          - $ref: '#/components/schemas/core.EnvironmentType'
+        fleet_subtype:
+          description: FleetSubtype is required when Environment is Kubernetes
+          enum:
+          - Edge
+          - Coordinator
+          - Gateway
+          allOf:
+          - $ref: '#/components/schemas/core.FleetSubtype'
+        fleet_type:
+          $ref: '#/components/schemas/core.FleetType'
+        tag:
+          description: Tag is used to identify the pipeline
+          type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

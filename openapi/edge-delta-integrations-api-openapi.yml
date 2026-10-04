@@ -241,89 +241,47 @@ components:
           type: array
           items:
             type: string
-    core.IntegrationTestResponse:
+    core.HTTPWorkflowTestResult:
       type: object
       properties:
-        error_details:
-          $ref: '#/components/schemas/core.IntegrationTestErrorDetails'
-        error_message:
-          type: string
-        http_workflow_result:
-          $ref: '#/components/schemas/core.HTTPWorkflowTestResult'
-        success:
-          type: boolean
-    core.FleetStatus:
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/core.HTTPWorkflowStepResult'
+    core.EnvironmentType:
       type: string
       enum:
-      - running
-      - suspended
+      - Kubernetes
+      - Helm
+      - Docker
+      - MacOS
+      - Linux
+      - Windows
       x-enum-varnames:
-      - FleetRunning
-      - FleetSuspended
-    core.HTTPWorkflowStepResult:
-      type: object
-      properties:
-        body:
-          type: string
-        error:
-          type: string
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-        index:
-          type: integer
-        latency_ms:
-          type: integer
-        name:
-          type: string
-        status_code:
-          type: integer
-        variables:
-          type: object
-          additionalProperties: {}
-    core.ConfMetadata:
-      type: object
-      properties:
-        compound_nodes:
-          $ref: '#/components/schemas/core.ConfCompoundNodesMetadata'
-        node_references:
-          type: array
-          items:
-            type: string
-        telemetry_gen_templates:
-          type: array
-          items:
-            type: string
-    core.Template:
-      type: object
-      properties:
-        configVersion:
-          description: The version of the underlying config YAML
-          allOf:
-          - $ref: '#/components/schemas/core.ConfigVersion'
-        deploy:
-          type: string
-        description:
-          type: string
-        id:
-          type: string
-        labels:
-          type: string
-        name:
-          type: string
-        raw_value:
-          type: array
-          items:
-            type: integer
-        type:
-          type: string
-        updated:
-          type: string
-        value:
-          type: string
-        version:
-          type: string
+      - KubernetesEnvironmentType
+      - HelmEnvironmentType
+      - DockerEnvironmentType
+      - MacOSEnvironmentType
+      - LinuxEnvironmentType
+      - WindowsEnvironmentType
+    core.ConfPurpose:
+      type: string
+      enum:
+      - user-defined
+      - edgedelta-ai
+      x-enum-varnames:
+      - ConfPurposeUserDefined
+      - ConfPurposeEdgedeltaAI
+    core.FleetSubtype:
+      type: string
+      enum:
+      - Edge
+      - Coordinator
+      - Gateway
+      x-enum-varnames:
+      - EdgeFleetSubtype
+      - CoordinatorFleetSubtype
+      - GatewayFleetSubtype
     nodetype.NodeType:
       type: string
       enum:
@@ -800,6 +758,25 @@ components:
       - ItemBufferedProcessorNodeType
       - GenericMonitorProcessorType
       - ObserverProcessorNodeType
+    core.IntegrationTestResponse:
+      type: object
+      properties:
+        error_details:
+          $ref: '#/components/schemas/core.IntegrationTestErrorDetails'
+        error_message:
+          type: string
+        http_workflow_result:
+          $ref: '#/components/schemas/core.HTTPWorkflowTestResult'
+        success:
+          type: boolean
+    core.ConfigVersion:
+      type: string
+      enum:
+      - v2
+      - v3
+      x-enum-varnames:
+      - ConfigV2
+      - ConfigV3
     core.IntegrationTestErrorDetails:
       type: object
       properties:
@@ -813,37 +790,56 @@ components:
             type: string
         status_code:
           type: string
-    core.HTTPWorkflowTestResult:
+    core.Template:
       type: object
       properties:
-        steps:
+        configVersion:
+          description: The version of the underlying config YAML
+          allOf:
+          - $ref: '#/components/schemas/core.ConfigVersion'
+        deploy:
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        labels:
+          type: string
+        name:
+          type: string
+        raw_value:
           type: array
           items:
-            $ref: '#/components/schemas/core.HTTPWorkflowStepResult'
-    core.FleetSubtype:
+            type: integer
+        type:
+          type: string
+        updated:
+          type: string
+        value:
+          type: string
+        version:
+          type: string
+    core.ConfMetadata:
+      type: object
+      properties:
+        compound_nodes:
+          $ref: '#/components/schemas/core.ConfCompoundNodesMetadata'
+        node_references:
+          type: array
+          items:
+            type: string
+        telemetry_gen_templates:
+          type: array
+          items:
+            type: string
+    core.FleetStatus:
       type: string
       enum:
-      - Edge
-      - Coordinator
-      - Gateway
+      - running
+      - suspended
       x-enum-varnames:
-      - EdgeFleetSubtype
-      - CoordinatorFleetSubtype
-      - GatewayFleetSubtype
-    core.FleetType:
-      type: string
-      enum:
-      - Edge
-      - Cloud
-      - IngestionPipeline
-      - Edge-extended
-      - Cloud-extended
-      x-enum-varnames:
-      - EdgeFleetType
-      - CloudFleetType
-      - IngestionPipelineFleetType
-      - EdgeExtendedFleetType
-      - CloudExtendedFleetType
+      - FleetRunning
+      - FleetSuspended
     core.Conf:
       type: object
       properties:
@@ -891,38 +887,27 @@ components:
           type: string
         version:
           $ref: '#/components/schemas/core.ConfigVersion'
-    core.ConfPurpose:
+    core.FleetType:
       type: string
       enum:
-      - user-defined
-      - edgedelta-ai
+      - Edge
+      - Cloud
+      - IngestionPipeline
+      - Edge-extended
+      - Cloud-extended
       x-enum-varnames:
-      - ConfPurposeUserDefined
-      - ConfPurposeEdgedeltaAI
-    core.ConfigVersion:
-      type: string
-      enum:
-      - v2
-      - v3
-      x-enum-varnames:
-      - ConfigV2
-      - ConfigV3
-    core.EnvironmentType:
-      type: string
-      enum:
-      - Kubernetes
-      - Helm
-      - Docker
-      - MacOS
-      - Linux
-      - Windows
-      x-enum-varnames:
-      - KubernetesEnvironmentType
-      - HelmEnvironmentType
-      - DockerEnvironmentType
-      - MacOSEnvironmentType
-      - LinuxEnvironmentType
-      - WindowsEnvironmentType
+      - EdgeFleetType
+      - CloudFleetType
+      - IngestionPipelineFleetType
+      - EdgeExtendedFleetType
+      - CloudExtendedFleetType
+    admin.SupportedIntegrationsForTestingResponse:
+      type: object
+      properties:
+        integrations:
+          type: array
+          items:
+            $ref: '#/components/schemas/nodetype.NodeType'
     core.WizardTemplateResponse:
       type: object
       properties:
@@ -933,13 +918,28 @@ components:
         values:
           type: object
           additionalProperties: true
-    admin.SupportedIntegrationsForTestingResponse:
+    core.HTTPWorkflowStepResult:
       type: object
       properties:
-        integrations:
-          type: array
-          items:
-            $ref: '#/components/schemas/nodetype.NodeType'
+        body:
+          type: string
+        error:
+          type: string
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        index:
+          type: integer
+        latency_ms:
+          type: integer
+        name:
+          type: string
+        status_code:
+          type: integer
+        variables:
+          type: object
+          additionalProperties: {}
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
