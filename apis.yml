@@ -352,6 +352,9 @@ apis:
   - type: APIReference
     url: https://docs.edgedelta.com/api/
 common:
+- type: CapabilityMap
+  url: capabilities/edge-delta-capability-edges.yml
+  name: Edge Delta Business Capability Map
 - type: DeveloperPortal
   url: https://docs.edgedelta.com
 - type: Documentation
