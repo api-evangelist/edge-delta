@@ -1,0 +1,12 @@
+{
+ "url": "https://api2.edgedelta.com/swagger/doc.json",
+ "requested_url": "https://api2.edgedelta.com/swagger/doc.json",
+ "status": 200,
+ "content_type": "application/json; charset=utf-8",
+ "bytes": 407260,
+ "sha256": "a8a828ae034ed429900cc0b0de26fb3803a0f0763a62f9dfa033f3d2278783a9",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 0.983), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
