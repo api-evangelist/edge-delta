@@ -45,7 +45,7 @@ accessModel:
   method: derived
 specificationVersion: '0.23'
 created: '2026-07-17'
-modified: '2026-07-19'
+modified: '2026-10-06'
 image: https://edgedelta.com/images/edge-delta-logo.png
 tags:
 - Company
@@ -352,6 +352,8 @@ apis:
   - type: APIReference
     url: https://docs.edgedelta.com/api/
 common:
+- url: https://edgedelta.com/feed.xml
+  type: BlogRSS
 - type: CapabilityMap
   url: capabilities/edge-delta-capability-edges.yml
   name: Edge Delta Business Capability Map
