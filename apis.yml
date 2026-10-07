@@ -352,6 +352,8 @@ apis:
   - type: APIReference
     url: https://docs.edgedelta.com/api/
 common:
+- type: Plans
+  url: plans/edge-delta-plans-pricing.yml
 - url: https://edgedelta.com/feed.xml
   type: BlogRSS
 - type: CapabilityMap
