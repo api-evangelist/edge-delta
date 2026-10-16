@@ -2,11 +2,18 @@
   "repo": "edge-delta",
   "feeds": [
     {
-      "source": "https://docs.edgedelta.com/contact-support/",
-      "feed_url": "https://docs.edgedelta.com/contact-support/index.xml",
+      "source": "https://edgedelta.com/company/blog/page/1",
+      "feed_url": "https://edgedelta.com/company/blog/page/1",
       "title": "",
       "saved": 0,
-      "method": "discovered"
+      "method": "none"
+    },
+    {
+      "source": "https://edgedelta.com/feed.xml",
+      "feed_url": "https://edgedelta.com/feed.xml",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
     },
     {
       "source": "https://docs.edgedelta.com/contact-support/index.xml",
@@ -17,5 +24,5 @@
     }
   ],
   "post_count": 0,
-  "fetched": "2026-10-03T12:30:02Z"
+  "fetched": "2026-10-10T13:15:00Z"
 }
