@@ -336,29 +336,114 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    core.RehydrationMetrics:
+    core.ArchiveReference:
       type: object
       properties:
-        average_chunk_size_bytes:
+        bucket:
+          type: string
+        bucket_prefix:
+          type: string
+        format:
+          type: string
+        node_name:
+          type: string
+        order:
+          type: array
+          items:
+            type: string
+        tag:
+          type: string
+        type:
+          type: string
+    core.OperationStatus:
+      type: string
+      enum:
+      - created
+      - invoked
+      - in-progress
+      - completed
+      - failed
+      - cancelled
+      - marked-for-delete
+      - polled-for-execution
+      - skipped
+      x-enum-comments:
+        Skipped: used for operations that are skipped due to already being claimed by other clusters
+      x-enum-descriptions:
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - used for operations that are skipped due to already being claimed by other clusters
+      x-enum-varnames:
+      - Created
+      - Invoked
+      - InProgress
+      - Completed
+      - Failed
+      - Cancelled
+      - MarkedForDeletion
+      - PolledForExecution
+      - Skipped
+    core.RehydrationProcessStats:
+      type: object
+      properties:
+        batch_push_latency:
           type: integer
-        average_chunk_size_count:
+        bytes_count:
           type: integer
+        forwarding_batches_count:
+          type: integer
+        forwarding_end_time:
+          type: string
+        forwarding_start_time:
+          type: string
+        invalid:
+          type: integer
+        query_execution_time:
+          description: milliseconds
+          type: integer
+        query_results_parsing_time:
+          description: milliseconds
+          type: integer
+        results_forwarding_time:
+          description: milliseconds
+          type: integer
+        scanned:
+          type: integer
+        streamed:
+          type: integer
+        streamed_bytes_count:
+          type: integer
+        successful_bytes_count:
+          type: integer
+    core.ChunkMetrics:
+      type: object
+      properties:
         batch_duration_samples_count:
           type: integer
         batch_p50_ms:
           type: integer
         batch_p90_ms:
           type: integer
-        chunk_metrics:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/core.ChunkMetrics'
-        chunks_built:
+        bytes_streamed:
           type: integer
         env_variables:
           type: object
           additionalProperties:
             type: string
+        failed_bytes_streamed:
+          type: integer
+        failed_rows_streamed:
+          type: integer
+        filtered_rows:
+          type: integer
+        invalid_rows:
+          type: integer
         latency_p50_ms:
           description: Latencies
           type: integer
@@ -367,43 +452,18 @@ components:
         latency_samples_count:
           description: samples count
           type: integer
-        objects_count_after_filter:
-          type: integer
-        objects_listed:
-          type: integer
         read_latency_p50_ms:
           type: integer
         read_latency_p90_ms:
           type: integer
         read_latency_samples_count:
           type: integer
-        tasks_failed:
+        rows_read:
           type: integer
-        tasks_processed:
+        rows_streamed:
           type: integer
-        tasks_published:
-          type: integer
-        total_bytes_read:
-          type: integer
-        total_bytes_streamed:
-          type: integer
-        total_failed_bytes_streamed:
-          type: integer
-        total_failed_rows_streamed:
-          type: integer
-        total_filtered_rows:
-          type: integer
-        total_invalid_rows:
-          type: integer
-        total_list_requests:
-          type: integer
-        total_rows_read:
-          type: integer
-        total_rows_streamed:
-          type: integer
-        total_slice_count:
-          type: integer
-        total_uncompressed_bytes_read:
+        uncompressed_bytes_read:
+          description: Counters
           type: integer
         write_latency_samples_count:
           type: integer
@@ -411,6 +471,11 @@ components:
           type: integer
         write_p90_ms:
           type: integer
+        write_retries:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
     core.Rehydration:
       type: object
       properties:
@@ -522,79 +587,6 @@ components:
           type: string
         warehouse_type:
           type: string
-    core.RehydrationProcessStats:
-      type: object
-      properties:
-        batch_push_latency:
-          type: integer
-        bytes_count:
-          type: integer
-        forwarding_batches_count:
-          type: integer
-        forwarding_end_time:
-          type: string
-        forwarding_start_time:
-          type: string
-        invalid:
-          type: integer
-        query_execution_time:
-          description: milliseconds
-          type: integer
-        query_results_parsing_time:
-          description: milliseconds
-          type: integer
-        results_forwarding_time:
-          description: milliseconds
-          type: integer
-        scanned:
-          type: integer
-        streamed:
-          type: integer
-        streamed_bytes_count:
-          type: integer
-        successful_bytes_count:
-          type: integer
-    core.RehydrationWithStatus:
-      type: object
-      properties:
-        percentage:
-          type: number
-        rehydration:
-          $ref: '#/components/schemas/core.Rehydration'
-    core.OperationStatus:
-      type: string
-      enum:
-      - created
-      - invoked
-      - in-progress
-      - completed
-      - failed
-      - cancelled
-      - marked-for-delete
-      - polled-for-execution
-      - skipped
-      x-enum-comments:
-        Skipped: used for operations that are skipped due to already being claimed by other clusters
-      x-enum-descriptions:
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - used for operations that are skipped due to already being claimed by other clusters
-      x-enum-varnames:
-      - Created
-      - Invoked
-      - InProgress
-      - Completed
-      - Failed
-      - Cancelled
-      - MarkedForDeletion
-      - PolledForExecution
-      - Skipped
     core.RehydrationResponse:
       type: object
       properties:
@@ -604,48 +596,29 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/core.Rehydration'
-    core.ArchiveReference:
+    core.RehydrationMetrics:
       type: object
       properties:
-        bucket:
-          type: string
-        bucket_prefix:
-          type: string
-        format:
-          type: string
-        node_name:
-          type: string
-        order:
-          type: array
-          items:
-            type: string
-        tag:
-          type: string
-        type:
-          type: string
-    core.ChunkMetrics:
-      type: object
-      properties:
+        average_chunk_size_bytes:
+          type: integer
+        average_chunk_size_count:
+          type: integer
         batch_duration_samples_count:
           type: integer
         batch_p50_ms:
           type: integer
         batch_p90_ms:
           type: integer
-        bytes_streamed:
+        chunk_metrics:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/core.ChunkMetrics'
+        chunks_built:
           type: integer
         env_variables:
           type: object
           additionalProperties:
             type: string
-        failed_bytes_streamed:
-          type: integer
-        failed_rows_streamed:
-          type: integer
-        filtered_rows:
-          type: integer
-        invalid_rows:
-          type: integer
         latency_p50_ms:
           description: Latencies
           type: integer
@@ -654,18 +627,43 @@ components:
         latency_samples_count:
           description: samples count
           type: integer
+        objects_count_after_filter:
+          type: integer
+        objects_listed:
+          type: integer
         read_latency_p50_ms:
           type: integer
         read_latency_p90_ms:
           type: integer
         read_latency_samples_count:
           type: integer
-        rows_read:
+        tasks_failed:
           type: integer
-        rows_streamed:
+        tasks_processed:
           type: integer
-        uncompressed_bytes_read:
-          description: Counters
+        tasks_published:
+          type: integer
+        total_bytes_read:
+          type: integer
+        total_bytes_streamed:
+          type: integer
+        total_failed_bytes_streamed:
+          type: integer
+        total_failed_rows_streamed:
+          type: integer
+        total_filtered_rows:
+          type: integer
+        total_invalid_rows:
+          type: integer
+        total_list_requests:
+          type: integer
+        total_rows_read:
+          type: integer
+        total_rows_streamed:
+          type: integer
+        total_slice_count:
+          type: integer
+        total_uncompressed_bytes_read:
           type: integer
         write_latency_samples_count:
           type: integer
@@ -673,11 +671,13 @@ components:
           type: integer
         write_p90_ms:
           type: integer
-        write_retries:
-          type: object
-          additionalProperties:
-            type: integer
-            format: int64
+    core.RehydrationWithStatus:
+      type: object
+      properties:
+        percentage:
+          type: number
+        rehydration:
+          $ref: '#/components/schemas/core.Rehydration'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

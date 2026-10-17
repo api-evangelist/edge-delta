@@ -52,6 +52,30 @@ components:
         identifier:
           type: string
         view_value: {}
+    dashboard.ResourceAccess:
+      type: object
+      properties:
+        domain:
+          type: string
+        facet_path:
+          type: string
+        query:
+          type: string
+        scope:
+          type: string
+    dashboard.Screenshot:
+      type: object
+      properties:
+        dark_url:
+          type: string
+        last_triggered_at:
+          type: string
+        last_updated_at:
+          type: string
+        light_url:
+          type: string
+        status:
+          $ref: '#/components/schemas/dashboard.ScreenshotStatus'
     dashboard.Dashboard:
       type: object
       properties:
@@ -92,19 +116,6 @@ components:
           type: string
         updater:
           type: string
-    dashboard.Screenshot:
-      type: object
-      properties:
-        dark_url:
-          type: string
-        last_triggered_at:
-          type: string
-        last_updated_at:
-          type: string
-        light_url:
-          type: string
-        status:
-          $ref: '#/components/schemas/dashboard.ScreenshotStatus'
     dashboard.SharingSecuritySettings:
       type: object
       properties:
@@ -117,24 +128,6 @@ components:
         shared_until:
           description: in ISO format
           type: string
-    dashboard.SavedView:
-      type: object
-      properties:
-        template_variables:
-          type: array
-          items:
-            $ref: '#/components/schemas/dashboard.TemplateVariable'
-    dashboard.ResourceAccess:
-      type: object
-      properties:
-        domain:
-          type: string
-        facet_path:
-          type: string
-        query:
-          type: string
-        scope:
-          type: string
     dashboard.ScreenshotStatus:
       type: string
       enum:
@@ -145,6 +138,13 @@ components:
       - ScreenshotStatusPending
       - ScreenshotStatusOK
       - ScreenshotStatusError
+    dashboard.SavedView:
+      type: object
+      properties:
+        template_variables:
+          type: array
+          items:
+            $ref: '#/components/schemas/dashboard.TemplateVariable'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

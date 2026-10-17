@@ -93,13 +93,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    core.ClusterStatResponse:
-      type: object
-      properties:
-        stats:
-          type: array
-          items:
-            $ref: '#/components/schemas/core.ClusterStat'
     core.ClusterStat:
       type: object
       properties:
@@ -154,6 +147,13 @@ components:
         sentiment:
           description: Sentiment analysis results
           type: number
+    core.ClusterStatResponse:
+      type: object
+      properties:
+        stats:
+          type: array
+          items:
+            $ref: '#/components/schemas/core.ClusterStat'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

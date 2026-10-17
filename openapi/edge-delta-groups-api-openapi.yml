@@ -179,6 +179,21 @@ components:
       properties:
         name:
           type: string
+    core.Group:
+      type: object
+      properties:
+        builtin:
+          type: boolean
+        created:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        orgID:
+          type: string
+        updated:
+          type: string
     core.Access:
       type: object
       properties:
@@ -208,21 +223,6 @@ components:
         updated:
           type: string
         updater:
-          type: string
-    core.Group:
-      type: object
-      properties:
-        builtin:
-          type: boolean
-        created:
-          type: string
-        id:
-          type: string
-        name:
-          type: string
-        orgID:
-          type: string
-        updated:
           type: string
   securitySchemes:
     ApiKeyAuth:
